@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using CookBook.Data.Models.Shared;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
 
-namespace CookBook.Data.Models
+namespace CookBook.Data.Models.Food
     {
-    public class Recepie
+    public class FoodRecepie
         {
         [Key]
         public int Id { get; set; }
@@ -12,21 +13,34 @@ namespace CookBook.Data.Models
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public IList<IngredientRecepie> IngredientsRecepies { get; set; } = new List<IngredientRecepie>();
-        public ICollection<RecepiesUsers> RecepiesUsers { get; set;} = new List<RecepiesUsers>();
+        public IList<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new List<IngredientFoodRecepie>();
+        public ICollection<FoodRecepiesUsers> RecepiesUsers { get; set; } = new List<FoodRecepiesUsers>();
 
         [Required]
         public DateTime DatePosted { get; set; }
 
         [Required]
-        public string Description { get; set; }
+        public ICollection<Step> Steps { get; set; } = new HashSet<Step>();
 
         [Required]
         public string Image { get; set; } = string.Empty;
 
         [Required]
         public int PrepTime { get; set; }
-        
+
+        public string Origen { get; set; } = string.Empty;
+
+        [Required]
+        public string Preparation { get; set; } = string.Empty;
+
+        [Required]
+        public string OwnerId { get; set; } = string.Empty;
+
+        [ForeignKey(nameof(OwnerId))]
+        public IdentityUser Owner { get; set; }
+
+        [Required]
+        public int TumbsUp { get; set; } = 0;
         [Required]
         public int CookTime { get; set; }
 
@@ -37,11 +51,6 @@ namespace CookBook.Data.Models
 
         [ForeignKey(nameof(RecepieTypeId))]
         public RecepieType RecepieType { get; set; }
-        public string Origen { get; set; } = string.Empty;
-
-        [Required]
-        public string Preparation { get; set; } = string.Empty;
-
         public int Temperature { get; set; }
 
         [Required]
@@ -52,16 +61,6 @@ namespace CookBook.Data.Models
 
         public int OvenTypeId { get; set; }
         public OvenType OvenType { get; set; }
-
-        [Required]
-        public string OwnerId { get; set; } = string.Empty;
-
-        [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; }
-
-        [Required]
-        public int TumbsUp { get; set; } = 0;
         public DateTime LastTimeYouHadIt { get; set; }
-
-    }
+        }
     }

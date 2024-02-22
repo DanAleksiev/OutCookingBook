@@ -2,15 +2,15 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CookBook.Data.Models
+namespace CookBook.Data.Models.Food
+{
+    public class FoodRecepiesUsers
     {
-    public class RecepiesUsers
-        {
         [Required]
         public int RecepieId { get; set; }
 
         [ForeignKey(nameof(RecepieId))]
-        public Recepie Recepie { get; set; }
+        public FoodRecepie Recepie { get; set; }
 
         [Required]
         public string UserId { get; set; }
@@ -18,4 +18,4 @@ namespace CookBook.Data.Models
         public IdentityUser User { get; set; }
     }
 
-    }
+}

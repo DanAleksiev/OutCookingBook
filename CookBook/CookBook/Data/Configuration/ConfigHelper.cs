@@ -1,8 +1,9 @@
-﻿using CookBook.Data.Models;
+﻿using CookBook.Data.Models.Food;
+using CookBook.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 
 namespace CookBook.Data.Configuration
-    {
+{
     public static class ConfigHelper
         {
         public static Measurement[] Measurements = SeedMesurement();
@@ -44,22 +45,42 @@ namespace CookBook.Data.Configuration
                 new Measurement
                     {
                     Id = 1,
-                    Name = "Grams"
+                    Name = "Gram"
                     },
                 new Measurement
                     {
                     Id = 2,
-                    Name = "Table spoons",
+                    Name = "Ounce"
                     },
                 new Measurement
                     {
                     Id = 3,
-                    Name = "Cups",
+                    Name = "Table spoon",
                     },
                 new Measurement
                     {
                     Id = 4,
-                    Name = "Ounces"
+                    Name = "Cups",
+                    },
+                new Measurement
+                    {
+                    Id = 5,
+                    Name = "Milliliter"
+                    },
+                new Measurement
+                    {
+                    Id = 6,
+                    Name = "Liter"
+                    },
+                new Measurement
+                    {
+                    Id = 7,
+                    Name = "Pinch"
+                    },
+                new Measurement
+                    {
+                    Id = 8,
+                    Name = "Each"
                     }
                 };
             }

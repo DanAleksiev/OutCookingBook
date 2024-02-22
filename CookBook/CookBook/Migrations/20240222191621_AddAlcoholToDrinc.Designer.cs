@@ -4,16 +4,18 @@ using CookBook.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
 
-namespace CookBook.Data.Migrations
+namespace CookBook.Migrations
 {
     [DbContext(typeof(CookBookDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240222191621_AddAlcoholToDrinc")]
+    partial class AddAlcoholToDrinc
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +24,7 @@ namespace CookBook.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("CookBook.Data.Models.Ingredient", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Drinks.DrinkRecepie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -30,125 +32,49 @@ namespace CookBook.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
-                    b.Property<double>("Amount")
-                        .HasColumnType("float");
-
-                    b.Property<int>("Calories")
+                    b.Property<int>("Cups")
                         .HasColumnType("int");
 
-                    b.Property<int>("MeasurementId")
-                        .HasColumnType("int");
+                    b.Property<DateTime>("DatePosted")
+                        .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
+                    b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("MeasurementId");
-
-                    b.ToTable("Ingredients");
-                });
-
-            modelBuilder.Entity("CookBook.Data.Models.IngredientRecepie", b =>
-                {
-                    b.Property<int>("IngredientId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RecepieId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IngredientId", "RecepieId");
-
-                    b.HasIndex("RecepieId");
-
-                    b.ToTable("IngredientRecepies");
-                });
-
-            modelBuilder.Entity("CookBook.Data.Models.Measurement", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    b.Property<bool>("IsAlcoholic")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Measurements");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Grams"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Table spoons"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Cups"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Ounces"
-                        });
-                });
-
-            modelBuilder.Entity("CookBook.Data.Models.OvenType", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
+                    b.Property<string>("Origen")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("OwnerId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int>("PrepTime")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Preparation")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("TumbsUp")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.ToTable("OvenTypes");
+                    b.HasIndex("OwnerId");
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Conventional"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Fan"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Gas"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "No oven needed"
-                        });
+                    b.ToTable("DrinkRecepies");
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.Recepie", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -161,10 +87,6 @@ namespace CookBook.Data.Migrations
 
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Image")
                         .IsRequired()
@@ -220,10 +142,10 @@ namespace CookBook.Data.Migrations
 
                     b.HasIndex("TemperatureMeasurmentId");
 
-                    b.ToTable("Recepies");
+                    b.ToTable("FoodRecepies");
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.RecepiesUsers", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepiesUsers", b =>
                 {
                     b.Property<int>("RecepieId")
                         .HasColumnType("int");
@@ -231,19 +153,58 @@ namespace CookBook.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("RecepieId1")
+                    b.Property<int?>("FoodRecepieId")
                         .HasColumnType("int");
 
                     b.HasKey("RecepieId", "UserId");
 
-                    b.HasIndex("RecepieId1");
+                    b.HasIndex("FoodRecepieId");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RecepiesUsers");
+                    b.ToTable("FoodRecepiesUsers");
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.RecepieType", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.OvenType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("OvenTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Conventional"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Fan"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Gas"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "No oven needed"
+                        });
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Food.RecepieType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -296,7 +257,7 @@ namespace CookBook.Data.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.TemperatureMeasurment", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.TemperatureMeasurment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -323,6 +284,178 @@ namespace CookBook.Data.Migrations
                             Id = 2,
                             Name = "ºF"
                         });
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.DrinkRecepiesUsers", b =>
+                {
+                    b.Property<int>("RecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("DrinkRecepieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecepieId", "UserId");
+
+                    b.HasIndex("DrinkRecepieId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("DrinksRecepiesUsers");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Ingredient", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<double>("Amount")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Calories")
+                        .HasColumnType("int");
+
+                    b.Property<int>("MeasurementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MeasurementId");
+
+                    b.ToTable("Ingredients");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.IngredientDrinkRecepie", b =>
+                {
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecepieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientId", "RecepieId");
+
+                    b.HasIndex("RecepieId");
+
+                    b.ToTable("IngredientDrinkRecepies");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.IngredientFoodRecepie", b =>
+                {
+                    b.Property<int>("IngredientId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RecepieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("IngredientId", "RecepieId");
+
+                    b.HasIndex("RecepieId");
+
+                    b.ToTable("IngredientFoodRecepies");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Measurement", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Measurements");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Gram"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Ounce"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Table spoon"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Cups"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Milliliter"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Liter"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Pinch"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Each"
+                        });
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Step", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("DrinkRecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("FoodRecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DrinkRecepieId");
+
+                    b.HasIndex("FoodRecepieId");
+
+                    b.ToTable("Steps");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -444,15 +577,15 @@ namespace CookBook.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8b83546e-165a-4d46-b1e6-9620c32b8a11",
+                            Id = "61d47d19-ed54-4e93-b645-94246dc157af",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "775826eb-2c22-4352-b0dd-8d1c53fdf013",
+                            ConcurrencyStamp = "11527b00-1901-41ec-a927-bd6682299626",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEDQikFgLYobFZvXqpkgDhirW2u6XLpeEU3tVIRFin4b8i3bVuUMfK6Hk5ueXhsUb+g==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEPE4jtLDB411z/cyWqlhSeO5w4j1DrmHM/yQmrsToJvlnS/oyFLx4fcXQU2UFT3xxQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "939d3c2a-0185-450f-bd56-63271579a683",
+                            SecurityStamp = "de1db299-c199-4cc0-bf0b-6a5e19046314",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -543,39 +676,20 @@ namespace CookBook.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.Ingredient", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Drinks.DrinkRecepie", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Measurement", "Measurement")
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
                         .WithMany()
-                        .HasForeignKey("MeasurementId")
+                        .HasForeignKey("OwnerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Measurement");
+                    b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.IngredientRecepie", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Ingredient", "Ingredient")
-                        .WithMany("IngredientsRecepies")
-                        .HasForeignKey("IngredientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("CookBook.Data.Models.Recepie", "Recepie")
-                        .WithMany("IngredientsRecepies")
-                        .HasForeignKey("RecepieId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Ingredient");
-
-                    b.Navigation("Recepie");
-                });
-
-            modelBuilder.Entity("CookBook.Data.Models.Recepie", b =>
-                {
-                    b.HasOne("CookBook.Data.Models.OvenType", "OvenType")
+                    b.HasOne("CookBook.Data.Models.Food.OvenType", "OvenType")
                         .WithMany()
                         .HasForeignKey("OvenTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -587,13 +701,13 @@ namespace CookBook.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CookBook.Data.Models.RecepieType", "RecepieType")
+                    b.HasOne("CookBook.Data.Models.Food.RecepieType", "RecepieType")
                         .WithMany()
                         .HasForeignKey("RecepieTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CookBook.Data.Models.TemperatureMeasurment", "TemperatureMeasurment")
+                    b.HasOne("CookBook.Data.Models.Food.TemperatureMeasurment", "TemperatureMeasurment")
                         .WithMany()
                         .HasForeignKey("TemperatureMeasurmentId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -608,17 +722,17 @@ namespace CookBook.Data.Migrations
                     b.Navigation("TemperatureMeasurment");
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.RecepiesUsers", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepiesUsers", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Recepie", "Recepie")
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
+                        .WithMany("RecepiesUsers")
+                        .HasForeignKey("FoodRecepieId");
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "Recepie")
                         .WithMany()
                         .HasForeignKey("RecepieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
-
-                    b.HasOne("CookBook.Data.Models.Recepie", null)
-                        .WithMany("RecepiesUsers")
-                        .HasForeignKey("RecepieId1");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -629,6 +743,89 @@ namespace CookBook.Data.Migrations
                     b.Navigation("Recepie");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.DrinkRecepiesUsers", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", null)
+                        .WithMany("RecepiesUsers")
+                        .HasForeignKey("DrinkRecepieId");
+
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", "Recepie")
+                        .WithMany()
+                        .HasForeignKey("RecepieId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recepie");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Ingredient", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Shared.Measurement", "Measurement")
+                        .WithMany()
+                        .HasForeignKey("MeasurementId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Measurement");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.IngredientDrinkRecepie", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Shared.Ingredient", "Ingredient")
+                        .WithMany()
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", "Recepie")
+                        .WithMany("IngredientsRecepies")
+                        .HasForeignKey("RecepieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recepie");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.IngredientFoodRecepie", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Shared.Ingredient", "Ingredient")
+                        .WithMany("IngredientsRecepies")
+                        .HasForeignKey("IngredientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "Recepie")
+                        .WithMany("IngredientsRecepies")
+                        .HasForeignKey("RecepieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Ingredient");
+
+                    b.Navigation("Recepie");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Step", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", null)
+                        .WithMany("Steps")
+                        .HasForeignKey("DrinkRecepieId");
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
+                        .WithMany("Steps")
+                        .HasForeignKey("FoodRecepieId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -682,16 +879,27 @@ namespace CookBook.Data.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CookBook.Data.Models.Ingredient", b =>
-                {
-                    b.Navigation("IngredientsRecepies");
-                });
-
-            modelBuilder.Entity("CookBook.Data.Models.Recepie", b =>
+            modelBuilder.Entity("CookBook.Data.Models.Drinks.DrinkRecepie", b =>
                 {
                     b.Navigation("IngredientsRecepies");
 
                     b.Navigation("RecepiesUsers");
+
+                    b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
+                {
+                    b.Navigation("IngredientsRecepies");
+
+                    b.Navigation("RecepiesUsers");
+
+                    b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Shared.Ingredient", b =>
+                {
+                    b.Navigation("IngredientsRecepies");
                 });
 #pragma warning restore 612, 618
         }

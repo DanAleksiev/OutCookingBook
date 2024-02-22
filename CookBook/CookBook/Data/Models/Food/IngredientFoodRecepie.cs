@@ -1,9 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using CookBook.Data.Models.Food;
+using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CookBook.Data.Models
+namespace CookBook.Data.Models.Shared
+{
+    public class IngredientFoodRecepie
     {
-    public class IngredientRecepie
-        {
         public int IngredientId { get; set; }
 
         [ForeignKey(nameof(IngredientId))]
@@ -11,6 +12,6 @@ namespace CookBook.Data.Models
         public int RecepieId { get; set; }
 
         [ForeignKey(nameof(RecepieId))]
-        public Recepie Recepie { get; set; }
+        public FoodRecepie Recepie { get; set; }
     }
-    }
+}

@@ -1,11 +1,13 @@
 ﻿using CookBook.Data.Configuration;
-using CookBook.Data.Models;
+using CookBook.Data.Models.Drinks;
+using CookBook.Data.Models.Food;
+using CookBook.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Data
-    {
+{
     public class CookBookDbContext : IdentityDbContext
         {
         public CookBookDbContext(DbContextOptions<CookBookDbContext> options)
@@ -14,23 +16,45 @@ namespace CookBook.Data
             }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
             {
-            modelBuilder.Entity<IngredientRecepie>(x =>
+            modelBuilder.Entity<IngredientFoodRecepie>(x =>
                 x.HasKey(k =>
                     new { k.IngredientId, k.RecepieId }));
 
+            modelBuilder.Entity<IngredientDrinkRecepie>(x =>
+              x.HasKey(k =>
+                  new { k.IngredientId, k.RecepieId }));
+
             modelBuilder
-                .Entity<RecepiesUsers>()
+                .Entity<FoodRecepiesUsers>()
                 .HasKey(x => new { x.RecepieId, x.UserId });
 
             modelBuilder
-                .Entity<RecepiesUsers>()
+                .Entity<FoodRecepiesUsers>()
                 .HasOne(x => x.Recepie)
                 .WithMany()
                 .HasForeignKey(e => e.RecepieId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
-                .Entity<RecepiesUsers>()
+                .Entity<FoodRecepiesUsers>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(e => e.UserId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+               .Entity<DrinkRecepiesUsers>()
+               .HasKey(x => new { x.RecepieId, x.UserId });
+
+            modelBuilder
+                .Entity<DrinkRecepiesUsers>()
+                .HasOne(x => x.Recepie)
+                .WithMany()
+                .HasForeignKey(e => e.RecepieId)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<DrinkRecepiesUsers>()
                 .HasOne(x => x.User)
                 .WithMany()
                 .HasForeignKey(e => e.UserId)
@@ -45,13 +69,17 @@ namespace CookBook.Data
             base.OnModelCreating(modelBuilder);
             }
 
-        public DbSet<RecepiesUsers> RecepiesUsers { get; set; }
         public DbSet<Ingredient> Ingredients { get; set; }
-        public DbSet<Recepie> Recepies { get; set; }
-        public DbSet<IngredientRecepie> IngredientRecepies { get; set; }
+        public DbSet<FoodRecepiesUsers> FoodRecepiesUsers { get; set; }
+        public DbSet<FoodRecepie> FoodRecepies { get; set; }
+        public DbSet<DrinkRecepiesUsers> DrinksRecepiesUsers { get; set; }
+        public DbSet<DrinkRecepie> DrinkRecepies { get; set; }
+        public DbSet<IngredientFoodRecepie> IngredientFoodRecepies { get; set; }
+        public DbSet<IngredientDrinkRecepie> IngredientDrinkRecepies { get; set; }
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<OvenType> OvenTypes { get; set; }
         public DbSet<RecepieType> RecepieTypes { get; set; }
+        public DbSet<Step> Steps { get; set; }
         public DbSet<TemperatureMeasurment> TemperaturesMeasurments { get; set; }
         }
     }

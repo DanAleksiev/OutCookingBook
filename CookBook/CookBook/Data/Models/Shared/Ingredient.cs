@@ -2,10 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CookBook.Data.Models
-    {
+namespace CookBook.Data.Models.Shared
+{
     public class Ingredient
-        {
+    {
         [Key]
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace CookBook.Data.Models
         public string Name { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
         public int Calories { get; set; }
-        
+
         [Required]
         public double Amount { get; set; }
         [Required]
@@ -24,7 +24,7 @@ namespace CookBook.Data.Models
 
         [ForeignKey(nameof(MeasurementId))]
         public Measurement Measurement { get; set; }
-        public ICollection<IngredientRecepie> IngredientsRecepies { get; set; } = new HashSet<IngredientRecepie>();
+        public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new HashSet<IngredientFoodRecepie>();
     }
 
-    }
+}
