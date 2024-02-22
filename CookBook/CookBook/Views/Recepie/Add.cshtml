@@ -1,0 +1,238 @@
+﻿@model RecepieViewModel
+
+@{
+    ViewBag.Title = "Add new Recepie";
+}
+
+
+
+<div>
+    <div>
+        <h3>@ViewBag.Title</h3>
+    </div>
+    <form asp-action="Add" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" placeholder="Name of the dish:" />
+        <span asp-validation-for="@Model.Name" class=" small text-danger"></span>
+        <hr />
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" placeholder="Give us a short description of the meal:" />
+        <span asp-validation-for="@Model.Description" class=" small text-danger"></span>
+        <hr />
+        <select asp-for="@Model.RecepieTypeId" class="form-control" aria-required="true">
+            @foreach (var type in Model.RecepieTypes)
+                {
+                <option value="@type.Id">@type.Name</option>
+                }
+        </select>
+        <hr />
+        <div id="partialRender">
+            <ol class="form-group" id="ingredientList">
+                <label>List of ingredients</label>
+                <li class="ingredient">
+                    <input class="form-control nameIngredient" placeholder="Ingredient:" />
+                    <input class="form-control amountIngredient" placeholder="Amount:" />
+                    <input class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
+                    <span class="small text-danger"></span>
+                    <span class=" small text-danger"></span>
+                    <hr />
+                </li>
+            </ol>
+        </div>
+
+        <span>
+            <button id="sub-ing-btn">Submit Ingrediants</button>
+            <a id="addElementBtn" class="btn btn-primary">Add Element</a>
+        </span>
+
+        <div class="card mt-4">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control" placeholder="Give us a picture of the dish: (url)" />
+            <span asp-validation-for="@Model.Image" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="PrepTime">Prep time in minutes</label>
+            <input asp-for="PrepTime" class="form-control" placeholder="How long does it take to prepare the ing.:" />
+            <span asp-validation-for="@Model.PrepTime" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="CookTime">Cook time in minutes</label>
+            <input asp-for="CookTime" class="form-control" placeholder="Cook time:" />
+            <span asp-validation-for="@Model.CookTime" class=" small text-danger"></span>
+            <hr />
+            <select asp-for="@Model.OvenTypeId" class="form-control" aria-required="true">
+
+                @foreach (var type in Model.OvenTypes)
+                    {
+                    <option value="@type.Id">@type.Name</option>
+                    }
+            </select>
+            <hr />
+            <label asp-for="Origen"></label>
+            <input asp-for="Origen" class="form-control" placeholder="Whats the country of origin:" />
+            <span asp-validation-for="@Model.Origen" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="Portions"></label>
+            <input asp-for="Portions" class="form-control" placeholder="Portions:" />
+            <span asp-validation-for="@Model.Portions" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="Preparation"></label>
+            <input asp-for="Preparation" class="form-control" placeholder="How to prepare the dish:" />
+            <span asp-validation-for="@Model.Preparation" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="Temperature"></label>
+            <input asp-for="Temperature" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
+            <span asp-validation-for="@Model.Temperature" class=" small text-danger"></span>
+
+
+        </div>
+        <input class=" btn btn-primary mt-3" type="submit" value="Create" />
+    </form>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    @*     <script>
+        $('#partialRender').load("/Recepie/AddIngredientPartial")
+    </script> *@
+
+    @* <script>
+        $("#submit-btn").click(function () {
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetNames")",
+                dataType: "json",
+                success: function (result) {
+                    // console.log(result);
+                },
+                error: function (req, status, error) {
+                    // console.log(status);
+                }
+            })
+
+            $.ajax({
+                type: "Post",
+                url: "@Url.Action("PostNames")",
+                dataType: "json",
+                data: { name: "Jannik" },
+                success: function (result) {
+                    // console.log(result);
+                },
+                error: function (req, status, error) {
+                    // console.log(status);
+                }
+            })
+        })
+    </script> *@
+
+    <script>
+        let ingredients = [];
+        let num = 0;
+        $(document).ready(function () {
+            $("#addElementBtn").click(function () {
+                // var name = $('.nameIngredient').val();
+                // var amount = $('.amountIngredient').val();
+                // var type = $('.amountTypeIngredient').val();
+                // num++
+
+                // // Create a new Ingredient object
+                // var ingredient = {
+                //     "Name": name,
+                //     "Amount": amount,
+                //     "AmountType": type
+                // };
+                // ingredients.push(ingredient);
+                // // // Now you can do something with the new ingredient object
+                // console.log(ingredient);
+                // console.log(ingredients);
+
+                // Create a new element
+                var newLi = document.createElement("li");
+
+                //add class to the new li
+                newLi.classList.add(..."ingredient");
+
+                // Add input elements to the new li
+                newLi.innerHTML = `
+                                        <input class="form-control nameIngredient" placeholder="Ingredient:"/>
+                                        <input class="form-control amountIngredient" placeholder="Amount:"/>
+                                        <input class="form-control amountTypeIngredient" placeholder="T.S./G/Cups"/>
+                                        <span class="small text-danger"></span>
+                                        <hr />
+                                        `;
+
+                // Append the new element to the container
+                $("#ingredientList").append(newLi);
+            });
+            // function GetIngrediants() {
+            //     var mvar = "";
+            //     $(".ingredient").each(function () {
+            //         console.log($(this).html());
+            //         mvar += $(this).html();
+            //     });
+            // }
+            
+            //it kind of works but it need to be in object with those val!!
+            $('#sub-ing-btn').click(function () {
+
+                let names = [];
+                $(".nameIngredient").each(function () {
+                    console.log($(this).val());
+                    mvar.push($(this).val());
+
+                });
+                let amounts[]
+                $(".amountIngredient").each(function () {
+                    console.log($(this).val());
+                    mvar.push($(this).val());
+
+                });
+                let types = []
+                $(".amountTypeIngredient").each(function () {
+                    console.log($(this).val());
+                    mvar.push($(this).val());
+
+                });
+                console.log(mvar)
+                // var name = $('.nameIngredient').val();
+                // var amount = $('.amountIngredient').val();
+                // var type = $('.amountTypeIngredient').val();
+
+                // var all = $(".nameIngredient").map(function () {
+                //     return this.nodeValue;
+                // }).get();
+
+
+                // console.log(all.join());
+                // // Create a new Ingredient object
+                // var ingredient = {
+                //     "Name": name,
+                //     "Amount": amount,
+                //     "AmountType": type
+                // };
+                // ingredients.push(ingredient);
+                // // // Now you can do something with the new ingredient object
+                // console.log(ingredient);
+                // console.log(ingredients);
+
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("PostNames")",
+                    dataType: "json",
+                    data: { name: "Jannik" },
+                    success: function (result) {
+                        // console.log(result);
+                    },
+                    error: function (req, status, error) {
+                        // console.log(status);
+                    }
+                })
+            })
+        })
+    </script>
+}
+
+

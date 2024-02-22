@@ -1,0 +1,21 @@
+﻿@model TempView
+@{
+    ViewBag.Title = "All Recepies";
+}
+
+
+
+<div>
+    <div>
+        <h3>@ViewBag.Title</h3>
+    </div>
+
+    <div>
+        <form asp-action="Add" method="post">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" placeholder="Portions:" />
+            <span asp-validation-for="Name" class=" small text-danger"></span>
+            <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+        </form>
+    </div>
+</div>

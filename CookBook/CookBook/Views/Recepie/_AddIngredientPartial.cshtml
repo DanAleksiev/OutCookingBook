@@ -1,0 +1,33 @@
+﻿@model IngredientInputViewModel;
+@{
+    ViewBag.Title = "Add new Recepie ingredient";
+}
+
+
+
+<div>
+    <ol class="form-group" id="ingredientList">
+        <label asp-for="Name">List of ingredients</label>
+        <li>
+            <input asp-for="@Model.Name" class="form-control" placeholder="Ingredient:" id="nameIngredient" />
+            <input asp-for="@Model.Amount" class="form-control" placeholder="Amount:" id="amountIngredient" />
+            @* <input asp-for="AllIngrediants" class="form-control" placeholder="T.S./G/Cups" id="amountTypeIngredient" /> *@
+            @foreach (var type in Model.Measurements)
+                {
+                <option value="@type.Id">@type.Name</option>
+                }
+            <span asp-validation-for="@Model.Name" class=" small text-danger"></span>
+        </li>
+        <hr />
+    </ol>
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script src="~/js/recepieAddIngredient.js"></script>
+}
+
+
