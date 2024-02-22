@@ -9,7 +9,7 @@ using System;
 
 namespace CookBook.Data.Migrations
     {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CookBookDbContext))]
     [Migration("00000000000000_CreateIdentitySchema")]
     partial class CreateIdentitySchema
         {
