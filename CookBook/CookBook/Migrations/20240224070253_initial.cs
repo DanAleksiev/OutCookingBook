@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CookBook.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -215,6 +215,7 @@ namespace CookBook.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DatePosted = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsAlcoholic = table.Column<bool>(type: "bit", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PrepTime = table.Column<int>(type: "int", nullable: false),
                     Origen = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -277,7 +278,8 @@ namespace CookBook.Migrations
                     Temperature = table.Column<int>(type: "int", nullable: false),
                     TemperatureMeasurmentId = table.Column<int>(type: "int", nullable: false),
                     OvenTypeId = table.Column<int>(type: "int", nullable: false),
-                    LastTimeYouHadIt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    LastTimeYouHadIt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    IsPrivate = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -361,6 +363,34 @@ namespace CookBook.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "FavouriteFoodRecepiesUsers",
+                columns: table => new
+                {
+                    RecepieId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    FoodRecepieId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_FavouriteFoodRecepiesUsers", x => new { x.RecepieId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_FavouriteFoodRecepiesUsers_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FavouriteFoodRecepiesUsers_FoodRecepies_FoodRecepieId",
+                        column: x => x.FoodRecepieId,
+                        principalTable: "FoodRecepies",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_FavouriteFoodRecepiesUsers_FoodRecepies_RecepieId",
+                        column: x => x.RecepieId,
+                        principalTable: "FoodRecepies",
+                        principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "FoodRecepiesUsers",
                 columns: table => new
                 {
@@ -441,7 +471,7 @@ namespace CookBook.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "7e730f2a-3709-40e6-a8bc-6c10b871fd3a", 0, "0450d54a-011a-4515-abc7-261896818f70", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEE736+pY4P4kTWj+ndWoltU2idzGxgI59G9IEB+OCdg32RpZakMLc+Sl+XSl7+mwqQ==", null, false, "0af6f785-aca4-4287-8d3c-409efaa258f9", false, "test@test.com" });
+                values: new object[] { "62d1f700-1dda-48ba-9966-6740ec62f052", 0, "dd042f4b-34c2-4173-8a63-a2ea69c320d5", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEJksbwbwsqe1WWtXJS7LS4zOFz2Rm8M1tCk/BcSBrD0Gwf4HFXs61JARwUaOCtFchQ==", null, false, "2d7b8a19-cea6-47c5-bbfd-3d4f6d1afb4a", false, "test@test.com" });
 
             migrationBuilder.InsertData(
                 table: "Measurements",
@@ -545,6 +575,16 @@ namespace CookBook.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FavouriteFoodRecepiesUsers_FoodRecepieId",
+                table: "FavouriteFoodRecepiesUsers",
+                column: "FoodRecepieId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FavouriteFoodRecepiesUsers_UserId",
+                table: "FavouriteFoodRecepiesUsers",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FoodRecepies_OvenTypeId",
                 table: "FoodRecepies",
                 column: "OvenTypeId");
@@ -619,6 +659,9 @@ namespace CookBook.Migrations
 
             migrationBuilder.DropTable(
                 name: "DrinksRecepiesUsers");
+
+            migrationBuilder.DropTable(
+                name: "FavouriteFoodRecepiesUsers");
 
             migrationBuilder.DropTable(
                 name: "FoodRecepiesUsers");

@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Data.Models.Food
 {
-    public class FoodRecepiesUsers
-    {
+    public class FavouriteFoodRecepiesUsers
+        {
         [Required]
         public int FoodRecepieId { get; set; }
 

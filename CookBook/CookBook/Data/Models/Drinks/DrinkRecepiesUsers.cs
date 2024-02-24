@@ -8,10 +8,10 @@ namespace CookBook.Data.Models.Shared
     public class DrinkRecepiesUsers
     {
         [Required]
-        public int RecepieId { get; set; }
+        public int DrinkRecepieId { get; set; }
 
-        [ForeignKey(nameof(RecepieId))]
-        public DrinkRecepie Recepie { get; set; }
+        [ForeignKey(nameof(DrinkRecepieId))]
+        public DrinkRecepie DrinkRecepie { get; set; }
 
         [Required]
         public string UserId { get; set; }

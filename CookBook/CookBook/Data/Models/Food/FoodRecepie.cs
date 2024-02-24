@@ -13,8 +13,12 @@ namespace CookBook.Data.Models.Food
         [Required]
         public string Name { get; set; } = string.Empty;
 
-        public IList<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new List<IngredientFoodRecepie>();
+        public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new List<IngredientFoodRecepie>();
+
         public ICollection<FoodRecepiesUsers> RecepiesUsers { get; set; } = new List<FoodRecepiesUsers>();
+
+        public ICollection<FavouriteFoodRecepiesUsers> FavouriteRecepiesUsers { get; set; } = new List<FavouriteFoodRecepiesUsers>();
+
 
         [Required]
         public DateTime DatePosted { get; set; }
@@ -41,6 +45,7 @@ namespace CookBook.Data.Models.Food
 
         [Required]
         public int TumbsUp { get; set; } = 0;
+
         [Required]
         public int CookTime { get; set; }
 
@@ -51,6 +56,7 @@ namespace CookBook.Data.Models.Food
 
         [ForeignKey(nameof(RecepieTypeId))]
         public RecepieType RecepieType { get; set; }
+
         public int Temperature { get; set; }
 
         [Required]
@@ -60,7 +66,11 @@ namespace CookBook.Data.Models.Food
         public TemperatureMeasurment TemperatureMeasurment { get; set; }
 
         public int OvenTypeId { get; set; }
+
         public OvenType OvenType { get; set; }
+
         public DateTime LastTimeYouHadIt { get; set; }
-        }
+
+        public bool IsPrivate { get; set; }
+    }
     }

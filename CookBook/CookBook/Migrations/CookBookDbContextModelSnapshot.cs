@@ -17,7 +17,7 @@ namespace CookBook.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.25")
+                .HasAnnotation("ProductVersion", "6.0.27")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -72,6 +72,26 @@ namespace CookBook.Migrations
                     b.ToTable("DrinkRecepies");
                 });
 
+            modelBuilder.Entity("CookBook.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
+                {
+                    b.Property<int>("RecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<int?>("FoodRecepieId")
+                        .HasColumnType("int");
+
+                    b.HasKey("RecepieId", "UserId");
+
+                    b.HasIndex("FoodRecepieId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteFoodRecepiesUsers");
+                });
+
             modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
                 {
                     b.Property<int>("Id")
@@ -89,6 +109,9 @@ namespace CookBook.Migrations
                     b.Property<string>("Image")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime>("LastTimeYouHadIt")
                         .HasColumnType("datetime2");
@@ -575,15 +598,15 @@ namespace CookBook.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "61d47d19-ed54-4e93-b645-94246dc157af",
+                            Id = "62d1f700-1dda-48ba-9966-6740ec62f052",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "11527b00-1901-41ec-a927-bd6682299626",
+                            ConcurrencyStamp = "dd042f4b-34c2-4173-8a63-a2ea69c320d5",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPE4jtLDB411z/cyWqlhSeO5w4j1DrmHM/yQmrsToJvlnS/oyFLx4fcXQU2UFT3xxQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJksbwbwsqe1WWtXJS7LS4zOFz2Rm8M1tCk/BcSBrD0Gwf4HFXs61JARwUaOCtFchQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "de1db299-c199-4cc0-bf0b-6a5e19046314",
+                            SecurityStamp = "2d7b8a19-cea6-47c5-bbfd-3d4f6d1afb4a",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -683,6 +706,29 @@ namespace CookBook.Migrations
                         .IsRequired();
 
                     b.Navigation("Owner");
+                });
+
+            modelBuilder.Entity("CookBook.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
+                {
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
+                        .WithMany("FavouriteRecepiesUsers")
+                        .HasForeignKey("FoodRecepieId");
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "Recepie")
+                        .WithMany()
+                        .HasForeignKey("RecepieId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Recepie");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
@@ -888,6 +934,8 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepie", b =>
                 {
+                    b.Navigation("FavouriteRecepiesUsers");
+
                     b.Navigation("IngredientsRecepies");
 
                     b.Navigation("RecepiesUsers");
