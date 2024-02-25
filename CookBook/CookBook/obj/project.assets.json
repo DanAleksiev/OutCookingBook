@@ -4096,6 +4096,33 @@
         "runtime": {
           "lib/netstandard1.3/System.Xml.XDocument.dll": {}
         }
+      },
+      "CookBook.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "CookBook.Infrastructures": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/CookBook.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CookBook.Core.dll": {}
+        }
+      },
+      "CookBook.Infrastructures/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": "6.0.25",
+          "Microsoft.EntityFrameworkCore.Sqlite": "6.0.27"
+        },
+        "compile": {
+          "bin/placeholder/CookBook.Infrastructures.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/CookBook.Infrastructures.dll": {}
+        }
       }
     }
   },
@@ -11481,10 +11508,21 @@
         "system.xml.xdocument.4.3.0.nupkg.sha512",
         "system.xml.xdocument.nuspec"
       ]
+    },
+    "CookBook.Core/1.0.0": {
+      "type": "project",
+      "path": "../CookBook.Core/CookBook.Core.csproj",
+      "msbuildProject": "../CookBook.Core/CookBook.Core.csproj"
+    },
+    "CookBook.Infrastructures/1.0.0": {
+      "type": "project",
+      "path": "../CookBook.Infrastructures/CookBook.Infrastructures.csproj",
+      "msbuildProject": "../CookBook.Infrastructures/CookBook.Infrastructures.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "CookBook.Core >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore >= 6.0.25",
       "Microsoft.AspNetCore.Identity.EntityFrameworkCore >= 6.0.27",
       "Microsoft.AspNetCore.Identity.UI >= 6.0.27",
@@ -11526,7 +11564,11 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Core\\CookBook.Core.csproj": {
+              "projectPath": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Core\\CookBook.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
