@@ -314,13 +314,13 @@ namespace CookBook.Migrations
                 name: "DrinksRecepiesUsers",
                 columns: table => new
                 {
-                    RecepieId = table.Column<int>(type: "int", nullable: false),
+                    DrinkRecepieId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    DrinkRecepieId = table.Column<int>(type: "int", nullable: true)
+                    DrinkRecepieId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_DrinksRecepiesUsers", x => new { x.RecepieId, x.UserId });
+                    table.PrimaryKey("PK_DrinksRecepiesUsers", x => new { x.DrinkRecepieId, x.UserId });
                     table.ForeignKey(
                         name: "FK_DrinksRecepiesUsers_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -332,8 +332,8 @@ namespace CookBook.Migrations
                         principalTable: "DrinkRecepies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_DrinksRecepiesUsers_DrinkRecepies_RecepieId",
-                        column: x => x.RecepieId,
+                        name: "FK_DrinksRecepiesUsers_DrinkRecepies_DrinkRecepieId1",
+                        column: x => x.DrinkRecepieId1,
                         principalTable: "DrinkRecepies",
                         principalColumn: "Id");
                 });
@@ -366,13 +366,13 @@ namespace CookBook.Migrations
                 name: "FavouriteFoodRecepiesUsers",
                 columns: table => new
                 {
-                    RecepieId = table.Column<int>(type: "int", nullable: false),
+                    FoodRecepieId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FoodRecepieId = table.Column<int>(type: "int", nullable: true)
+                    FoodRecepieId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FavouriteFoodRecepiesUsers", x => new { x.RecepieId, x.UserId });
+                    table.PrimaryKey("PK_FavouriteFoodRecepiesUsers", x => new { x.FoodRecepieId, x.UserId });
                     table.ForeignKey(
                         name: "FK_FavouriteFoodRecepiesUsers_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -384,8 +384,8 @@ namespace CookBook.Migrations
                         principalTable: "FoodRecepies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_FavouriteFoodRecepiesUsers_FoodRecepies_RecepieId",
-                        column: x => x.RecepieId,
+                        name: "FK_FavouriteFoodRecepiesUsers_FoodRecepies_FoodRecepieId1",
+                        column: x => x.FoodRecepieId1,
                         principalTable: "FoodRecepies",
                         principalColumn: "Id");
                 });
@@ -394,13 +394,13 @@ namespace CookBook.Migrations
                 name: "FoodRecepiesUsers",
                 columns: table => new
                 {
-                    RecepieId = table.Column<int>(type: "int", nullable: false),
+                    FoodRecepieId = table.Column<int>(type: "int", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    FoodRecepieId = table.Column<int>(type: "int", nullable: true)
+                    FoodRecepieId1 = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FoodRecepiesUsers", x => new { x.RecepieId, x.UserId });
+                    table.PrimaryKey("PK_FoodRecepiesUsers", x => new { x.FoodRecepieId, x.UserId });
                     table.ForeignKey(
                         name: "FK_FoodRecepiesUsers_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -412,8 +412,8 @@ namespace CookBook.Migrations
                         principalTable: "FoodRecepies",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_FoodRecepiesUsers_FoodRecepies_RecepieId",
-                        column: x => x.RecepieId,
+                        name: "FK_FoodRecepiesUsers_FoodRecepies_FoodRecepieId1",
+                        column: x => x.FoodRecepieId1,
                         principalTable: "FoodRecepies",
                         principalColumn: "Id");
                 });
@@ -471,7 +471,7 @@ namespace CookBook.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "62d1f700-1dda-48ba-9966-6740ec62f052", 0, "dd042f4b-34c2-4173-8a63-a2ea69c320d5", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEJksbwbwsqe1WWtXJS7LS4zOFz2Rm8M1tCk/BcSBrD0Gwf4HFXs61JARwUaOCtFchQ==", null, false, "2d7b8a19-cea6-47c5-bbfd-3d4f6d1afb4a", false, "test@test.com" });
+                values: new object[] { "8bbabb72-de73-449d-b9dc-6fd60f562da7", 0, "83708d6e-480b-4abb-8494-16f057f8d618", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEGerucJr3odTSwfuhc8f4ZfVslobBubTSopyPte3DTN1PxxLoHuy2zwlqfDPMyeY2g==", null, false, "417d89c2-a3aa-4e35-9fea-ac02709c6c97", false, "test@test.com" });
 
             migrationBuilder.InsertData(
                 table: "Measurements",
@@ -565,9 +565,9 @@ namespace CookBook.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DrinksRecepiesUsers_DrinkRecepieId",
+                name: "IX_DrinksRecepiesUsers_DrinkRecepieId1",
                 table: "DrinksRecepiesUsers",
-                column: "DrinkRecepieId");
+                column: "DrinkRecepieId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DrinksRecepiesUsers_UserId",
@@ -575,9 +575,9 @@ namespace CookBook.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FavouriteFoodRecepiesUsers_FoodRecepieId",
+                name: "IX_FavouriteFoodRecepiesUsers_FoodRecepieId1",
                 table: "FavouriteFoodRecepiesUsers",
-                column: "FoodRecepieId");
+                column: "FoodRecepieId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavouriteFoodRecepiesUsers_UserId",
@@ -605,9 +605,9 @@ namespace CookBook.Migrations
                 column: "TemperatureMeasurmentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_FoodRecepiesUsers_FoodRecepieId",
+                name: "IX_FoodRecepiesUsers_FoodRecepieId1",
                 table: "FoodRecepiesUsers",
-                column: "FoodRecepieId");
+                column: "FoodRecepieId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FoodRecepiesUsers_UserId",

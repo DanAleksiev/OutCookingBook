@@ -31,15 +31,13 @@ namespace CookBook.Data
             modelBuilder
                 .Entity<FoodRecepiesUsers>()
                 .HasOne(x => x.FoodRecepie)
-                .WithMany()
-                .HasForeignKey(e => e.FoodRecepieId)
+                .WithMany(x => x.RecepiesUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
                 .Entity<FoodRecepiesUsers>()
                 .HasOne(x => x.User)
                 .WithMany()
-                .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
@@ -49,15 +47,13 @@ namespace CookBook.Data
             modelBuilder
                 .Entity<FavouriteFoodRecepiesUsers>()
                 .HasOne(x => x.FoodRecepie)
-                .WithMany()
-                .HasForeignKey(e => e.FoodRecepieId)
+                .WithMany(x=>x.FavouriteRecepiesUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
                 .Entity<FavouriteFoodRecepiesUsers>()
                 .HasOne(x => x.User)
                 .WithMany()
-                .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
@@ -67,15 +63,13 @@ namespace CookBook.Data
             modelBuilder
                 .Entity<DrinkRecepiesUsers>()
                 .HasOne(x => x.DrinkRecepie)
-                .WithMany()
-                .HasForeignKey(e => e.DrinkRecepieId)
+                .WithMany(x=>x.RecepiesUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
                 .Entity<DrinkRecepiesUsers>()
                 .HasOne(x => x.User)
                 .WithMany()
-                .HasForeignKey(e => e.UserId)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<IdentityUser>().HasData(ConfigHelper.Users);

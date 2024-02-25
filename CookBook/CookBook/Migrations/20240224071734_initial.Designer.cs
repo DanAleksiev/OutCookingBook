@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookBook.Migrations
 {
     [DbContext(typeof(CookBookDbContext))]
-    [Migration("20240224070253_initial")]
+    [Migration("20240224071734_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -76,18 +76,18 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
                 {
-                    b.Property<int>("RecepieId")
+                    b.Property<int>("FoodRecepieId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("FoodRecepieId")
+                    b.Property<int?>("FoodRecepieId1")
                         .HasColumnType("int");
 
-                    b.HasKey("RecepieId", "UserId");
+                    b.HasKey("FoodRecepieId", "UserId");
 
-                    b.HasIndex("FoodRecepieId");
+                    b.HasIndex("FoodRecepieId1");
 
                     b.HasIndex("UserId");
 
@@ -170,18 +170,18 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepiesUsers", b =>
                 {
-                    b.Property<int>("RecepieId")
+                    b.Property<int>("FoodRecepieId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("FoodRecepieId")
+                    b.Property<int?>("FoodRecepieId1")
                         .HasColumnType("int");
 
-                    b.HasKey("RecepieId", "UserId");
+                    b.HasKey("FoodRecepieId", "UserId");
 
-                    b.HasIndex("FoodRecepieId");
+                    b.HasIndex("FoodRecepieId1");
 
                     b.HasIndex("UserId");
 
@@ -311,18 +311,18 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Shared.DrinkRecepiesUsers", b =>
                 {
-                    b.Property<int>("RecepieId")
+                    b.Property<int>("DrinkRecepieId")
                         .HasColumnType("int");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("DrinkRecepieId")
+                    b.Property<int?>("DrinkRecepieId1")
                         .HasColumnType("int");
 
-                    b.HasKey("RecepieId", "UserId");
+                    b.HasKey("DrinkRecepieId", "UserId");
 
-                    b.HasIndex("DrinkRecepieId");
+                    b.HasIndex("DrinkRecepieId1");
 
                     b.HasIndex("UserId");
 
@@ -600,15 +600,15 @@ namespace CookBook.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "62d1f700-1dda-48ba-9966-6740ec62f052",
+                            Id = "8bbabb72-de73-449d-b9dc-6fd60f562da7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "dd042f4b-34c2-4173-8a63-a2ea69c320d5",
+                            ConcurrencyStamp = "83708d6e-480b-4abb-8494-16f057f8d618",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJksbwbwsqe1WWtXJS7LS4zOFz2Rm8M1tCk/BcSBrD0Gwf4HFXs61JARwUaOCtFchQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGerucJr3odTSwfuhc8f4ZfVslobBubTSopyPte3DTN1PxxLoHuy2zwlqfDPMyeY2g==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2d7b8a19-cea6-47c5-bbfd-3d4f6d1afb4a",
+                            SecurityStamp = "417d89c2-a3aa-4e35-9fea-ac02709c6c97",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -712,15 +712,15 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
-                        .WithMany("FavouriteRecepiesUsers")
-                        .HasForeignKey("FoodRecepieId");
-
-                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "Recepie")
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "FoodRecepie")
                         .WithMany()
-                        .HasForeignKey("RecepieId")
+                        .HasForeignKey("FoodRecepieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
+                        .WithMany("FavouriteRecepiesUsers")
+                        .HasForeignKey("FoodRecepieId1");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -728,7 +728,7 @@ namespace CookBook.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Recepie");
+                    b.Navigation("FoodRecepie");
 
                     b.Navigation("User");
                 });
@@ -770,15 +770,15 @@ namespace CookBook.Migrations
 
             modelBuilder.Entity("CookBook.Data.Models.Food.FoodRecepiesUsers", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
-                        .WithMany("RecepiesUsers")
-                        .HasForeignKey("FoodRecepieId");
-
-                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "Recepie")
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", "FoodRecepie")
                         .WithMany()
-                        .HasForeignKey("RecepieId")
+                        .HasForeignKey("FoodRecepieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("CookBook.Data.Models.Food.FoodRecepie", null)
+                        .WithMany("RecepiesUsers")
+                        .HasForeignKey("FoodRecepieId1");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -786,22 +786,22 @@ namespace CookBook.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Recepie");
+                    b.Navigation("FoodRecepie");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("CookBook.Data.Models.Shared.DrinkRecepiesUsers", b =>
                 {
-                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", null)
-                        .WithMany("RecepiesUsers")
-                        .HasForeignKey("DrinkRecepieId");
-
-                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", "Recepie")
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", "DrinkRecepie")
                         .WithMany()
-                        .HasForeignKey("RecepieId")
+                        .HasForeignKey("DrinkRecepieId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.HasOne("CookBook.Data.Models.Drinks.DrinkRecepie", null)
+                        .WithMany("RecepiesUsers")
+                        .HasForeignKey("DrinkRecepieId1");
 
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
                         .WithMany()
@@ -809,7 +809,7 @@ namespace CookBook.Migrations
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("Recepie");
+                    b.Navigation("DrinkRecepie");
 
                     b.Navigation("User");
                 });
