@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using CookBook.Data;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
-using CookBook.Models.Utilities;
-using CookBook.Models.Recepies;
-using CookBook.Data.Models.Shared;
+using CookBook.Core.Models.Utilities;
+using CookBook.Infrastructures.Data;
+using CookBook.Core.Models.Recepies;
+using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Controllers
     {

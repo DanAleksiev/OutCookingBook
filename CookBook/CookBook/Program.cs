@@ -1,4 +1,4 @@
-using CookBook.Data;
+using CookBook.Infrastructures.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

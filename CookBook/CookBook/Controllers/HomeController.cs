@@ -1,4 +1,4 @@
-﻿using CookBook.Models;
+﻿using CookBook.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
