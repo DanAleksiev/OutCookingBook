@@ -7,6 +7,7 @@ namespace CookBook.Core.Models.Ingredients
         public int Id { get; set; }
         public string Name { get; set; }
         public int Amount { get; set; }
-        public IEnumerable<UtilTypeModel> Measurements { get; set; } = new HashSet<UtilTypeModel>();
+        public int MeasurementId { get; set; }
+        public IEnumerable<UtilTypeModel> Measurements { get; set; } = new List<UtilTypeModel>();
         }
     }

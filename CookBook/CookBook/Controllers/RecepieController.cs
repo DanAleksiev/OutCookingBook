@@ -6,6 +6,7 @@ using CookBook.Core.Models.Utilities;
 using CookBook.Infrastructures.Data;
 using CookBook.Core.Models.Recepies;
 using CookBook.Infrastructures.Data.Models.Shared;
+using CookBook.Core.Models.Ingredients;
 
 namespace CookBook.Controllers
     {
@@ -17,6 +18,13 @@ namespace CookBook.Controllers
             {
             context = _context;
             }
+
+        public IActionResult OnGetPartial() =>
+    new PartialViewResult
+        {
+        ViewName = "_AddIngredientPartial",
+        ViewData = ViewData,
+        };
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
         private async Task<IEnumerable<UtilTypeModel>> GetMeasurmentType()
@@ -82,10 +90,8 @@ namespace CookBook.Controllers
                 };
             
             return View(model);
-            }
-
-
-
+            } 
+        
         [HttpPost]
         public IActionResult Add(RecepieViewModel model)
             {
@@ -115,6 +121,16 @@ namespace CookBook.Controllers
             return RedirectToAction();
             }
 
+        [HttpGet]
+        public async Task<IActionResult> _AddIngredientPartial()
+            {
+            var model = new IngredientInputViewModel()
+                {
+                Measurements = await GetMeasurmentType(),
+                };
+
+            return View(model);
+            }
 
 
         public IActionResult Delete()

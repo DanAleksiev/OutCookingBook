@@ -23,4 +23,8 @@
     <ProjectReference Include="..\CookBook.Core\CookBook.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Views\Shared\Components\" />
+  </ItemGroup>
+
 </Project>

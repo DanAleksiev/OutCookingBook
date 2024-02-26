@@ -80,7 +80,7 @@ namespace CookBook.Data.Configuration
                 new Measurement
                     {
                     Id = 8,
-                    Name = "Each"
+                    Name = "Pieces"
                     }
                 };
             }
