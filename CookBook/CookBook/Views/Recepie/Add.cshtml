@@ -1,5 +1,4 @@
-﻿
-@model RecepieViewModel
+﻿@model RecepieViewModel
 
 @{
     ViewBag.Title = "Add new Recepie";
@@ -30,21 +29,23 @@
         <div id="partialRender">
             <ol class="form-group" id="ingredientList">
                 <label>List of ingredients</label>
-                <li class="ingredient-0">
+                <li id="ingredient-0">
                     <input class="form-control nameIngredient" placeholder="Ingredient:" />
                     <input class="form-control amountIngredient" placeholder="Amount:" />
                     <input class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
                     <span class="small text-danger"></span>
-                    <span class=" small text-danger"></span>
                     <hr />
+
                 </li>
             </ol>
+
+            <span>
+                <a id="addElementBtn" class="btn btn-primary">Add new ingredient</a>
+                <a id="removeElementBtn" class="btn btn-primary">Remove last ingredient</a>
+            </span>
         </div>
 
-        <span>
-            @* <button id="sub-ing-btn">Submit Ingrediants</button> *@
-            <a id="addElementBtn" class="btn btn-primary">Add Element</a>
-        </span>
+
 
         <div class="card mt-4">
             <label asp-for="Image"></label>
@@ -85,7 +86,7 @@
 
 
         </div>
-        <input class=" btn btn-primary mt-3" type="submit" value="Create" />
+        <input id="submitBtn" class=" btn btn-primary mt-3" type="submit" value="Create" />
     </form>
 </div>
 
@@ -100,23 +101,73 @@
         let num = 1;
         $(document).ready(function () {
             $("#addElementBtn").click(function () {
+                // make the last add Button invisible
+
                 // Create a new element
                 let newElement = `
-                                <li class="ingredient-${num}">
-                                <input class="form-control nameIngredient" placeholder="Ingredient:" />
-                                <input class="form-control amountIngredient" placeholder="Amount:" />
-                                <input class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
-                                <span class="small text-danger"></span>
-                                <span class=" small text-danger"></span>
-                                <hr />
-                                </li>
-                                `;
+                            <li id="ingredient-${num}">
+                              <input id="nameIngredient-${num}" class="form-control nameIngredient" placeholder="Ingredient:" />
+                              <input id="amountIngredient-${num}" class="form-control amountIngredient" placeholder="Amount:" />
+                              <input id="amountTypeIngredient-${num}" class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
+                                      <select asp-for="@Model.OvenTypeId" class="form-control" aria-required="true">
+
+        @foreach (var type in Model.OvenTypes)
+            {
+                                <option value="@type.Id">@type.Name</option>
+            }
+                    </select>
+                              <span class="small text-danger"></span>
+                              <hr />
+                            </li>
+                            `;
 
                 num++;
                 // Append the new element to the container
                 $("#ingredientList").append(newElement);
             });
 
+            //removes the input field for the last ingredient
+            $("#removeElementBtn").click(function () {
+                if (num > 1) {
+                    num--;
+                    $(`#ingredient-${num}`).remove();
+                }
+            })
+
+            //sends the ingredients as json
+            $("#submitBtn").click(function () {
+                let allIngredient = []
+                
+                let names = [];
+                $(".nameIngredient").each(function () {
+                    names.push($(this).val());
+
+                });
+
+                let amounts = [];
+                $(".amountIngredient").each(function () {
+                    amounts.push($(this).val());
+
+                });
+
+                let types = [];
+                $(".amountTypeIngredient").each(function () {
+                    types.push($(this).val());
+                });
+
+                for (let i = 0; i < num; i++) {
+                    let currIngredient = {
+                        Name: names[i],
+                        Amount: amounts[i],
+                        AmountType: types[i],
+                    }
+
+                    allIngredient.push(currIngredient);
+                }
+
+                console.log(allIngredient);
+
+            });
         })
     </script>
 }
