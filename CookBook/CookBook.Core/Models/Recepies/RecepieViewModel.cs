@@ -1,4 +1,5 @@
 ﻿using CookBook.Core.Models.Utilities;
+using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Core.Models.Recepies
     {
@@ -27,6 +28,16 @@ namespace CookBook.Core.Models.Recepies
         public int CookTime { get; set; }
         public int OvenTypeId { get; set; }
         public IEnumerable<UtilTypeModel> OvenTypes { get; set; } = new List<UtilTypeModel>();
+        public int MeasurmentId { get; set; }
+        public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new List<UtilTypeModel>();
+
+        [Required]
+        [StringLength(10,MinimumLength =2,ErrorMessage = "lenght wrong")]
+        public string IngredientName { get; set; }
+
+        [Required]
+        [Range(1.00,3.123)]
+        public double IngredientAmount { get; set; }
 
         public string Origen { get; set; }
         public int Portions { get; set; }

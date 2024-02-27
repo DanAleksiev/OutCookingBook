@@ -30,9 +30,16 @@
             <ol class="form-group" id="ingredientList">
                 <label>List of ingredients</label>
                 <li id="ingredient-0">
-                    <input class="form-control nameIngredient" placeholder="Ingredient:" />
-                    <input class="form-control amountIngredient" placeholder="Amount:" />
-                    <input class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
+                    <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                    <input asp-for="IngredientAmount" class="form-control amountIngredient" placeholder="Amount:" />
+                    <select asp-for="@Model.MeasurmentId" id="amountTypeIngredient-${num}" class="form-control amountTypeIngredient" aria-required="true">
+                        @foreach (var type in Model.MeasurmentTypes)
+                            {
+                            <option value="@type.Id">@type.Name</option>
+                            }
+                    </select>
+                    <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                    <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
                     <span class="small text-danger"></span>
                     <hr />
 
@@ -85,6 +92,8 @@
             <span asp-validation-for="@Model.Temperature" class=" small text-danger"></span>
 
 
+
+            
         </div>
         <input id="submitBtn" class=" btn btn-primary mt-3" type="submit" value="Create" />
     </form>
@@ -103,19 +112,21 @@
             $("#addElementBtn").click(function () {
                 // make the last add Button invisible
 
+                // id = "amountTypeIngredient-${num}" class="form-control amountTypeIngredient"
+                
                 // Create a new element
                 let newElement = `
                             <li id="ingredient-${num}">
-                              <input id="nameIngredient-${num}" class="form-control nameIngredient" placeholder="Ingredient:" />
-                              <input id="amountIngredient-${num}" class="form-control amountIngredient" placeholder="Amount:" />
-                              <input id="amountTypeIngredient-${num}" class="form-control amountTypeIngredient" placeholder="T.S./G/Cups" />
-                                      <select asp-for="@Model.OvenTypeId" class="form-control" aria-required="true">
-
-        @foreach (var type in Model.OvenTypes)
-            {
-                                <option value="@type.Id">@type.Name</option>
-            }
-                    </select>
+                              <input asp-for="IngredientName"id="nameIngredient-${num}" class="form-control nameIngredient" placeholder="Ingredient:" />
+                              <input asp-for="IngredientAmount" id="amountIngredient-${num}" class="form-control amountIngredient" placeholder="Amount:" />
+                              <select asp-for="@Model.MeasurmentId" id = "amountTypeIngredient-${num}"  class="form-control amountTypeIngredient" aria-required="true">
+                                    @foreach (var type in Model.MeasurmentTypes)
+                                    {
+                                    <option value="@type.Id">@type.Name</option>
+                                    }
+                              </select>
+                              <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                              <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
                               <span class="small text-danger"></span>
                               <hr />
                             </li>

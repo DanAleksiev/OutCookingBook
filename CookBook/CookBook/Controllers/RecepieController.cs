@@ -87,6 +87,7 @@ namespace CookBook.Controllers
                 {
                 RecepieTypes = await GetRecepieType(),
                 OvenTypes = await GetOvenType(),
+                MeasurmentTypes = await GetMeasurmentType(),
                 };
             
             return View(model);
