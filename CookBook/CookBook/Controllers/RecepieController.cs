@@ -153,9 +153,9 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
-        public JsonResult POSTIngredients(string name)
+        public JsonResult POSTIngredients(string allIngredient)
             {
-            Console.WriteLine("<>"+ name);
+            Console.WriteLine("<>"+ allIngredient);
             return new JsonResult(Ok());
             }
 

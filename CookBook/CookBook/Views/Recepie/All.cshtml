@@ -22,23 +22,23 @@
     <script>
 
         $(document).ready(function () {
-            // let allIngredient = [
-            //     {
-            //         Name: "Hlqb",
-            //         Amount: 2,
-            //         AmountType: 3,
-            //     },
-            //     {
-            //         Name: "corn",
-            //         Amount: 2,
-            //         AmountType: 1,
-            //     },
-            //     {
-            //         Name: "Flower",
-            //         Amount: 3,
-            //         AmountType: 3,
-            //     },
-            // ];
+            let allIngredient = [
+                {
+                    Name: "Hlqb",
+                    Amount: 2,
+                    AmountType: 3,
+                },
+                {
+                    Name: "corn",
+                    Amount: 2,
+                    AmountType: 1,
+                },
+                {
+                    Name: "Flower",
+                    Amount: 3,
+                    AmountType: 3,
+                },
+            ];
         let name = `Janic`
             $.ajax({
                 type: "GET",
@@ -70,7 +70,7 @@
                 type: "Post",
                 url: "@Url.Action("POSTIngredients")",
                 dataType: "json",
-                data: { name: "Jannik" },
+                data: $.param({ allIngredient: JSON.stringify(allIngredient) }),
                 success: function (result) {
                     // console.log(result);
                 },

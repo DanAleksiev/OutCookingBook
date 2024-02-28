@@ -179,7 +179,7 @@
                     type: "Post",
                     url: "@Url.Action("PostIngredients")",
                     dataType: "json",
-                    data: {allIngredient: allIngredient},
+                    data: $.param({ allIngredient: JSON.stringify(allIngredient) }),
                     success: function (result) {
                         // console.log(result);
                     },
