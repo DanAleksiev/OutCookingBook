@@ -11,11 +11,74 @@
     </div>
 
     <div>
-        <form asp-action="Add" method="post">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" placeholder="Portions:" />
-            <span asp-validation-for="Name" class=" small text-danger"></span>
-            <input class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="Add" />
+        <form asp-action="All" method="post">
+
+            <input id="submit-btn" class="btn btn-warning mb-2 w-100 p-3 fw-bold" type="submit" value="All" />
         </form>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+
+        $(document).ready(function () {
+            // let allIngredient = [
+            //     {
+            //         Name: "Hlqb",
+            //         Amount: 2,
+            //         AmountType: 3,
+            //     },
+            //     {
+            //         Name: "corn",
+            //         Amount: 2,
+            //         AmountType: 1,
+            //     },
+            //     {
+            //         Name: "Flower",
+            //         Amount: 3,
+            //         AmountType: 3,
+            //     },
+            // ];
+        let name = `Janic`
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GETIngredients")",
+                dataType: "json",
+                success: function (result) {
+                    console.log(result);
+                },
+                error: function (req, status, error) {
+                    console.log(status);
+                }
+            })
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "@Url.Action("POSTIngredients")",
+            //     contentType: "application/json; charset=utf-8",
+            //     dataType: "json",
+            //     data: name,
+            //     success: function (result) {
+            //         console.log(result);
+            //     },
+            //     error: function (req, status, error) {
+            //         console.log(status);
+            //     }
+
+            // });
+            $.ajax({
+                type: "Post",
+                url: "@Url.Action("POSTIngredients")",
+                dataType: "json",
+                data: { name: "Jannik" },
+                success: function (result) {
+                    // console.log(result);
+                },
+                error: function (req, status, error) {
+                    // console.log(status);
+                }
+            });
+        });
+
+    </script>
+}

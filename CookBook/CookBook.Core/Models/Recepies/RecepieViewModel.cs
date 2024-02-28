@@ -32,11 +32,11 @@ namespace CookBook.Core.Models.Recepies
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new List<UtilTypeModel>();
 
         [Required]
-        [StringLength(10,MinimumLength =2,ErrorMessage = "lenght wrong")]
+        [StringLength(10, MinimumLength = 2, ErrorMessage = "lenght wrong")]
         public string IngredientName { get; set; }
 
-        [Required]
-        [Range(1.00,3.123)]
+        //[Required]
+        //[Range(1.00,3.123)]
         public double IngredientAmount { get; set; }
 
         public string Origen { get; set; }

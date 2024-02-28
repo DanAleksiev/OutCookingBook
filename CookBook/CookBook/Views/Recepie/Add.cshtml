@@ -34,7 +34,7 @@
                     <span asp-validation-for="IngredientName" class=" small text-danger"></span>
                     <input asp-for="IngredientAmount" class="form-control amountIngredient" placeholder="Amount:" />
                     <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
-                    <select asp-for="@Model.MeasurmentId"  class="form-control amountTypeIngredient" aria-required="true">
+                    <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
                         @foreach (var type in Model.MeasurmentTypes)
                             {
                             <option value="@type.Id">@type.Name</option>
@@ -93,7 +93,7 @@
 
 
 
-            
+
         </div>
         <input id="submitBtn" class=" btn btn-primary mt-3" type="submit" value="Create" />
     </form>
@@ -106,29 +106,28 @@
     }
 
     <script>
-        let ingredients = [];
         let num = 1;
         $(document).ready(function () {
             $("#addElementBtn").click(function () {
                 // make the last add Button invisible
-                
+
                 // Create a new element
                 let newElement = `
-                                    <li id="ingredient-${num}">
-                                      <input asp-for="IngredientName" id="ingredientName-${num}" class="form-control nameIngredient" placeholder="Ingredient:" />
-                                      <span asp-validation-for="IngredientName" class=" small text-danger"></span>
-                                      <input asp-for="IngredientAmount" id="ingredientAmount-${num}" class="form-control amountIngredient" placeholder="Amount:" />
-                                      <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
-                                      <select asp-for="@Model.MeasurmentId" id="amountTypeIngredient-${num}" class="form-control amountTypeIngredient" aria-required="true">
-                                          @foreach (var type in Model.MeasurmentTypes)
-                                          {
-                                             <option value="@type.Id">@type.Name</option>
-                                          }
-                                      </select>
-                                      <span class="small text-danger"></span>
-                                      <hr />
-                                    </li>
-                                    `;
+                                            <li id="ingredient-${num}">
+                                              <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                                              <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                                              <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
+                                              <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                                              <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+        @foreach (var type in Model.MeasurmentTypes)
+            {
+                                                         <option value="@type.Id">@type.Name</option>
+            }
+                                              </select>
+                                              <span class="small text-danger"></span>
+                                              <hr />
+                                            </li>
+                                            `;
 
                 num++;
                 // Append the new element to the container
@@ -146,7 +145,7 @@
             //sends the ingredients as json
             $("#submitBtn").click(function () {
                 let allIngredient = []
-                
+
                 let names = [];
                 $(".nameIngredient").each(function () {
                     names.push($(this).val());
@@ -175,6 +174,19 @@
                 }
 
                 console.log(allIngredient);
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("PostIngredients")",
+                    dataType: "json",
+                    data: {allIngredient: allIngredient},
+                    success: function (result) {
+                        // console.log(result);
+                    },
+                    error: function (req, status, error) {
+                        // console.log(status);
+                    }
+                })
 
             });
         })

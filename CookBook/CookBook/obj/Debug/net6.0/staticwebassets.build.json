@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "T50wvl7/8z5bNbhwrNBC6HJ+BGFq2h3iCxqjHXSoAAg=",
+  "Hash": "TUNkm+LP/j+EvrfYDAy7261jhrZjkqliJsv5tt6NJTA=",
   "Source": "CookBook",
   "BasePath": "_content/CookBook",
   "Mode": "Default",
@@ -1231,6 +1231,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\addRecepie.js",
+      "SourceId": "CookBook",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
+      "BasePath": "_content/CookBook",
+      "RelativePath": "js/addRecepie.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\addRecepie.js"
     },
     {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\site.js",

@@ -19,13 +19,6 @@ namespace CookBook.Controllers
             context = _context;
             }
 
-        public IActionResult OnGetPartial() =>
-    new PartialViewResult
-        {
-        ViewName = "_AddIngredientPartial",
-        ViewData = ViewData,
-        };
-
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
         private async Task<IEnumerable<UtilTypeModel>> GetMeasurmentType()
             {
@@ -74,11 +67,6 @@ namespace CookBook.Controllers
             
             return View();
             }
-
-        //public IActionResult AddIngredientPartial()
-        //    {
-        //    return PartialView("_AddIngredientPartial");
-        //    }
 
         [HttpGet]
         public async Task<IActionResult> Add() 
@@ -151,24 +139,23 @@ namespace CookBook.Controllers
 
 
         // ajax
-        //[HttpGet]
-        //public JsonResult GetNames()
-        //    {
-        //    var names = new string[3]
-        //        {
-        //        "clara",
-        //        "mark",
-        //        "judy"
-        //        };
+        [HttpGet]
+        public JsonResult GetIngredients()
+            {
+            var names = new string[3]
+                {
+                "clara",
+                "mark",
+                "judy"
+                };
 
-        //    return new JsonResult(Ok(names));
-        //    }
-
+            return new JsonResult(Ok(names));
+            }
 
         [HttpPost]
-        public JsonResult PostNames(string names)
+        public JsonResult POSTIngredients(string name)
             {
-
+            Console.WriteLine("<>"+ name);
             return new JsonResult(Ok());
             }
 
