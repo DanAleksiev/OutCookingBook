@@ -107,7 +107,7 @@ namespace CookBook.Controllers
             //    OwnerId = GetUserId(),
             //    };
 
-            return RedirectToAction();
+            return RedirectToAction("All");
             }
 
         [HttpGet]
