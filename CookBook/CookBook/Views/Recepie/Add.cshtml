@@ -201,11 +201,11 @@
                     types.push($(this).val());
                 });
 
-                // let steps = [];
-                // $(".recepieStep").each(function () {
-                //     steps.push($(this).val());
-                // });
-                // console.log(steps);
+                let steps = [];
+                $(".recepieStep").each(function () {
+                    steps.push($(this).val());
+                });
+                console.log(steps);
 
                 for (let i = 0; i < num; i++) {
                     let currIngredient = {
@@ -223,7 +223,10 @@
                     type: "Post",
                     url: "@Url.Action("PostIngredients")",
                     dataType: "json",
-                    data: $.param({ allIngredient: JSON.stringify(allIngredient) }),
+                    data: $.param({ 
+                        allIngredient: JSON.stringify(allIngredient),
+                    steps: JSON.stringify(steps),
+                    }),
                     success: function (result) {
                         // console.log(result);
                     },
