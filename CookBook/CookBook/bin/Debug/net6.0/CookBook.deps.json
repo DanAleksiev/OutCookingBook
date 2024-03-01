@@ -2579,7 +2579,8 @@
       },
       "CookBook.Core/1.0.0": {
         "dependencies": {
-          "CookBook.Infrastructures": "1.0.0"
+          "CookBook.Infrastructures": "1.0.0",
+          "Newtonsoft.Json": "13.0.1"
         },
         "runtime": {
           "CookBook.Core.dll": {}

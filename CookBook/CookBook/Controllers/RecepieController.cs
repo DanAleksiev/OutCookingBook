@@ -7,16 +7,23 @@ using CookBook.Infrastructures.Data;
 using CookBook.Core.Models.Recepies;
 using CookBook.Infrastructures.Data.Models.Shared;
 using CookBook.Core.Models.Ingredients;
+using System.Text.Json;
+using CookBook.Core;
+using CookBook.Core.DTO;
 
 namespace CookBook.Controllers
     {
     [Authorize]
     public class RecepieController : Controller
         {
+        private List<Ingredient> ingredients;
+        private List<Step> steps;
         private readonly CookBookDbContext context;
         public RecepieController(CookBookDbContext _context)
             {
             context = _context;
+            ingredients = new List<Ingredient>();
+            steps = new List<Step>();
             }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -64,12 +71,12 @@ namespace CookBook.Controllers
         public IActionResult All(TempView model)
             {
             var name = model.Name;
-            
+
             return View();
             }
 
         [HttpGet]
-        public async Task<IActionResult> Add() 
+        public async Task<IActionResult> Add()
             {
             var model = new RecepieViewModel()
                 {
@@ -77,10 +84,10 @@ namespace CookBook.Controllers
                 OvenTypes = await GetOvenType(),
                 MeasurmentTypes = await GetMeasurmentType(),
                 };
-            
+
             return View(model);
-            } 
-        
+            }
+
         [HttpPost]
         public IActionResult Add(RecepieViewModel model)
             {
@@ -138,25 +145,36 @@ namespace CookBook.Controllers
             }
 
 
-        // ajax
-        [HttpGet]
-        public JsonResult GetIngredients()
-            {
-            var names = new string[3]
-                {
-                "clara",
-                "mark",
-                "judy"
-                };
-
-            return new JsonResult(Ok(names));
-            }
-
         [HttpPost]
         public JsonResult POSTIngredients(string allIngredient, string steps)
             {
-            Console.WriteLine("<>"+ allIngredient);
-            Console.WriteLine("{}" + steps);
+            Console.WriteLine("serIng: " + allIngredient);
+            Console.WriteLine("serIng" + steps);
+
+            TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
+            TempStepModel[] stepListDTO = allIngredient.DeserializeFromJson<TempStepModel[]>();
+
+            foreach (var ing in ingredientsListDTO)
+                {
+                Ingredient newIng = new Ingredient() { 
+                    Name = ing.Name,
+                    Amount = ing.Amount,
+                    MeasurementId = ing.MeasurementId
+                    };
+                }
+
+            foreach (var step in stepListDTO)
+                {
+                Step newIng = new Step()
+                    {
+                    Position = step.Position,
+                    Description = step.Description,
+                    };
+                }
+
+            //Console.WriteLine("{desIng}: " + ingredientsListDTO);
+            //Console.WriteLine();
+            //Console.WriteLine("{desStep}: " + stepList);
             return new JsonResult(Ok());
             }
 

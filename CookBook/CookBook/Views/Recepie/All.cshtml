@@ -39,18 +39,34 @@
                     AmountType: 3,
                 },
             ];
-        let name = `Janic`
-            $.ajax({
-                type: "GET",
-                url: "@Url.Action("GETIngredients")",
-                dataType: "json",
-                success: function (result) {
-                    console.log(result);
+
+            let steps = [
+                {
+                    Description: "BlahBlahBlah",
+                    Position: 1,
+                }, 
+                {
+                    Description: "tepetepetpep",
+                    Position: 2,
                 },
-                error: function (req, status, error) {
-                    console.log(status);
-                }
-            })
+                {
+                    Description: "yapayapayapa",
+                    Position: 3,
+                },
+            ]
+
+
+            // $.ajax({
+            //     type: "GET",
+            //     url: "@Url.Action("GETIngredients")",
+            //     dataType: "json",
+            //     success: function (result) {
+            //         console.log(result);
+            //     },
+            //     error: function (req, status, error) {
+            //         console.log(status);
+            //     }
+            // })
 
             // $.ajax({
             //     type: "POST",
@@ -70,7 +86,10 @@
                 type: "Post",
                 url: "@Url.Action("POSTIngredients")",
                 dataType: "json",
-                data: $.param({ allIngredient: JSON.stringify(allIngredient) }),
+                data: $.param({
+                    allIngredient: JSON.stringify(allIngredient),
+                    steps: JSON.stringify(steps),
+                }),
                 success: function (result) {
                     // console.log(result);
                 },

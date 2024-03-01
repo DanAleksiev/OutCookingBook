@@ -11,7 +11,7 @@ namespace CookBook.Infrastructures.Data.Models.Shared
 
         [Required]
         [StringLength(LenghtParams.IngredientMaxLengt,
-            MinimumLength = LenghtParams.IngredientMaxLengt,
+            MinimumLength = LenghtParams.IngredientMinLengt,
             ErrorMessage = LenghtErrors.IngredientLenghtError)]
         public string Name { get; set; } = string.Empty;
         public string Type { get; set; } = string.Empty;
