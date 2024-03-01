@@ -156,6 +156,7 @@ namespace CookBook.Controllers
         public JsonResult POSTIngredients(string allIngredient)
             {
             Console.WriteLine("<>"+ allIngredient);
+            //Console.WriteLine("{}"+steps);
             return new JsonResult(Ok());
             }
 

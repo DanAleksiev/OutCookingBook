@@ -40,29 +40,31 @@
                             <option value="@type.Id">@type.Name</option>
                             }
                     </select>
+                    <span class="small text-danger"></span>
                     <hr />
+
                 </li>
             </ol>
 
             <span>
-                <a id="addIngredientBtn" class="btn btn-primary">Add new ingredient</a>
-                <a id="removeIngredientBtn" class="btn btn-primary">Remove last ingredient</a>
+                <a id="addElementBtn" class="btn btn-primary">Add new ingredient</a>
+                <a id="removeElementBtn" class="btn btn-primary">Remove last ingredient</a>
             </span>
         </div>
 
-        <div id="steps-list">
-            <ol class="form-group" id="steps-list">
+        <div>
+            <ol class="form-group" id="stepsList">
                 <label>Steps to follow for a successful recepie:</label>
                 <li id="step-0">
-                    <input asp-for="StepDescription" class="form-control amountIngredient" placeholder="Amount:" />
+                    <input asp-for="StepDescription" class="form-control recepieStep" placeholder="Put your description here:" />
                     <span asp-validation-for="StepDescription" class=" small text-danger"></span>
                     <hr />
                 </li>
             </ol>
 
             <span>
-                <a id="addStepBtn" class="btn btn-primary">Add new ingredient</a>
-                <a id="removeStepBtn" class="btn btn-primary">Remove last ingredient</a>
+                <a id="addStepBtn" class="btn btn-dark">Add new step</a>
+                <a id="removeStepBtn" class="btn btn-dark">Remove last step</a>
             </span>
         </div>
 
@@ -98,14 +100,12 @@
             <label asp-for="Temperature"></label>
             <input asp-for="Temperature" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
             <span asp-validation-for="@Model.Temperature" class=" small text-danger"></span>
+
+            @* has to be a tick box 
             <hr />
-            @* should be a tick for true or false!! *@
             <label asp-for="IsPrivate"></label>
             <input asp-for="IsPrivate" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
-            <span asp-validation-for="IsPrivate" class=" small text-danger"></span>
-
-
-
+            <span asp-validation-for="@Model.IsPrivate" class=" small text-danger"></span> *@
 
 
         </div>
@@ -120,39 +120,63 @@
     }
 
     <script>
-        let ingCount = 1;
+        let num = 1;
         $(document).ready(function () {
-            $("#addIngredientBtn").click(function () {
+            $("#addElementBtn").click(function () {
                 // make the last add Button invisible
 
                 // Create a new element
                 let newElement = `
-                                                    <li id="ingredient-${ingCount}">
-                                              <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
-                                              <span asp-validation-for="IngredientName" class=" small text-danger"></span>
-                                              <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
-                                              <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
-                                              <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
-                                                @foreach (var type in Model.MeasurmentTypes)
-                                                    {
-                                                     <option value="@type.Id">@type.Name</option>
-                                                    }
-                                              </select>
-                                              <span class="small text-danger"></span>
-                                              <hr />
-                                            </li>
-                                            `;
+                        <li id="ingredient-${num}">
+                          <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                          <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                          <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
+                          <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                          <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+                            @foreach (var type in Model.MeasurmentTypes)
+                                {
+                                 <option value="@type.Id">@type.Name</option>
+                                }
+                         </select>
+                         <span class="small text-danger"></span>
+                         <hr />
+                       </li>
+                       `;
 
-                ingCount++;
+                num++;
                 // Append the new element to the container
                 $("#ingredientList").append(newElement);
             });
 
             //removes the input field for the last ingredient
-            $("#removeIngredientBtn").click(function () {
-                if (ingCount > 1) {
-                    ingCount--;
-                    $(`#ingredient-${ingCount}`).remove();
+            $("#removeElementBtn").click(function () {
+                if (num > 1) {
+                    num--;
+                    $(`#ingredient-${num}`).remove();
+                }
+            })
+
+            $("#addStepBtn").click(function () {
+                // make the last add Button invisible
+
+                // Create a new element
+                let newElement = `
+                     <li id="step-${stepCount}">
+                        <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
+                        <span asp-validation-for="StepDescription" class=" small text-danger"></span>
+                        <hr />
+                     </li>
+                     `;
+
+                stepCount++;
+                // Append the new element to the container
+                $("#stepsList").append(newElement);
+            });
+
+            $("#removeStepBtn").click(function () {
+                if (stepCount > 1) {
+                    stepCount--;
+                    $(`#step-${stepCount}`).remove();
                 }
             })
 
@@ -177,7 +201,13 @@
                     types.push($(this).val());
                 });
 
-                for (let i = 0; i < ingCount; i++) {
+                // let steps = [];
+                // $(".recepieStep").each(function () {
+                //     steps.push($(this).val());
+                // });
+                // console.log(steps);
+
+                for (let i = 0; i < num; i++) {
                     let currIngredient = {
                         Name: names[i],
                         Amount: amounts[i],
@@ -191,14 +221,14 @@
 
                 $.ajax({
                     type: "Post",
-                    url: "@Url.Action("Add")",
+                    url: "@Url.Action("PostIngredients")",
                     dataType: "json",
                     data: $.param({ allIngredient: JSON.stringify(allIngredient) }),
                     success: function (result) {
-                        console.log(result);
+                        // console.log(result);
                     },
                     error: function (req, status, error) {
-                        console.log(status);
+                        // console.log(status);
                     }
                 })
 
