@@ -19,7 +19,6 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public string Type { get; set; } = string.Empty;
         public int Calories { get; set; }
 
-        [Required]
         public double Amount { get; set; }
         [Required]
         public int MeasurementId { get; set; }

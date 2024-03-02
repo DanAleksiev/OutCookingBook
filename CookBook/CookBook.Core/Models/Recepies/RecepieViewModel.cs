@@ -64,5 +64,8 @@ namespace CookBook.Core.Models.Recepies
             ErrorMessage = LenghtErrors.LenghtError)]
         public string StepDescription { get; set; } = string.Empty;
 
+        //public string allIngredient { get; set; }
+        //public  string allSteps { get; set; }
+
     }
     }

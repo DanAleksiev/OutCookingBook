@@ -11,6 +11,8 @@ using System.Text.Json;
 using CookBook.Core;
 using CookBook.Core.DTO;
 using CookBook.Infrastructures.Data.Models.Food;
+using System.Diagnostics.Metrics;
+using System.Xml.Linq;
 
 namespace CookBook.Controllers
     {
@@ -110,7 +112,6 @@ namespace CookBook.Controllers
                 return View("Add", model);
                 }
 
-            await Console.Out.WriteLineAsync("Add Method !");
 
 
             var NewRecepie = new FoodRecepie()
@@ -131,7 +132,7 @@ namespace CookBook.Controllers
 
 
             foreach (var ing in addIngredients)
-                {
+                { 
                 await context.Ingredients.AddAsync(ing);
                 await context.AddAsync(new IngredientFoodRecepie
                     {
@@ -146,9 +147,9 @@ namespace CookBook.Controllers
 
                 }
 
-
+            Console.WriteLine("should be Second !!!!");
             await context.FoodRecepies.AddAsync(NewRecepie);
-            //context.SaveChanges();
+            context.SaveChangesAsync();
             return RedirectToAction("All");
             }
 
@@ -183,17 +184,18 @@ namespace CookBook.Controllers
 
         //if you submit a full form ajax doesnt sends you the bellow data,
         //but if you try to submit only them it does?
+        // work around create a separate button to submit the ing and steps
         [HttpPost]
-        public JsonResult POSTIngredients(string allIngredient, string steps)
+        public JsonResult POSTIngredients(string allIngredient, string allSteps)
             {
             Console.WriteLine("serIng: " + allIngredient);
-            Console.WriteLine("serSteps: " + steps);
+            Console.WriteLine("serSteps: " + allSteps);
 
             addIngredients.Clear();
             addSteps.Clear();
 
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
-            TempStepModel[] stepListDTO = allIngredient.DeserializeFromJson<TempStepModel[]>();
+            TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();
 
             foreach (var ing in ingredientsListDTO)
                 {
@@ -209,21 +211,21 @@ namespace CookBook.Controllers
                     addIngredients.Add(newIng);
                     }
                 }
-
+            int stepPosition = 1;
             foreach (var step in stepListDTO)
                 {
                 if (step.Description != null)
                     {
                     Step newStep = new Step()
                         {
-                        Position = step.Position,
+                        Position = stepPosition++,
                         Description = step.Description,
                         };
                     
                     addSteps.Add(newStep);
                     }
                 }
-
+            Console.WriteLine("should be First !!!!");
             //TODO: figure a way to add to the current recepie without creating a global var?!? or not
             return new JsonResult(Ok());
             }

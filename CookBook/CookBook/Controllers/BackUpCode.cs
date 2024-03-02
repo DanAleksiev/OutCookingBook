@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Internal;
+﻿using CookBook.Infrastructures.Data.Models.Shared;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CookBook.Controllers
     {
@@ -148,5 +149,37 @@ namespace CookBook.Controllers
         //        // Append the new element to the container
         //        $("#ingredientList").append(newLi);
         //});
+
+
+
+
+        //List<Ingredient> tempIng = new List<Ingredient>() {
+        //        new Ingredient()
+        //            {
+        //            Name = "temp1",
+        //            Amount = 2,
+        //            MeasurementId = 20,
+        //            },
+        //        new Ingredient()
+        //            {
+        //            Name = "temp2",
+        //            Amount = 3,
+        //            MeasurementId = 20,
+        //            },
+        //        };
+
+        //List<Step> stepIng = new List<Step>() {
+        //        new Step()
+        //            {
+        //            Position = 1,
+        //            Description = "BlahBlahBlah"
+        //            },
+        //        new Step()
+        //            {
+        //            Position = 2,
+        //            Description = "BlahBlahBlah"
+        //            },
+        //        };
+        //await Console.Out.WriteLineAsync("Add Method !");
         }
     }

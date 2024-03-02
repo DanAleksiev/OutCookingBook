@@ -608,15 +608,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "227f0041-a2e6-4248-baa5-c1a12acfaac8",
+                            Id = "508ce5b5-1a94-4a65-84da-89d30b9f2c62",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a3d4bb34-168d-4af4-b400-1f201ed5a8df",
+                            ConcurrencyStamp = "a7fa35e0-5ce6-46f0-8c70-a493587cc669",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEO3K7hYoBZWbr0NBHIOAI/9yV7j6HpF7ZBRjLf+k2nbzbvJGXXL8UOjRikgA2C9JsQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIft9J2rDU+qirIboJPh1EPgVzJYNg5FWfDYO1x8lUDZEvgILtX6iibx3N8LxPBGAw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "bc3f7f4e-36a7-4918-b4f0-195df479c138",
+                            SecurityStamp = "54c839aa-0daa-42b7-8a72-442d6a0f5764",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
