@@ -7,26 +7,22 @@ using CookBook.Infrastructures.Data;
 using CookBook.Core.Models.Recepies;
 using CookBook.Infrastructures.Data.Models.Shared;
 using CookBook.Core.Models.Ingredients;
-using System.Text.Json;
 using CookBook.Core;
 using CookBook.Core.DTO;
 using CookBook.Infrastructures.Data.Models.Food;
-using System.Diagnostics.Metrics;
-using System.Xml.Linq;
 
 namespace CookBook.Controllers
     {
     [Authorize]
     public class RecepieController : Controller
         {
-        private List<Ingredient> addIngredients;
-        private List<Step> addSteps;
+        private static List<Ingredient> addIngredients  = new List<Ingredient>();
+        private static List<Step> addSteps { get; set; } = new List<Step>();
+
         private readonly CookBookDbContext context;
         public RecepieController(CookBookDbContext _context)
             {
             context = _context;
-            addIngredients = new List<Ingredient>();
-            addSteps = new List<Step>();
             }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -124,10 +120,13 @@ namespace CookBook.Controllers
                 PrepTime = model.PrepTime,
                 CookTime = model.CookTime,
                 Portions = model.Portions,
+                OvenTypeId = model.OvenTypeId,
                 Origen = model.Origen,
                 Temperature = model.Temperature,
                 TemperatureMeasurmentId = model.TemperatureTypeId,
                 OwnerId = GetUserId(),
+                TumbsUp = 0,
+                IsPrivate = model.IsPrivate,
                 };
 
 
@@ -146,6 +145,9 @@ namespace CookBook.Controllers
                 await context.Steps.AddAsync(step);
 
                 }
+
+            addIngredients.Clear();
+            addSteps.Clear();
 
             Console.WriteLine("should be Second !!!!");
             await context.FoodRecepies.AddAsync(NewRecepie);
@@ -191,9 +193,6 @@ namespace CookBook.Controllers
             Console.WriteLine("serIng: " + allIngredient);
             Console.WriteLine("serSteps: " + allSteps);
 
-            addIngredients.Clear();
-            addSteps.Clear();
-
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();
 
@@ -218,7 +217,7 @@ namespace CookBook.Controllers
                     {
                     Step newStep = new Step()
                         {
-                        Position = stepPosition++,
+                        Position = stepPosition,
                         Description = step.Description,
                         };
                     

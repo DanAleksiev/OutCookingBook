@@ -45,48 +45,48 @@ namespace CookBook.Data.Configuration
                 new Measurement
                     {
                     Id = 1,
-                    Name = "Gram"
+                    Name = "Each"
                     },
                 new Measurement
                     {
                     Id = 2,
-                    Name = "Kilograms"
+                    Name = "Gram"
                     },
                 new Measurement
                     {
                     Id = 3,
-                    Name = "Table spoon",
+                    Name = "Kilograms"
                     },
                 new Measurement
                     {
                     Id = 4,
-                    Name = "Cups",
+                    Name = "Table spoon",
                     },
                 new Measurement
                     {
                     Id = 5,
-                    Name = "Milliliter"
+                    Name = "Cups",
                     },
                 new Measurement
                     {
                     Id = 6,
-                    Name = "Liter"
+                    Name = "Milliliter"
                     },
                 new Measurement
                     {
                     Id = 7,
-                    Name = "Pinch"
+                    Name = "Liter"
                     },
                 new Measurement
                     {
                     Id = 8,
-                    Name = "Ounce"
+                    Name = "Pinch"
                     },
                 new Measurement
                     {
-                    Id = 19,
-                    Name = "Each"
-                    },
+                    Id = 9,
+                    Name = "Ounce"
+                    },  
                 new Measurement
                     {
                     Id = 20,
@@ -98,28 +98,28 @@ namespace CookBook.Data.Configuration
         public static OvenType[] SeedOvenType()
             {
             return new OvenType[]
-                {
-                 new OvenType
+                {                
+                    new OvenType
                     {
                     Id = 1,
-                    Name = "Conventional"
+                    Name = "No oven needed"
                     },
-
-                new OvenType
+                 new OvenType
                     {
                     Id = 2,
-                    Name = "Fan",
+                    Name = "Conventional"
                     },
                 new OvenType
                     {
                     Id = 3,
-                    Name = "Gas",
+                    Name = "Fan",
                     },
                 new OvenType
                     {
                     Id = 4,
-                    Name = "No oven needed"
-                    }
+                    Name = "Gas",
+                    },
+
                 };
             }
         public static RecepieType[] SeedRecepieTipe()

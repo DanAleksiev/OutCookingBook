@@ -205,22 +205,22 @@ namespace CookBook.Infrastructures.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Conventional"
+                            Name = "No oven needed"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Fan"
+                            Name = "Conventional"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Gas"
+                            Name = "Fan"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "No oven needed"
+                            Name = "Gas"
                         });
                 });
 
@@ -409,47 +409,47 @@ namespace CookBook.Infrastructures.Migrations
                         new
                         {
                             Id = 1,
-                            Name = "Gram"
+                            Name = "Each"
                         },
                         new
                         {
                             Id = 2,
-                            Name = "Kilograms"
+                            Name = "Gram"
                         },
                         new
                         {
                             Id = 3,
-                            Name = "Table spoon"
+                            Name = "Kilograms"
                         },
                         new
                         {
                             Id = 4,
-                            Name = "Cups"
+                            Name = "Table spoon"
                         },
                         new
                         {
                             Id = 5,
-                            Name = "Milliliter"
+                            Name = "Cups"
                         },
                         new
                         {
                             Id = 6,
-                            Name = "Liter"
+                            Name = "Milliliter"
                         },
                         new
                         {
                             Id = 7,
-                            Name = "Pinch"
+                            Name = "Liter"
                         },
                         new
                         {
                             Id = 8,
-                            Name = "Ounce"
+                            Name = "Pinch"
                         },
                         new
                         {
-                            Id = 19,
-                            Name = "Each"
+                            Id = 9,
+                            Name = "Ounce"
                         },
                         new
                         {
@@ -608,15 +608,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "508ce5b5-1a94-4a65-84da-89d30b9f2c62",
+                            Id = "2fed703f-2696-4945-9012-e2b8178934c7",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a7fa35e0-5ce6-46f0-8c70-a493587cc669",
+                            ConcurrencyStamp = "4f746109-a843-40ca-9098-55afbd5fe125",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIft9J2rDU+qirIboJPh1EPgVzJYNg5FWfDYO1x8lUDZEvgILtX6iibx3N8LxPBGAw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEEfb4wc8ZTiVgAju5iVT1VkWZNfpWJkX/ft7KVg+HkjV1UY4z2e3JJGilMPnyJHV2A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "54c839aa-0daa-42b7-8a72-442d6a0f5764",
+                            SecurityStamp = "6f6d0232-74db-4fb1-9a29-5aadf22c688a",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });

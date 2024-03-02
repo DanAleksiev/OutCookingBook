@@ -47,7 +47,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public IdentityUser Owner { get; set; }
 
         [Required]
-        public int TumbsUp { get; set; } = 0;
+        public int TumbsUp { get; set; }
 
         [Required]
         public int CookTime { get; set; }
@@ -70,6 +70,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         public int OvenTypeId { get; set; }
 
+        [ForeignKey(nameof(OvenTypeId))]
         public OvenType OvenType { get; set; }
 
         public DateTime LastTimeYouHadIt { get; set; }
