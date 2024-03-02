@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookBook.Infrastructures.Migrations
 {
     [DbContext(typeof(CookBookDbContext))]
-    [Migration("20240302120141_limitTheFields")]
+    [Migration("20240302121310_limitTheFields")]
     partial class limitTheFields
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -416,7 +416,7 @@ namespace CookBook.Infrastructures.Migrations
                         new
                         {
                             Id = 2,
-                            Name = "Ounce"
+                            Name = "Kilograms"
                         },
                         new
                         {
@@ -446,11 +446,16 @@ namespace CookBook.Infrastructures.Migrations
                         new
                         {
                             Id = 8,
+                            Name = "Ounce"
+                        },
+                        new
+                        {
+                            Id = 19,
                             Name = "Each"
                         },
                         new
                         {
-                            Id = 9,
+                            Id = 20,
                             Name = "To taste"
                         });
                 });
@@ -605,15 +610,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3fdd4ec0-91b7-40c2-9b18-60d69b4f4075",
+                            Id = "227f0041-a2e6-4248-baa5-c1a12acfaac8",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "5512f096-fa5f-4127-b1d2-48b33f38e9bd",
+                            ConcurrencyStamp = "a3d4bb34-168d-4af4-b400-1f201ed5a8df",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAENgN19NAtC+APoeX13PFoAMOtTx/p47Q9oBqzBSf13dSb04SyHhnjMgSWzAtItVW3w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEO3K7hYoBZWbr0NBHIOAI/9yV7j6HpF7ZBRjLf+k2nbzbvJGXXL8UOjRikgA2C9JsQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ec0793e8-0a5d-4dbc-afed-2929dc77f76b",
+                            SecurityStamp = "bc3f7f4e-36a7-4918-b4f0-195df479c138",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });

@@ -50,7 +50,7 @@ namespace CookBook.Data.Configuration
                 new Measurement
                     {
                     Id = 2,
-                    Name = "Ounce"
+                    Name = "Kilograms"
                     },
                 new Measurement
                     {
@@ -80,11 +80,16 @@ namespace CookBook.Data.Configuration
                 new Measurement
                     {
                     Id = 8,
+                    Name = "Ounce"
+                    },
+                new Measurement
+                    {
+                    Id = 19,
                     Name = "Each"
                     },
                 new Measurement
                     {
-                    Id = 9,
+                    Id = 20,
                     Name = "To taste"
                     }
                 };

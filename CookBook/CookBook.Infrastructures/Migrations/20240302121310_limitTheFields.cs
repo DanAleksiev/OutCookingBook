@@ -157,12 +157,30 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "3fdd4ec0-91b7-40c2-9b18-60d69b4f4075", 0, "5512f096-fa5f-4127-b1d2-48b33f38e9bd", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAENgN19NAtC+APoeX13PFoAMOtTx/p47Q9oBqzBSf13dSb04SyHhnjMgSWzAtItVW3w==", null, false, "ec0793e8-0a5d-4dbc-afed-2929dc77f76b", false, "test@test.com" });
+                values: new object[] { "227f0041-a2e6-4248-baa5-c1a12acfaac8", 0, "a3d4bb34-168d-4af4-b400-1f201ed5a8df", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEO3K7hYoBZWbr0NBHIOAI/9yV7j6HpF7ZBRjLf+k2nbzbvJGXXL8UOjRikgA2C9JsQ==", null, false, "bc3f7f4e-36a7-4918-b4f0-195df479c138", false, "test@test.com" });
+
+            migrationBuilder.UpdateData(
+                table: "Measurements",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "Name",
+                value: "Kilograms");
+
+            migrationBuilder.UpdateData(
+                table: "Measurements",
+                keyColumn: "Id",
+                keyValue: 8,
+                column: "Name",
+                value: "Ounce");
 
             migrationBuilder.InsertData(
                 table: "Measurements",
                 columns: new[] { "Id", "Name" },
-                values: new object[] { 9, "To taste" });
+                values: new object[,]
+                {
+                    { 19, "Each" },
+                    { 20, "To taste" }
+                });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -170,12 +188,17 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
-                keyValue: "3fdd4ec0-91b7-40c2-9b18-60d69b4f4075");
+                keyValue: "227f0041-a2e6-4248-baa5-c1a12acfaac8");
 
             migrationBuilder.DeleteData(
                 table: "Measurements",
                 keyColumn: "Id",
-                keyValue: 9);
+                keyValue: 19);
+
+            migrationBuilder.DeleteData(
+                table: "Measurements",
+                keyColumn: "Id",
+                keyValue: 20);
 
             migrationBuilder.DropColumn(
                 name: "Descripton",
@@ -320,6 +343,20 @@ namespace CookBook.Infrastructures.Migrations
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[] { "6c7fdd2c-c692-4da3-a00b-ec6bda272649", 0, "35fb9295-7dab-4b2a-a29c-d9731d0531bd", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEI2gsYoE50cvN2uA1m2tlvW95nQuxjvSzQpu+nk1CSephv/iVDEd3cmpRRh3JGlw2g==", null, false, "97ecd3b1-575b-4163-a527-d19346fff4db", false, "test@test.com" });
+
+            migrationBuilder.UpdateData(
+                table: "Measurements",
+                keyColumn: "Id",
+                keyValue: 2,
+                column: "Name",
+                value: "Ounce");
+
+            migrationBuilder.UpdateData(
+                table: "Measurements",
+                keyColumn: "Id",
+                keyValue: 8,
+                column: "Name",
+                value: "Each");
         }
     }
 }
