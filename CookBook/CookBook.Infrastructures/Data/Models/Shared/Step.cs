@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CookBook.Constants;
+using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Infrastructures.Data.Models.Shared
 {
@@ -11,6 +12,7 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public int Position { get; set; }
 
         [Required]
+        [StringLength(LenghtParams.StepDescriptionMaxLengt)]
         public string Description { get; set; } = string.Empty;
         }
 }

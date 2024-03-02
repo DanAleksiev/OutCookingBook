@@ -116,7 +116,8 @@ namespace CookBook.Controllers
             var NewRecepie = new FoodRecepie()
                 {
                 Name = model.Name,
-                Steps = addSteps,           
+                Steps = addSteps,
+                Descripton = model.Description,
                 DatePosted = DateTime.Now,
                 Image = model.Image,
                 PrepTime = model.PrepTime,
@@ -129,10 +130,11 @@ namespace CookBook.Controllers
                 };
 
 
-            foreach(var ing in addIngredients)
+            foreach (var ing in addIngredients)
                 {
                 await context.Ingredients.AddAsync(ing);
-                await context.AddAsync(new IngredientFoodRecepie { 
+                await context.AddAsync(new IngredientFoodRecepie
+                    {
                     Ingredient = ing,
                     Recepie = NewRecepie
                     });
@@ -195,30 +197,34 @@ namespace CookBook.Controllers
 
             foreach (var ing in ingredientsListDTO)
                 {
-                Ingredient newIng = new Ingredient() { 
-                    Name = ing.Name,
-                    Amount = ing.Amount,
-                    MeasurementId = ing.MeasurementId
-                    };
+                if (ing.Name != null)
+                    {
+                    Ingredient newIng = new Ingredient()
+                        {
+                        Name = ing.Name,
+                        Amount = ing.Amount,
+                        MeasurementId = ing.MeasurementId
+                        };
 
-                addIngredients.Add(newIng);
+                    addIngredients.Add(newIng);
+                    }
                 }
 
             foreach (var step in stepListDTO)
                 {
-                Step newStep = new Step()
+                if (step.Description != null)
                     {
-                    Position = step.Position,
-                    Description = step.Description,
-                    };
-                addSteps.Add(newStep);
+                    Step newStep = new Step()
+                        {
+                        Position = step.Position,
+                        Description = step.Description,
+                        };
+                    
+                    addSteps.Add(newStep);
+                    }
                 }
 
             //TODO: figure a way to add to the current recepie without creating a global var?!? or not
-
-            //Console.WriteLine("{desIng}: " + ingredientsListDTO);
-            //Console.WriteLine();
-            //Console.WriteLine("{desStep}: " + stepList);
             return new JsonResult(Ok());
             }
 

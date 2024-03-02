@@ -10,10 +10,12 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public int Id { get; set; }
 
         [Required]
-        [StringLength(LenghtParams.IngredientMaxLengt,
-            MinimumLength = LenghtParams.IngredientMinLengt,
+        [StringLength(LenghtParams.IngredientNameMaxLengt,
+            MinimumLength = LenghtParams.IngredientNameMinLengt,
             ErrorMessage = LenghtErrors.IngredientLenghtError)]
         public string Name { get; set; } = string.Empty;
+
+        [StringLength(LenghtParams.IngredientTypeMaxLengt)]
         public string Type { get; set; } = string.Empty;
         public int Calories { get; set; }
 

@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Identity;
+using CookBook.Constants;
 
 namespace CookBook.Infrastructures.Data.Models.Food
     {
@@ -11,6 +12,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public int Id { get; set; }
 
         [Required]
+        [StringLength(LenghtParams.RecepieNameMaxLengt)]
         public string Name { get; set; } = string.Empty;
 
         public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new List<IngredientFoodRecepie>();
@@ -19,6 +21,8 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         public ICollection<FavouriteFoodRecepiesUsers> FavouriteRecepiesUsers { get; set; } = new List<FavouriteFoodRecepiesUsers>();
 
+        [StringLength(LenghtParams.DescriptionMaxLengt)]
+        public string Descripton { get; set; } = string.Empty;
 
         [Required]
         public DateTime DatePosted { get; set; }
@@ -27,11 +31,13 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public ICollection<Step> Steps { get; set; } = new HashSet<Step>();
 
         [Required]
+        [StringLength(LenghtParams.ImageMaxLengt)]
         public string Image { get; set; } = string.Empty;
 
         [Required]
         public int PrepTime { get; set; }
 
+        [StringLength(LenghtParams.OrigenMaxLenght)]
         public string Origen { get; set; } = string.Empty;
 
         [Required]

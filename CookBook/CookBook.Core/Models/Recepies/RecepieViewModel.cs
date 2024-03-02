@@ -1,24 +1,26 @@
-﻿using CookBook.Core.Models.Utilities;
+﻿using CookBook.Constants;
+using CookBook.Core.Models.Utilities;
 using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Core.Models.Recepies
     {
     public class RecepieViewModel
         {
-        //[Required]
-        //[StringLength(LenghtParams.RecepieNameMaxLengt,
-        //    MinimumLength = LenghtParams.RecepieNameMinLengt,
-        //    ErrorMessage = LenghtErrors.LenghtError)]
+        [Required]
+        [StringLength(LenghtParams.RecepieNameMaxLengt,
+            MinimumLength = LenghtParams.RecepieNameMinLengt,
+            ErrorMessage = LenghtErrors.LenghtError)]
         public string Name { get; set; }
 
-        //[Required]
-        //[StringLength(LenghtParams.DescriptionNameMaxLengt,
-        //    MinimumLength = LenghtParams.DescriptionNameMinLengt,
-        //    ErrorMessage = LenghtErrors.LenghtError)]
+        [Required]
+        [StringLength(LenghtParams.DescriptionMaxLengt,
+            MinimumLength = LenghtParams.DescriptionMinLengt,
+            ErrorMessage = LenghtErrors.LenghtError)]
         public string Description { get; set; }
         public int RecepieTypeId { get; set; }
         public IEnumerable<UtilTypeModel> RecepieTypes { get; set; } = new HashSet<UtilTypeModel>();
 
+        [StringLength(LenghtParams.ImageMaxLengt)]
         public string? Image { get; set; }
 
 
@@ -34,7 +36,8 @@ namespace CookBook.Core.Models.Recepies
         public int MeasurmentId { get; set; }
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new HashSet<UtilTypeModel>();
         public bool IsPrivate { get; set; } = true;
-        
+
+        [StringLength(LenghtParams.OrigenMaxLenght)]
         public string? Origen { get; set; }
         public int Portions { get; set; }
 
@@ -42,11 +45,13 @@ namespace CookBook.Core.Models.Recepies
 
         //Ingredients
         [Required]
-        //[StringLength(10, MinimumLength = 2, ErrorMessage = "lenght wrong")]
+        [StringLength(LenghtParams.IngredientNameMaxLengt,
+            MinimumLength = LenghtParams.IngredientNameMinLengt,
+            ErrorMessage = LenghtErrors.LenghtError)]
         public string IngredientName { get; set; }
 
         [Required]
-        //[Range(0.00, 10000.00)]
+        [Range(LenghtParams.IngredienAmountMinRange,LenghtParams.IngredienAmountMaxRange)]
         public double IngredientAmount { get; set; }
 
         //Steps to follow 
@@ -54,8 +59,10 @@ namespace CookBook.Core.Models.Recepies
         public int StepPosition { get; set; }
 
         [Required]
-        [StringLength(500,MinimumLength =10)]
-        public string StepDescription { get; set; }
+        [StringLength(LenghtParams.StepDescriptionMaxLengt,
+            MinimumLength = LenghtParams.StepDescriptionMinLengt,
+            ErrorMessage = LenghtErrors.LenghtError)]
+        public string StepDescription { get; set; } = string.Empty;
 
     }
     }
