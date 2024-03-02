@@ -81,6 +81,18 @@
             <input asp-for="CookTime" class="form-control" placeholder="Cook time:" />
             <span asp-validation-for="@Model.CookTime" class=" small text-danger"></span>
             <hr />
+            <label asp-for="Temperature"></label>
+            <input asp-for="Temperature" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
+            <span asp-validation-for="@Model.Temperature" class=" small text-danger"></span>
+            <hr />
+            <select asp-for="@Model.TemperatureTypeId" class="form-control" aria-required="true">
+
+                @foreach (var type in Model.TemperatureTypes)
+                    {
+                    <option value="@type.Id">@type.Name</option>
+                    }
+            </select>
+            <hr />
             <select asp-for="@Model.OvenTypeId" class="form-control" aria-required="true">
 
                 @foreach (var type in Model.OvenTypes)
@@ -88,18 +100,15 @@
                     <option value="@type.Id">@type.Name</option>
                     }
             </select>
-            <hr />
-            <label asp-for="Origen"></label>
-            <input asp-for="Origen" class="form-control" placeholder="Whats the country of origin:" />
-            <span asp-validation-for="@Model.Origen" class=" small text-danger"></span>
+            
             <hr />
             <label asp-for="Portions"></label>
             <input asp-for="Portions" class="form-control" placeholder="Portions:" />
             <span asp-validation-for="@Model.Portions" class=" small text-danger"></span>
             <hr />
-            <label asp-for="Temperature"></label>
-            <input asp-for="Temperature" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
-            <span asp-validation-for="@Model.Temperature" class=" small text-danger"></span>
+            <label asp-for="Origen"></label>
+            <input asp-for="Origen" class="form-control" placeholder="Whats the country of origin:" />
+            <span asp-validation-for="@Model.Origen" class=" small text-danger"></span>
 
             @* has to be a tick box 
             <hr />
@@ -120,14 +129,15 @@
     }
 
     <script>
-        let num = 1;
+        let ingCount = 1;
+        let stepCount = 1;
         $(document).ready(function () {
             $("#addElementBtn").click(function () {
                 // make the last add Button invisible
 
                 // Create a new element
                 let newElement = `
-                        <li id="ingredient-${num}">
+                                <li id="ingredient-${ingCount}">
                           <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
                           <span asp-validation-for="IngredientName" class=" small text-danger"></span>
                           <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
@@ -143,16 +153,16 @@
                        </li>
                        `;
 
-                num++;
+                ingCount++;
                 // Append the new element to the container
                 $("#ingredientList").append(newElement);
             });
 
             //removes the input field for the last ingredient
             $("#removeElementBtn").click(function () {
-                if (num > 1) {
-                    num--;
-                    $(`#ingredient-${num}`).remove();
+                if (ingCount > 1) {
+                    ingCount--;
+                    $(`#ingredient-${ingCount}`).remove();
                 }
             })
 
@@ -207,7 +217,7 @@
                 });
                 console.log(steps);
 
-                for (let i = 0; i < num; i++) {
+                for (let i = 0; i < ingCount; i++) {
                     let currIngredient = {
                         Name: names[i],
                         Amount: amounts[i],
@@ -221,11 +231,11 @@
 
                 $.ajax({
                     type: "Post",
-                    url: "@Url.Action("PostIngredients")",
+                    url: "@Url.Action("POSTIngredients")",
                     dataType: "json",
-                    data: $.param({ 
+                    data: $.param({
                         allIngredient: JSON.stringify(allIngredient),
-                    steps: JSON.stringify(steps),
+                        steps: JSON.stringify(steps),
                     }),
                     success: function (result) {
                         // console.log(result);

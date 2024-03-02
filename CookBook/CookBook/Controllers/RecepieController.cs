@@ -10,20 +10,21 @@ using CookBook.Core.Models.Ingredients;
 using System.Text.Json;
 using CookBook.Core;
 using CookBook.Core.DTO;
+using CookBook.Infrastructures.Data.Models.Food;
 
 namespace CookBook.Controllers
     {
     [Authorize]
     public class RecepieController : Controller
         {
-        private List<Ingredient> ingredients;
-        private List<Step> steps;
+        private List<Ingredient> addIngredients;
+        private List<Step> addSteps;
         private readonly CookBookDbContext context;
         public RecepieController(CookBookDbContext _context)
             {
             context = _context;
-            ingredients = new List<Ingredient>();
-            steps = new List<Step>();
+            addIngredients = new List<Ingredient>();
+            addSteps = new List<Step>();
             }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -31,6 +32,18 @@ namespace CookBook.Controllers
             {
             return await context
                 .Measurements
+                .Select(t => new UtilTypeModel()
+                    {
+                    Id = t.Id,
+                    Name = t.Name,
+                    })
+                .ToListAsync();
+            }
+
+        private async Task<IEnumerable<UtilTypeModel>> GetTemperatureType()
+            {
+            return await context
+                .TemperaturesMeasurments
                 .Select(t => new UtilTypeModel()
                     {
                     Id = t.Id,
@@ -83,37 +96,57 @@ namespace CookBook.Controllers
                 RecepieTypes = await GetRecepieType(),
                 OvenTypes = await GetOvenType(),
                 MeasurmentTypes = await GetMeasurmentType(),
+                TemperatureTypes = await GetTemperatureType(),
                 };
 
             return View(model);
             }
 
         [HttpPost]
-        public IActionResult Add(RecepieViewModel model)
+        public async Task<IActionResult> Add(RecepieViewModel model)
             {
             if (!ModelState.IsValid)
                 {
                 return View("Add", model);
                 }
 
-            List<Ingredient> ingredients = new List<Ingredient>();
+            await Console.Out.WriteLineAsync("Add Method !");
 
 
-            //var NewRecepie = new Recepie()
-            //    {
-            //    Name = model.Name,
+            var NewRecepie = new FoodRecepie()
+                {
+                Name = model.Name,
+                Steps = addSteps,           
+                DatePosted = DateTime.Now,
+                Image = model.Image,
+                PrepTime = model.PrepTime,
+                CookTime = model.CookTime,
+                Portions = model.Portions,
+                Origen = model.Origen,
+                Temperature = model.Temperature,
+                TemperatureMeasurmentId = model.TemperatureTypeId,
+                OwnerId = GetUserId(),
+                };
 
-            //    DatePosted = DateTime.Now,
-            //    Image = model.Image,
-            //    PrepTime = model.PrepTime,
-            //    CookTime = model.CookTime,
-            //    Portions = model.Portions,
-            //    Origen = model.Origen,
-            //    Preparation = model.Preparation,
-            //    Temperature = model.Temperature,
-            //    OwnerId = GetUserId(),
-            //    };
 
+            foreach(var ing in addIngredients)
+                {
+                await context.Ingredients.AddAsync(ing);
+                await context.AddAsync(new IngredientFoodRecepie { 
+                    Ingredient = ing,
+                    Recepie = NewRecepie
+                    });
+                }
+
+            foreach (var step in addSteps)
+                {
+                await context.Steps.AddAsync(step);
+
+                }
+
+
+            await context.FoodRecepies.AddAsync(NewRecepie);
+            //context.SaveChanges();
             return RedirectToAction("All");
             }
 
@@ -145,11 +178,17 @@ namespace CookBook.Controllers
             }
 
 
+
+        //if you submit a full form ajax doesnt sends you the bellow data,
+        //but if you try to submit only them it does?
         [HttpPost]
         public JsonResult POSTIngredients(string allIngredient, string steps)
             {
             Console.WriteLine("serIng: " + allIngredient);
-            Console.WriteLine("serIng" + steps);
+            Console.WriteLine("serSteps: " + steps);
+
+            addIngredients.Clear();
+            addSteps.Clear();
 
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allIngredient.DeserializeFromJson<TempStepModel[]>();
@@ -161,16 +200,21 @@ namespace CookBook.Controllers
                     Amount = ing.Amount,
                     MeasurementId = ing.MeasurementId
                     };
+
+                addIngredients.Add(newIng);
                 }
 
             foreach (var step in stepListDTO)
                 {
-                Step newIng = new Step()
+                Step newStep = new Step()
                     {
                     Position = step.Position,
                     Description = step.Description,
                     };
+                addSteps.Add(newStep);
                 }
+
+            //TODO: figure a way to add to the current recepie without creating a global var?!? or not
 
             //Console.WriteLine("{desIng}: " + ingredientsListDTO);
             //Console.WriteLine();

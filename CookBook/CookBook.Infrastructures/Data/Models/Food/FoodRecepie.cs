@@ -35,9 +35,6 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public string Origen { get; set; } = string.Empty;
 
         [Required]
-        public string Preparation { get; set; } = string.Empty;
-
-        [Required]
         public string OwnerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OwnerId))]

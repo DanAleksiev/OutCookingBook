@@ -22,13 +22,13 @@ namespace CookBook.Core.Models.Recepies
         public string? Image { get; set; }
 
 
-        public int? PrepTime { get; set; }
+        public int PrepTime { get; set; }
 
-        public int? Temperature { get; set; }
-        public int? TemperatureTypeId { get; set; }
+        public int Temperature { get; set; }
+        public int TemperatureTypeId { get; set; }
         public IEnumerable<UtilTypeModel> TemperatureTypes { get; set; } = new HashSet<UtilTypeModel>();
 
-        public int? CookTime { get; set; }
+        public int CookTime { get; set; }
         public int OvenTypeId { get; set; }
         public IEnumerable<UtilTypeModel> OvenTypes { get; set; } = new HashSet<UtilTypeModel>();
         public int MeasurmentId { get; set; }
@@ -36,17 +36,17 @@ namespace CookBook.Core.Models.Recepies
         public bool IsPrivate { get; set; } = true;
         
         public string? Origen { get; set; }
-        public int? Portions { get; set; }
+        public int Portions { get; set; }
 
 
 
         //Ingredients
         [Required]
-        [StringLength(10, MinimumLength = 2, ErrorMessage = "lenght wrong")]
+        //[StringLength(10, MinimumLength = 2, ErrorMessage = "lenght wrong")]
         public string IngredientName { get; set; }
 
         [Required]
-        [Range(0.01, 10000.00)]
+        //[Range(0.00, 10000.00)]
         public double IngredientAmount { get; set; }
 
         //Steps to follow 
