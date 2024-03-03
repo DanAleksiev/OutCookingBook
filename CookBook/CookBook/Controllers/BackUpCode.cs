@@ -1,5 +1,6 @@
 ﻿using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using static System.Collections.Specialized.BitVector32;
 
 namespace CookBook.Controllers
     {
@@ -181,5 +182,89 @@ namespace CookBook.Controllers
         //            },
         //        };
         //await Console.Out.WriteLineAsync("Add Method !");
+//        @* 
+//@section Scripts
+//            {
+//    <script>
+
+//        $(document).ready(function () {
+//            let allIngredient = [
+//                {
+//            Name: "Hlqb",
+//                    Amount: 2,
+//                    AmountType: 3,
+//                },
+//                {
+//            Name: "corn",
+//                    Amount: 2,
+//                    AmountType: 1,
+//                },
+//                {
+//            Name: "Flower",
+//                    Amount: 3,
+//                    AmountType: 3,
+//                },
+//            ];
+
+//            let steps = [
+//                {
+//            Description: "BlahBlahBlah",
+//                    Position: 1,
+//                }, 
+//                {
+//            Description: "tepetepetpep",
+//                    Position: 2,
+//                },
+//                {
+//            Description: "yapayapayapa",
+//                    Position: 3,
+//                },
+//            ]
+
+
+            // $.ajax({
+            //     type: "GET",
+            //     url: "@Url.Action("GETIngredients")",
+            //     dataType: "json",
+            //     success: function (result) {
+            //         console.log(result);
+            //     },
+            //     error: function (req, status, error) {
+            //         console.log(status);
+            //     }
+            // })
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "@Url.Action("POSTIngredients")",
+            //     contentType: "application/json; charset=utf-8",
+            //     dataType: "json",
+            //     data: name,
+            //     success: function (result) {
+            //         console.log(result);
+            //     },
+            //     error: function (req, status, error) {
+            //         console.log(status);
+            //     }
+
+            // });
+    //        $.ajax({
+    //        type: "Post",
+    //            url: "@Url.Action("POSTIngredients")",
+    //            dataType: "json",
+    //            data: $.param({
+    //            allIngredient: JSON.stringify(allIngredient),
+    //                steps: JSON.stringify(steps),
+    //            }),
+    //            success: function(result) {
+    //                // alert(JSON.stringify(result))
+    //                },
+    //            error: function(req, status, error) {
+    //                // console.log(status);
+    //                }
+    //            });
+    //        });
+
+    //</script> 
         }
     }

@@ -22,7 +22,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public DateTime DatePosted { get; set; }
 
         [Required]
-        public ICollection<Step> Steps { get; set; } = new HashSet<Step>();
+        public ICollection<DrinkStep> Steps { get; set; } = new HashSet<DrinkStep>();
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
         public string Descripton { get; set; } = string.Empty;

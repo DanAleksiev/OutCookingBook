@@ -10,14 +10,15 @@ using CookBook.Core.Models.Ingredients;
 using CookBook.Core;
 using CookBook.Core.DTO;
 using CookBook.Infrastructures.Data.Models.Food;
+using CookBook.Core.Utilities;
 
 namespace CookBook.Controllers
     {
     [Authorize]
     public class RecepieController : Controller
         {
-        private static List<Ingredient> addIngredients  = new List<Ingredient>();
-        private static List<Step> addSteps { get; set; } = new List<Step>();
+        private static List<Ingredient> addIngredients = new List<Ingredient>();
+        private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
 
         private readonly CookBookDbContext context;
         public RecepieController(CookBookDbContext _context)
@@ -121,6 +122,7 @@ namespace CookBook.Controllers
                 CookTime = model.CookTime,
                 Portions = model.Portions,
                 OvenTypeId = model.OvenTypeId,
+                RecepieTypeId = model.RecepieTypeId,
                 Origen = model.Origen,
                 Temperature = model.Temperature,
                 TemperatureMeasurmentId = model.TemperatureTypeId,
@@ -131,7 +133,7 @@ namespace CookBook.Controllers
 
 
             foreach (var ing in addIngredients)
-                { 
+                {
                 await context.Ingredients.AddAsync(ing);
                 await context.AddAsync(new IngredientFoodRecepie
                     {
@@ -142,16 +144,31 @@ namespace CookBook.Controllers
 
             foreach (var step in addSteps)
                 {
-                await context.Steps.AddAsync(step);
+                step.FoodRecepie = NewRecepie;
+                await context.FoodStep.AddAsync(step);
 
                 }
 
+
+
+            await context.FoodRecepies.AddAsync(NewRecepie);
+
+
+            try
+                {
+                await context.SaveChangesAsync();
+                }
+            catch (Exception ex)
+                {
+                await Console.Out.WriteLineAsync(ex.Message);
+                if (ex.InnerException != null)
+                    {
+                    await Console.Out.WriteLineAsync(ex.GetCompleteMessage());
+                }
+            }
+
             addIngredients.Clear();
             addSteps.Clear();
-
-            Console.WriteLine("should be Second !!!!");
-            await context.FoodRecepies.AddAsync(NewRecepie);
-            context.SaveChangesAsync();
             return RedirectToAction("All");
             }
 
@@ -190,9 +207,6 @@ namespace CookBook.Controllers
         [HttpPost]
         public JsonResult POSTIngredients(string allIngredient, string allSteps)
             {
-            Console.WriteLine("serIng: " + allIngredient);
-            Console.WriteLine("serSteps: " + allSteps);
-
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();
 
@@ -215,16 +229,15 @@ namespace CookBook.Controllers
                 {
                 if (step.Description != null)
                     {
-                    Step newStep = new Step()
+                    FoodStep newStep = new FoodStep()
                         {
                         Position = stepPosition,
                         Description = step.Description,
                         };
-                    
+
                     addSteps.Add(newStep);
                     }
                 }
-            Console.WriteLine("should be First !!!!");
             //TODO: figure a way to add to the current recepie without creating a global var?!? or not
             return new JsonResult(Ok());
             }

@@ -76,6 +76,24 @@ namespace CookBook.Infrastructures.Migrations
                     b.ToTable("DrinkRecepies");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStep", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DrinkStep");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
                 {
                     b.Property<int>("FoodRecepieId")
@@ -324,6 +342,24 @@ namespace CookBook.Infrastructures.Migrations
                     b.ToTable("DrinksRecepiesUsers");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.FoodStep", b =>
+                {
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<int>("Position")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("FoodStep");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Ingredient", b =>
                 {
                     b.Property<int>("Id")
@@ -458,37 +494,6 @@ namespace CookBook.Infrastructures.Migrations
                         });
                 });
 
-            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Step", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("nvarchar(1000)");
-
-                    b.Property<int?>("DrinkRecepieId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("FoodRecepieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DrinkRecepieId");
-
-                    b.HasIndex("FoodRecepieId");
-
-                    b.ToTable("Steps");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
                     b.Property<string>("Id")
@@ -608,15 +613,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "2fed703f-2696-4945-9012-e2b8178934c7",
+                            Id = "5d4a86f0-45c2-437f-a3a5-b7000660db4a",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "4f746109-a843-40ca-9098-55afbd5fe125",
+                            ConcurrencyStamp = "0d9ff00b-d11c-4f45-904b-ada33e96efba",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEEfb4wc8ZTiVgAju5iVT1VkWZNfpWJkX/ft7KVg+HkjV1UY4z2e3JJGilMPnyJHV2A==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAiIZ2Lc6e6z25NtwsnjJfIg4XsjwpQkBO9Q1vnPYdZHMFdNTZEQhJ9ONwf3su2sWg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6f6d0232-74db-4fb1-9a29-5aadf22c688a",
+                            SecurityStamp = "fd975bda-9d92-4e40-80f4-1b0f05c5bb95",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -718,6 +723,17 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("Owner");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStep", b =>
+                {
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", "DrinkRecepie")
+                        .WithMany("Steps")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DrinkRecepie");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
                 {
                     b.HasOne("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", "FoodRecepie")
@@ -748,7 +764,7 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CookBook.Infrastructures.Data.Models.Food.RecepieType", "RecepieType")
@@ -810,6 +826,17 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.FoodStep", b =>
+                {
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", "FoodRecepie")
+                        .WithMany("Steps")
+                        .HasForeignKey("Id")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("FoodRecepie");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Ingredient", b =>
                 {
                     b.HasOne("CookBook.Infrastructures.Data.Models.Shared.Measurement", "Measurement")
@@ -857,17 +884,6 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("Ingredient");
 
                     b.Navigation("Recepie");
-                });
-
-            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Step", b =>
-                {
-                    b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", null)
-                        .WithMany("Steps")
-                        .HasForeignKey("DrinkRecepieId");
-
-                    b.HasOne("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", null)
-                        .WithMany("Steps")
-                        .HasForeignKey("FoodRecepieId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

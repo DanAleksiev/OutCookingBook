@@ -20,8 +20,9 @@ namespace CookBook.Core.Models.Recepies
         public int RecepieTypeId { get; set; }
         public IEnumerable<UtilTypeModel> RecepieTypes { get; set; } = new HashSet<UtilTypeModel>();
 
+        [Required]
         [StringLength(LenghtParams.ImageMaxLengt)]
-        public string? Image { get; set; }
+        public string Image { get; set; }
 
 
         public int PrepTime { get; set; }

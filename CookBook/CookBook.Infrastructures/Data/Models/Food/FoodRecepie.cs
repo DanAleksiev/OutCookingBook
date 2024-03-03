@@ -28,7 +28,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public DateTime DatePosted { get; set; }
 
         [Required]
-        public ICollection<Step> Steps { get; set; } = new HashSet<Step>();
+        public ICollection<FoodStep> Steps { get; set; } = new HashSet<FoodStep>();
 
         [Required]
         [StringLength(LenghtParams.ImageMaxLengt)]

@@ -29,6 +29,13 @@ namespace CookBook.Infrastructures.Data
                 .HasKey(x => new { x.FoodRecepieId, x.UserId });
 
             modelBuilder
+               .Entity<FoodRecepie>()
+               .HasOne(x => x.Owner)
+               .WithMany()
+               .HasForeignKey(x=>x.OwnerId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder
                 .Entity<FoodRecepiesUsers>()
                 .HasOne(x => x.FoodRecepie)
                 .WithMany(x => x.RecepiesUsers)
@@ -72,6 +79,20 @@ namespace CookBook.Infrastructures.Data
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
+            modelBuilder
+               .Entity<FoodStep>()
+               .HasOne(x => x.FoodRecepie)
+               .WithMany(x=>x.Steps)
+               .HasForeignKey(x=>x.Id)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+              .Entity<DrinkStep>()
+              .HasOne(x => x.DrinkRecepie)
+              .WithMany(x => x.Steps)
+              .HasForeignKey(x => x.Id)
+              .OnDelete(DeleteBehavior.NoAction);
+
             modelBuilder.Entity<IdentityUser>().HasData(ConfigHelper.Users);
             modelBuilder.Entity<RecepieType>().HasData(ConfigHelper.RecepieTypes);
             modelBuilder.Entity<OvenType>().HasData(ConfigHelper.OveTypes);
@@ -92,7 +113,8 @@ namespace CookBook.Infrastructures.Data
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<OvenType> OvenTypes { get; set; }
         public DbSet<RecepieType> RecepieTypes { get; set; }
-        public DbSet<Step> Steps { get; set; }
+        public DbSet<FoodStep> FoodStep { get; set; }
+        public DbSet<DrinkStep> DrinkStep { get; set; }
         public DbSet<TemperatureMeasurment> TemperaturesMeasurments { get; set; }
         }
     }
