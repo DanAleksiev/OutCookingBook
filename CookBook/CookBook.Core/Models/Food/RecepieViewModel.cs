@@ -2,7 +2,7 @@
 using CookBook.Core.Models.Utilities;
 using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.Core.Models.Recepies
+namespace CookBook.Core.Models.Food
     {
     public class RecepieViewModel
         {

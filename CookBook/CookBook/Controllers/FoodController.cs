@@ -4,13 +4,12 @@ using System.Security.Claims;
 using Microsoft.EntityFrameworkCore;
 using CookBook.Core.Models.Utilities;
 using CookBook.Infrastructures.Data;
-using CookBook.Core.Models.Recepies;
 using CookBook.Infrastructures.Data.Models.Shared;
-using CookBook.Core.Models.Ingredients;
 using CookBook.Core;
 using CookBook.Core.DTO;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Core.Utilities;
+using CookBook.Core.Models.Food;
 
 namespace CookBook.Controllers
     {
@@ -268,7 +267,7 @@ namespace CookBook.Controllers
             recepie.Name = model.Name;
             recepie.Descripton = model.Description;
             recepie.Image = model.Image;
-            recepie.PrepTime =model.PrepTime;
+            recepie.PrepTime = model.PrepTime;
             recepie.CookTime = model.CookTime;
             recepie.Portions = model.Portions;
             recepie.OvenTypeId = model.OvenTypeId;
@@ -286,10 +285,61 @@ namespace CookBook.Controllers
             }
 
         [HttpGet]
-        public async Task<IActionResult> Detail()
+        public async Task<IActionResult> Detail(int id)
             {
+            var recepie = await context.FoodRecepies.FindAsync(id);
 
-            return View();
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            var model = new DetailedRecepieViewModel()
+                {
+                Id = recepie.Id,
+                Name = recepie.Name,
+                Description = recepie.Descripton,
+                //RecepieType = recepie.RecepieType.Name,
+                DatePosted = recepie.DatePosted,
+                Image = recepie.Image,
+                PrepTime = recepie.PrepTime,
+                CookTime = recepie.CookTime,
+                Temperature = recepie.Temperature,
+                //TemperatureType = recepie.TemperatureMeasurment.Name,
+                //OvenType = recepie.OvenType.Name,
+                Origen = recepie.Origen,
+                TumbsUp = recepie.TumbsUp,
+                Portions = recepie.Portions,
+                //Owner = recepie.Owner.UserName,
+
+                };
+
+            var ing = await context
+                .IngredientFoodRecepies
+                .Where(x => x.RecepieId == recepie.Id)
+                .Select(x => new Ingredient()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    Name = x.Ingredient.Name,
+                    })
+                .ToListAsync();
+
+            var steps = await context
+                .FoodStepsFoodRecepies
+                .Where(x => x.FoodRecepieId == recepie.Id)
+                .Select(x => new FoodStep(){
+                    Id = x.FoodStep.Id,
+                    Description = x.FoodStep.Description,
+                    Position = x.FoodStep.Position,
+                    })
+                .OrderBy(x=>x.Position)
+                .ToListAsync();
+
+            model.Ingredients = ing;
+            model.Steps = steps;
+            return View(model);
             }
 
         /// <summary>

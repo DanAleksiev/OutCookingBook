@@ -1,1 +1,54 @@
-﻿
+﻿@model DetailedRecepieViewModel;
+@{
+    ViewBag.Title = "All recepies";
+}
+
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div>
+
+    <div class="card-body">
+        <h5 class="card-title mt-1">@Model.Name</h5>
+        <img class="card-img-top" src=@Model.Image alt="Ad Image">
+        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
+        <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
+        @* <p class="mb-0"><span class="fw-bold">Seller: </span>@Model.Owner</p> *@
+    </div>
+    <div>
+
+        <ul>
+            <h5>Ingredients:</h5>
+            @foreach (var ing in Model.Ingredients)
+                {
+                <li class="card col-4" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title mt-1">@ing.Name</h5>
+                        <p class="mb-0"><span class="fw-bold">Description: </span>@ing.Amount</p>
+                        <p class="mb-0"><span class="fw-bold">Likes: </span>@ing.Name</p>
+                    </div>
+                </li>
+                }
+        </ul>
+        <ul>
+            <h5>Directions:</h5>
+            @foreach (var step in Model.Steps)
+                {
+                <li class="card col-4" style="width: 15rem;">
+                    <div class="card-body">
+                        <p class="mb-0"><span class="fw-bold">Added on: </span>@step.Position</p>
+                        <p class="mb-0"><span class="fw-bold">Description: </span>@step.Description</p>
+                    </div>
+                </li>
+                }
+        </ul>
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
