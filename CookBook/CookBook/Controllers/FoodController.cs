@@ -15,13 +15,13 @@ using CookBook.Core.Utilities;
 namespace CookBook.Controllers
     {
     [Authorize]
-    public class RecepieController : Controller
+    public class FoodController : Controller
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
 
         private readonly CookBookDbContext context;
-        public RecepieController(CookBookDbContext _context)
+        public FoodController(CookBookDbContext _context)
             {
             context = _context;
             }
@@ -285,8 +285,10 @@ namespace CookBook.Controllers
             return RedirectToAction("All");
             }
 
-        public IActionResult EditSomeoneOtherRecepie()
+        [HttpGet]
+        public async Task<IActionResult> Detail()
             {
+
             return View();
             }
 
