@@ -10,7 +10,7 @@
 <div class="text-center row">
     @foreach (var a in Model)
         {
-        <div class="card col-4" style="width: 20rem; ">
+        <div class="card col-4" style="width: 15rem;">
             <div class="card-body">
                 <h5 class="card-title mt-1">@a.Name</h5>
                 <img class="card-img-top" src=@a.Image alt="Ad Image">
@@ -22,12 +22,12 @@
 
             @if (User.Identity.Name == a.Owner)
                 {
-                <a asp-controller="RecepieController" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
-                <a asp-controller="RecepieController" asp-action="Delete" asp-route-id="@a.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
+                <a asp-controller="Recepie" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Edit</a>
+                <a asp-controller="Recepie" asp-action="Delete" asp-route-id="@a.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
                 }
             else
                 {
-                <form class="input-group-sm " asp-controller="Ad" asp-action="AddToCart" asp-route-id="@a.Id">
+                <form class="input-group-sm " asp-controller="Recepie" asp-action="AddToFavourites" asp-route-id="@a.Id">
                     <input type="submit" value="Add to Cart" class="fs-6 btn btn-warning mb-3 w-100 p-3 fw-bold" />
                 </form>
                 }

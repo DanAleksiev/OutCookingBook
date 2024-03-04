@@ -25,6 +25,7 @@ namespace CookBook
             })
                 .AddEntityFrameworkStores<CookBookDbContext>();
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<CookBookDbContext>();
 
             var app = builder.Build();
 

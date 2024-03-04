@@ -16,6 +16,6 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         [StringLength(LenghtParams.StepDescriptionMaxLengt)]
         public string Description { get; set; } = string.Empty;
 
-        public FoodRecepie FoodRecepie { get; set; }
-    }
+        public ICollection<FoodStepsFoodRecepies> FoodRecepie { get; set; } = new List<FoodStepsFoodRecepies>();
+        }
 }

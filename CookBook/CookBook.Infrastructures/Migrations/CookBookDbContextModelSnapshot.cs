@@ -202,6 +202,21 @@ namespace CookBook.Infrastructures.Migrations
                     b.ToTable("FoodRecepiesUsers");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodStepsFoodRecepies", b =>
+                {
+                    b.Property<int>("FoodRecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodStepId")
+                        .HasColumnType("int");
+
+                    b.HasKey("FoodRecepieId", "FoodStepId");
+
+                    b.HasIndex("FoodStepId");
+
+                    b.ToTable("FoodStepsFoodRecepies");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.OvenType", b =>
                 {
                     b.Property<int>("Id")
@@ -345,7 +360,10 @@ namespace CookBook.Infrastructures.Migrations
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.FoodStep", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -613,15 +631,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "5d4a86f0-45c2-437f-a3a5-b7000660db4a",
+                            Id = "479229a0-1c03-49c8-9d2b-153d640352fb",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0d9ff00b-d11c-4f45-904b-ada33e96efba",
+                            ConcurrencyStamp = "40f1e7a3-0630-46fc-b351-843ebad9036d",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAiIZ2Lc6e6z25NtwsnjJfIg4XsjwpQkBO9Q1vnPYdZHMFdNTZEQhJ9ONwf3su2sWg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEA9KPbhtiM3445eRBx+W+f2Y7cJLE0bD+tw7waYHU6AHzWFdwPqLGVDO5v4snSNU1w==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fd975bda-9d92-4e40-80f4-1b0f05c5bb95",
+                            SecurityStamp = "e0ae5a55-3e73-45ad-ae55-0b9fe6704cb2",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -807,6 +825,25 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodStepsFoodRecepies", b =>
+                {
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", "FoodRecepie")
+                        .WithMany("Steps")
+                        .HasForeignKey("FoodRecepieId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Shared.FoodStep", "FoodStep")
+                        .WithMany("FoodRecepie")
+                        .HasForeignKey("FoodStepId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodRecepie");
+
+                    b.Navigation("FoodStep");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.DrinkRecepiesUsers", b =>
                 {
                     b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", "DrinkRecepie")
@@ -824,17 +861,6 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("DrinkRecepie");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.FoodStep", b =>
-                {
-                    b.HasOne("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", "FoodRecepie")
-                        .WithMany("Steps")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("FoodRecepie");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Ingredient", b =>
@@ -955,6 +981,11 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("RecepiesUsers");
 
                     b.Navigation("Steps");
+                });
+
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.FoodStep", b =>
+                {
+                    b.Navigation("FoodRecepie");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Ingredient", b =>

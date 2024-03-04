@@ -26,6 +26,11 @@ namespace CookBook.Controllers
             context = _context;
             }
 
+
+        /// <summary>
+        /// Suppoting methods to make my life easier
+        /// </summary>
+        /// <returns></returns>
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
         private async Task<IEnumerable<UtilTypeModel>> GetMeasurmentType()
             {
@@ -74,21 +79,26 @@ namespace CookBook.Controllers
             }
 
 
-
+        /// <summary>
+        /// Actions from now on
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult All()
             {
             var allRecepies = context
                 .FoodRecepies
                 .Select(x => new AllRecepieViewModel()
-                {
-                Name = x.Name,
-                DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
-                Image = x.Image,
-                TumbsUp = x.TumbsUp,
-                Description = x.Descripton,
-                Owner = x.Owner.UserName
-                })
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName
+                    })
+                .AsNoTracking()
                 .ToList();
 
             return View(allRecepies);
@@ -124,12 +134,10 @@ namespace CookBook.Controllers
                 return View("Add", model);
                 }
 
-
-
-            var NewRecepie = new FoodRecepie()
+            var newRecepie = new FoodRecepie()
                 {
                 Name = model.Name,
-                Steps = addSteps,
+                //Steps = addSteps,
                 Descripton = model.Description,
                 DatePosted = DateTime.Now,
                 Image = model.Image,
@@ -147,26 +155,31 @@ namespace CookBook.Controllers
                 };
 
 
-            foreach (var ing in addIngredients)
-                {
-                await context.Ingredients.AddAsync(ing);
-                await context.AddAsync(new IngredientFoodRecepie
-                    {
-                    Ingredient = ing,
-                    Recepie = NewRecepie
-                    });
-                }
-
             foreach (var step in addSteps)
                 {
-                step.FoodRecepie = NewRecepie;
-                await context.FoodStep.AddAsync(step);
+                var stepRecepie = new FoodStepsFoodRecepies()
+                    {
+                    FoodRecepie = newRecepie,
+                    FoodStep = step,
+                    };
 
+                await context.FoodStep.AddAsync(step);
+                await context.FoodStepsFoodRecepies.AddAsync(stepRecepie);
                 }
 
+            foreach (var ing in addIngredients)
+                {
 
+                var ingFoodRec = new IngredientFoodRecepie
+                    {
+                    Ingredient = ing,
+                    Recepie = newRecepie
+                    };
+                await context.Ingredients.AddAsync(ing);
+                await context.IngredientFoodRecepies.AddAsync(ingFoodRec);
+                }
 
-            await context.FoodRecepies.AddAsync(NewRecepie);
+            await context.FoodRecepies.AddAsync(newRecepie);
 
 
             try
@@ -179,34 +192,97 @@ namespace CookBook.Controllers
                 if (ex.InnerException != null)
                     {
                     await Console.Out.WriteLineAsync(ex.GetCompleteMessage());
+                    }
                 }
-            }
 
             addIngredients.Clear();
             addSteps.Clear();
             return RedirectToAction("All");
             }
 
-        [HttpGet]
-        public async Task<IActionResult> _AddIngredientPartial()
-            {
-            var model = new IngredientInputViewModel()
-                {
-                Measurements = await GetMeasurmentType(),
-                };
-
-            return View(model);
-            }
-
-
         public IActionResult Delete()
             {
             return View();
             }
 
-        public IActionResult EditYourRecepie()
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
             {
-            return View();
+            var recepie = await context.FoodRecepies.FindAsync(id);
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            var model = new EditRecepieForm()
+                {
+                Id = recepie.Id,
+                Name = recepie.Name,
+                Description = recepie.Descripton,
+                RecepieTypeId = recepie.Id,
+                RecepieTypes = await GetRecepieType(),
+                Image = recepie.Image,
+                PrepTime = recepie.PrepTime,
+                CookTime = recepie.CookTime,
+                Temperature = recepie.Temperature,
+                TemperatureTypeId = recepie.TemperatureMeasurmentId,
+                TemperatureTypes = await GetTemperatureType(),
+                OvenTypeId = recepie.OvenTypeId,
+                OvenTypes = await GetOvenType(),
+                MeasurmentId = recepie.TemperatureMeasurmentId,
+                MeasurmentTypes = await GetMeasurmentType(),
+                IsPrivate = recepie.IsPrivate,
+                Origen = recepie.Origen,
+                Portions = recepie.Portions,
+                };
+
+            return View(model);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditRecepieForm model)
+            {
+            if (!ModelState.IsValid)
+                {
+                return View("Edit", model);
+                }
+
+            var recepie = await context.FoodRecepies.FindAsync(model.Id);
+
+            if (recepie == null)
+                {
+                return BadRequest(ModelState);
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            recepie.Name = model.Name;
+            recepie.Descripton = model.Description;
+            recepie.Image = model.Image;
+            recepie.PrepTime =model.PrepTime;
+            recepie.CookTime = model.CookTime;
+            recepie.Portions = model.Portions;
+            recepie.OvenTypeId = model.OvenTypeId;
+            recepie.RecepieTypeId = model.RecepieTypeId;
+            recepie.IsPrivate = model.IsPrivate;
+            recepie.Origen = model.Origen;
+            recepie.Temperature = model.Temperature;
+            recepie.TemperatureMeasurmentId = model.TemperatureTypeId;
+
+
+            await context.SaveChangesAsync();
+
+
+            return RedirectToAction("All");
             }
 
         public IActionResult EditSomeoneOtherRecepie()
@@ -214,11 +290,19 @@ namespace CookBook.Controllers
             return View();
             }
 
-
+        /// <summary>
+        /// Ajax reqests
+        /// It takes the ingreadients and steps form Add recepie and converts it in to the right obj.
+        /// </summary>
+        /// <param name="allIngredient"></param>
+        /// <param name="allSteps"></param>
+        /// <returns></returns>
 
         //if you submit a full form ajax doesnt sends you the bellow data,
         //but if you try to submit only them it does?
         // work around create a separate button to submit the ing and steps
+
+        //ing amount cant be double ?
         [HttpPost]
         public JsonResult POSTIngredients(string allIngredient, string allSteps)
             {
@@ -231,6 +315,7 @@ namespace CookBook.Controllers
                     {
                     Ingredient newIng = new Ingredient()
                         {
+
                         Name = ing.Name,
                         Amount = ing.Amount,
                         MeasurementId = ing.MeasurementId
@@ -246,7 +331,7 @@ namespace CookBook.Controllers
                     {
                     FoodStep newStep = new FoodStep()
                         {
-                        Position = stepPosition,
+                        Position = stepPosition++,
                         Description = step.Description,
                         };
 

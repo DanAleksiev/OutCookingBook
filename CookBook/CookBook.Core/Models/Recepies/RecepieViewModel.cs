@@ -6,6 +6,7 @@ namespace CookBook.Core.Models.Recepies
     {
     public class RecepieViewModel
         {
+        public int Id { get; set; }
         [Required]
         [StringLength(LenghtParams.RecepieNameMaxLengt,
             MinimumLength = LenghtParams.RecepieNameMinLengt,
@@ -38,8 +39,9 @@ namespace CookBook.Core.Models.Recepies
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new HashSet<UtilTypeModel>();
         public bool IsPrivate { get; set; } = true;
 
+        [Required]
         [StringLength(LenghtParams.OrigenMaxLenght)]
-        public string? Origen { get; set; }
+        public string Origen { get; set; }
         public int Portions { get; set; }
 
 

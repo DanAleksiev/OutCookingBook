@@ -6,8 +6,8 @@
 
 
 
-<div>
-    <div>
+<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6">
+    <div >
         <h3>@ViewBag.Title</h3>
     </div>
     <form asp-action="Add" method="post">
@@ -19,6 +19,7 @@
         <input asp-for="Description" class="form-control" placeholder="Give us a short description of the meal:" />
         <span asp-validation-for="@Model.Description" class=" small text-danger"></span>
         <hr />
+        <label asp-for="RecepieTypes"></label>
         <select asp-for="@Model.RecepieTypeId" class="form-control" aria-required="true">
             @foreach (var type in Model.RecepieTypes)
                 {
@@ -67,9 +68,12 @@
                     <a id="addStepBtn" class="btn btn-dark">Add new step</a>
                     <a id="removeStepBtn" class="btn btn-dark">Remove last step</a>
                 </span>
+                <hr />
             </div>
-            <a id="submitIngS" class="btn btn-danger">Save Ingredients and Steps!</a>
-            <a id="successSaved" class="btn btn-success">Successfuly saved Ingredients and Steps!</a>
+            <span>
+                <a id="submitIngS" class="btn btn-danger">Save Ingredients and Steps!</a>
+                <a id="successSaved" class="btn btn-success">Successfuly saved Ingredients and Steps!</a>
+            </span>
         </div>
 
         <div class="card mt-4">
@@ -113,13 +117,11 @@
             <label asp-for="Origen"></label>
             <input asp-for="Origen" class="form-control" placeholder="Whats the country of origin:" />
             <span asp-validation-for="@Model.Origen" class=" small text-danger"></span>
-
-            @* has to be a tick box
             <hr />
-            <label asp-for="IsPrivate"></label>
-            <input asp-for="IsPrivate" class="form-control" placeholder="Whats the temperature you have to cook it in:" />
-            <span asp-validation-for="@Model.IsPrivate" class=" small text-danger"></span> *@
-
+            <div>
+                <input asp-for="IsPrivate" class="form-check-input" type="checkbox" placeholder="Whats the temperature you have to cook it in:" />
+                <label asp-for="IsPrivate">Pivate</label>
+            </div>
 
         </div>
         <div>
@@ -146,21 +148,21 @@
 
                 // Create a new element
                 let newElement = `
-                                                <li id="ingredient-${ingCount}">
-                                          <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
-                                          <span asp-validation-for="IngredientName" class=" small text-danger"></span>
-                                          <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
-                                          <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
-                                          <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+                                                                <li id="ingredient-${ingCount}">
+                                                          <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                                                          <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                                                          <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
+                                                          <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                                                          <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
         @foreach (var type in Model.MeasurmentTypes)
             {
-                                                         <option value="@type.Id">@type.Name</option>
+                                                                                 <option value="@type.Id">@type.Name</option>
             }
-                                         </select>
-                                         <span class="small text-danger"></span>
-                                         <hr />
-                                       </li>
-                                       `;
+                                                         </select>
+                                                         <span class="small text-danger"></span>
+                                                         <hr />
+                                                       </li>
+                                                       `;
 
                 ingCount++;
                 // Append the new element to the container
@@ -180,12 +182,12 @@
 
                 // Create a new element
                 let newElement = `
-                                     <li id="step-${stepCount}">
-                                        <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
-                                        <span asp-validation-for="StepDescription" class=" small text-danger"></span>
-                                        <hr />
-                                     </li>
-                                     `;
+                                                     <li id="step-${stepCount}">
+                                                        <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
+                                                        <span asp-validation-for="StepDescription" class=" small text-danger"></span>
+                                                        <hr />
+                                                     </li>
+                                                     `;
 
                 stepCount++;
                 // Append the new element to the container
