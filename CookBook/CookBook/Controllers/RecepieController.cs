@@ -72,11 +72,26 @@ namespace CookBook.Controllers
                     })
                 .ToListAsync();
             }
+
+
+
         [HttpGet]
         public IActionResult All()
             {
-            //var allRecepies = context.Recepies.Select(x => new RecepieViewModel());
-            return View();
+            var allRecepies = context
+                .FoodRecepies
+                .Select(x => new AllRecepieViewModel()
+                {
+                Name = x.Name,
+                DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                Image = x.Image,
+                TumbsUp = x.TumbsUp,
+                Description = x.Descripton,
+                Owner = x.Owner.UserName
+                })
+                .ToList();
+
+            return View(allRecepies);
             }
 
         [HttpPost]
