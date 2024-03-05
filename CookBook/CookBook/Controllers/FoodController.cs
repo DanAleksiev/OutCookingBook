@@ -421,7 +421,7 @@ namespace CookBook.Controllers
                 return BadRequest();
                 }
 
-            if (recepie.Owner.UserName != GetUserId())
+            if (recepie.OwnerId != GetUserId())
                 {
                 return Unauthorized();
                 }
