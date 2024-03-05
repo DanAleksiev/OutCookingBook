@@ -287,32 +287,53 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
             {
-            var recepie = await context.FoodRecepies.FindAsync(id);
+            var recepie = await context
+                .FoodRecepies
+                .Where(x => x.Id == id)
+                .Select(x=> new DetailedRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Descripton,
+                    RecepieType = x.RecepieType.Name,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    PrepTime = x.PrepTime,
+                    CookTime = x.CookTime,
+                    Temperature = x.Temperature,
+                    TemperatureType = x.TemperatureMeasurment.Name,
+                    OvenType = x.OvenType.Name,
+                    Origen = x.Origen,
+                    TumbsUp = x.TumbsUp,
+                    Portions = x.Portions,
+                    Owner = x.Owner.UserName,
+                    })
+                .FirstOrDefaultAsync();
 
             if (recepie == null)
                 {
                 return BadRequest();
                 }
 
-            var model = new DetailedRecepieViewModel()
-                {
-                Id = recepie.Id,
-                Name = recepie.Name,
-                Description = recepie.Descripton,
-                //RecepieType = recepie.RecepieType.Name,
-                DatePosted = recepie.DatePosted,
-                Image = recepie.Image,
-                PrepTime = recepie.PrepTime,
-                CookTime = recepie.CookTime,
-                Temperature = recepie.Temperature,
-                //TemperatureType = recepie.TemperatureMeasurment.Name,
-                //OvenType = recepie.OvenType.Name,
-                Origen = recepie.Origen,
-                TumbsUp = recepie.TumbsUp,
-                Portions = recepie.Portions,
-                //Owner = recepie.Owner.UserName,
+            //var model = new DetailedRecepieViewModel()
+            //    {
+            //    Id = recepie.Id,
+            //    Name = recepie.Name,
+            //    Description = recepie.Descripton,
+            //    //RecepieType = recepie.RecepieType.Name,
+            //    DatePosted = recepie.DatePosted,
+            //    Image = recepie.Image,
+            //    PrepTime = recepie.PrepTime,
+            //    CookTime = recepie.CookTime,
+            //    Temperature = recepie.Temperature,
+            //    //TemperatureType = recepie.TemperatureMeasurment.Name,
+            //    //OvenType = recepie.OvenType.Name,
+            //    Origen = recepie.Origen,
+            //    TumbsUp = recepie.TumbsUp,
+            //    Portions = recepie.Portions,
+            //    //Owner = recepie.Owner.UserName,
 
-                };
+            //    };
 
             var ing = await context
                 .IngredientFoodRecepies
@@ -337,9 +358,9 @@ namespace CookBook.Controllers
                 .OrderBy(x=>x.Position)
                 .ToListAsync();
 
-            model.Ingredients = ing;
-            model.Steps = steps;
-            return View(model);
+            recepie.Ingredients = ing;
+            recepie.Steps = steps;
+            return View(recepie);
             }
 
         /// <summary>

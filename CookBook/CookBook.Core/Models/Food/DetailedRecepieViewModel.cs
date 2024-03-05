@@ -15,10 +15,10 @@ namespace CookBook.Core.Models.Food
         public string Origen { get; set; }
         public int Portions { get; set; }
         public int TumbsUp { get; set; }
-        //public string RecepieType { get; set; }
-        //public string TemperatureType { get; set; }
-        //public string OvenType { get; set; }
-        //public string Owner { get; set; }
+        public string RecepieType { get; set; }
+        public string TemperatureType { get; set; }
+        public string OvenType { get; set; }
+        public string Owner { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<FoodStep> Steps { get; set; } = new List<FoodStep>();
