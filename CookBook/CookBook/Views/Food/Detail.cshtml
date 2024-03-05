@@ -1,6 +1,6 @@
 ﻿@model DetailedRecepieViewModel;
 @{
-    ViewBag.Title = "All recepies";
+    ViewBag.Title = "Detail";
 }
 
 
@@ -55,6 +55,7 @@
 
         @if (User.Identity.Name == Model.Owner)
             {
+            <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
             <a asp-controller="Food" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Delete</a>
             }
         else

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "gNjHppFzPdstGmBzFRQvXiBf6D4nHIewChsN0+LYgak=",
+  "Hash": "jrkdwl/SsdsdY6LGhZr+7Aseu1gHOqaW6NGK9hZI+VU=",
   "Source": "CookBook",
   "BasePath": "_content/CookBook",
   "Mode": "Default",
@@ -1404,12 +1404,12 @@
       "OriginalItemSpec": "wwwroot\\favicon.ico"
     },
     {
-      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\addRecepie.js",
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\btnFunctions.js",
       "SourceId": "CookBook",
       "SourceType": "Discovered",
       "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
       "BasePath": "_content/CookBook",
-      "RelativePath": "js/addRecepie.js",
+      "RelativePath": "js/btnFunctions.js",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
@@ -1420,7 +1420,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\js\\addRecepie.js"
+      "OriginalItemSpec": "wwwroot\\js\\btnFunctions.js"
     },
     {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\site.js",
