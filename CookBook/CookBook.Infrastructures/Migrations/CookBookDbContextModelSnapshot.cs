@@ -91,21 +91,6 @@ namespace CookBook.Infrastructures.Migrations
                     b.ToTable("DrinkRecepies");
                 });
 
-            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepieDrinkStep", b =>
-                {
-                    b.Property<int>("DrinkRecepieId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("StepId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DrinkRecepieId", "StepId");
-
-                    b.HasIndex("StepId");
-
-                    b.ToTable("DrinkRecepiesDrinkSteps");
-                });
-
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStep", b =>
                 {
                     b.Property<int>("Id")
@@ -125,6 +110,21 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("DrinkStep");
+                });
+
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStepDrinkRecepie", b =>
+                {
+                    b.Property<int>("DrinkRecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StepId")
+                        .HasColumnType("int");
+
+                    b.HasKey("DrinkRecepieId", "StepId");
+
+                    b.HasIndex("StepId");
+
+                    b.ToTable("DrinkStepsDrinkRecepies");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
@@ -440,6 +440,11 @@ namespace CookBook.Infrastructures.Migrations
                     b.Property<int>("Calories")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
                     b.Property<int>("MeasurementId")
                         .HasColumnType("int");
 
@@ -447,11 +452,6 @@ namespace CookBook.Infrastructures.Migrations
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
-
-                    b.Property<string>("Type")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -679,15 +679,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "96ae1a9b-3f43-4a41-8317-55db5bcc8266",
+                            Id = "6521d05e-74e2-4291-97c2-5021228bcd37",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c67c7392-3af1-43e7-b2ba-f7788398ea52",
+                            ConcurrencyStamp = "49d2e90d-b28a-44a7-b79f-74edd3193483",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELZ0DpTTBclQKa/ssiYDCD4Jhn2jd2faWkGnHFtP+elJ3vE44OgWJpkznvcO/zqBDg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEOwUI4UyQVKG6ptRKDII0OoKmFrb9LVUDcKEHLXnWemVv+n3pmHRZzPw+2XYlmg+QA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "9cbf6a50-b887-4771-93ab-1a762ebe8601",
+                            SecurityStamp = "25d2a96b-daa0-40ce-8b3c-4a6cb2dfa853",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -808,7 +808,7 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("Owner");
                 });
 
-            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepieDrinkStep", b =>
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStepDrinkRecepie", b =>
                 {
                     b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", "DrinkRecepie")
                         .WithMany("Steps")
@@ -816,7 +816,7 @@ namespace CookBook.Infrastructures.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkStep", "Step")
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkStep", "DrinkStep")
                         .WithMany("DrinkRecepiesDrinkSteps")
                         .HasForeignKey("StepId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -824,7 +824,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.Navigation("DrinkRecepie");
 
-                    b.Navigation("Step");
+                    b.Navigation("DrinkStep");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>

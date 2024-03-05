@@ -33,7 +33,7 @@ namespace CookBook.Infrastructures.Data
                 .HasKey(x => new { x.FoodRecepieId, x.FoodStepId });
 
             modelBuilder
-                .Entity<DrinkRecepieDrinkStep>()
+                .Entity<DrinkStepDrinkRecepie>()
                 .HasKey(x => new { x.DrinkRecepieId, x.StepId });
 
             modelBuilder
@@ -130,7 +130,7 @@ namespace CookBook.Infrastructures.Data
 
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<FoodRecepiesUsers> FoodRecepiesUsers { get; set; }
-        public DbSet<DrinkRecepieDrinkStep> DrinkRecepiesDrinkSteps { get; set; }
+        public DbSet<DrinkStepDrinkRecepie> DrinkStepsDrinkRecepies { get; set; }
         public DbSet<FoodLikeUser> FoodLikeUsers { get; set; }
         public DbSet<DrinkLikeUser> DrinkLikeUsers { get; set; }
         public DbSet<FoodStepsFoodRecepies> FoodStepsFoodRecepies { get; set; }

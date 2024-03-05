@@ -115,14 +115,14 @@ namespace CookBook.Controllers
 
             foreach (var step in addSteps)
                 {
-                var stepRecepie = new DrinkRecepieDrinkStep()
+                var stepRecepie = new DrinkStepDrinkRecepie()
                     {
                     DrinkRecepie = newRecepie,
-                    Step = step,
+                    DrinkStep = step,
                     };
 
                 await context.DrinkStep.AddAsync(step);
-                await context.DrinkRecepiesDrinkSteps.AddAsync(stepRecepie);
+                await context.DrinkStepsDrinkRecepies.AddAsync(stepRecepie);
                 }
 
             foreach (var ing in addIngredients)
@@ -265,13 +265,13 @@ namespace CookBook.Controllers
                 .ToListAsync();
 
             var steps = await context
-                .DrinkRecepiesDrinkSteps
+                .DrinkStepsDrinkRecepies
                 .Where(x => x.DrinkRecepieId == recepie.Id)
                 .Select(x => new DrinkStep()
                     {
-                    Id = x.Step.Id,
-                    Description = x.Step.Description,
-                    Position = x.Step.Position,
+                    Id = x.DrinkStep.Id,
+                    Description = x.DrinkStep.Description,
+                    Position = x.DrinkStep.Position,
                     })
                 .OrderBy(x => x.Position)
                 .ToListAsync();
@@ -325,13 +325,13 @@ namespace CookBook.Controllers
                 .ToListAsync();
 
             var steps = await context
-                .DrinkRecepiesDrinkSteps
+                .DrinkStepsDrinkRecepies
                 .Where(x => x.DrinkRecepieId == recepie.Id)
                 .Select(x => new DrinkStep()
                     {
-                    Id = x.Step.Id,
-                    Description = x.Step.Description,
-                    Position = x.Step.Position,
+                    Id = x.DrinkStep.Id,
+                    Description = x.DrinkStep.Description,
+                    Position = x.DrinkStep.Position,
                     })
                 .OrderBy(x => x.Position)
                 .ToListAsync();
@@ -362,6 +362,65 @@ namespace CookBook.Controllers
             await context.SaveChangesAsync();
 
             return RedirectToAction("All");
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> EditIngredient(int id)
+            {
+            var recepie = await context
+                .IngredientDrinkRecepies
+                .Where(x=>x.IngredientId == id)
+                .Select(x => new EditIngredientsForm()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    MeasurmentId = x.Ingredient.MeasurementId,
+                    OwnerId = x.Recepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            recepie.MeasurmentTypes = await GetMeasurmentType();
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            return View(recepie);
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> EditStep(int id)
+            {
+            var recepie = await context
+                .DrinkStepsDrinkRecepies
+                .Where(x => x.StepId == id)
+                .Select(x => new EditStepForm()
+                    {
+                    Id = x.StepId,
+                    Description = x.DrinkStep.Description,
+                    OwnerId = x.DrinkRecepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            return View(recepie);
             }
 
         /// <summary>

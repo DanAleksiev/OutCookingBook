@@ -15,8 +15,8 @@ namespace CookBook.Infrastructures.Data.Models.Shared
             ErrorMessage = LenghtErrors.IngredientLenghtError)]
         public string Name { get; set; } = string.Empty;
 
-        [StringLength(LenghtParams.IngredientTypeMaxLengt)]
-        public string Type { get; set; } = string.Empty;
+        [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
+        public string Description { get; set; } = string.Empty;
         public int Calories { get; set; }
 
         public double Amount { get; set; }

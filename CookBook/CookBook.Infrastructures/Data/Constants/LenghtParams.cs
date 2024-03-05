@@ -35,7 +35,7 @@
         //Ingredient
         public const int IngredientNameMinLengt = 1;
         public const int IngredientNameMaxLengt = 100;
-        public const int IngredientTypeMaxLengt = 50;
+        public const int IngredientDescriptionMaxLengt = 500;
         public const double IngredienAmountMinRange = 0.00;
         public const double IngredienAmountMaxRange = 1000.00;
 
