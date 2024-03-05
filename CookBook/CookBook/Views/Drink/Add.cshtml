@@ -1,0 +1,253 @@
+﻿@model DrinkViewModel
+
+@{
+    ViewBag.Title = "Add new drink recepie";
+}
+
+
+
+<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 text-center">
+    <div>
+        <h3>@ViewBag.Title</h3>
+    </div>
+    <form asp-action="Add" method="post">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" class="form-control" placeholder="Name of the dish:" />
+        <span asp-validation-for="@Model.Name" class=" small text-danger"></span>
+        <hr />
+        <label asp-for="Description"></label>
+        <input asp-for="Description" class="form-control" placeholder="Give us a short description of the meal:" />
+        <span asp-validation-for="@Model.Description" class=" small text-danger"></span>
+        <hr />
+        <div id="details">
+            <div id="partialRender">
+                <ol class="form-group" id="ingredientList">
+                    <label>List of ingredients</label>
+                    <li id="ingredient-0">
+                        <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                        <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                        <input asp-for="IngredientAmount" class="form-control amountIngredient" placeholder="Amount:" />
+                        <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                        <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+                            @foreach (var type in Model.MeasurmentTypes)
+                                {
+                                <option value="@type.Id">@type.Name</option>
+                                }
+                        </select>
+                        <span class="small text-danger"></span>
+                        <hr />
+
+                    </li>
+                </ol>
+
+                <span>
+                    <a id="addElementBtn" class="btn btn-primary">Add new ingredient</a>
+                    <a id="removeElementBtn" class="btn btn-primary">Remove last ingredient</a>
+                </span>
+            </div>
+
+            <div>
+                <ol class="form-group" id="stepsList">
+                    <label>Steps to follow for a successful recepie:</label>
+                    <li id="step-0">
+                        <input asp-for="StepDescription" class="form-control recepieStep" placeholder="Put your description here:" />
+                        <span asp-validation-for="StepDescription" class=" small text-danger"></span>
+                        <hr />
+                    </li>
+                </ol>
+
+                <span>
+                    <a id="addStepBtn" class="btn btn-dark">Add new step</a>
+                    <a id="removeStepBtn" class="btn btn-dark">Remove last step</a>
+                </span>
+                <hr />
+            </div>
+            <span>
+                <a id="submitIngS" class="btn btn-danger">Save Ingredients and Steps!</a>
+                <a id="successSaved" class="btn btn-success">Successfuly saved Ingredients and Steps!</a>
+            </span>
+        </div>
+
+        <div class="card mt-4">
+            <label asp-for="Image"></label>
+            <input asp-for="Image" class="form-control" placeholder="Give us a picture of the dish: (url)" />
+            <span asp-validation-for="@Model.Image" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="Cups"></label>
+            <input asp-for="Cups" class="form-control" placeholder="Cups:" />
+            <span asp-validation-for="@Model.Cups" class=" small text-danger"></span>
+            <hr />
+            <label asp-for="Origen"></label>
+            <input asp-for="Origen" class="form-control" placeholder="Whats the country of origin:" />
+            <span asp-validation-for="@Model.Origen" class=" small text-danger"></span>
+            <hr />
+            <div>
+
+                <input asp-for="IsPrivate" class="form-check-input" type="checkbox" />
+                <label asp-for="IsPrivate">Pivate</label>
+            </div>
+            <div>
+
+                <input asp-for="IsAlcoholic" class="form-check-input" type="checkbox" />
+                <label asp-for="IsAlcoholic">Alcohol</label>
+            </div>
+
+        </div>
+        <div>
+            <h5 id="allertSubmit">Please submit ingreadiets to be able to create the recepie!</h5>
+            <input id="submitBtn" class=" btn btn-primary mt-3" type="submit" value="Create" />
+        </div>
+    </form>
+
+</div>
+
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        let ingCount = 1;
+        let stepCount = 1;
+        $(document).ready(function () {
+            document.getElementById("successSaved").style.display = "none";
+            document.getElementById("submitBtn").style.display = "none";
+            $("#addElementBtn").click(function () {
+                // make the last add Button invisible
+
+                // Create a new element
+                let newElement = `
+                                                                        <li id="ingredient-${ingCount}">
+                                                                  <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                                                                  <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                                                                  <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
+                                                                  <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                                                                  <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+        @foreach (var type in Model.MeasurmentTypes)
+            {
+                                                                                             <option value="@type.Id">@type.Name</option>
+            }
+                                                                 </select>
+                                                                 <span class="small text-danger"></span>
+                                                                 <hr />
+                                                               </li>
+                                                               `;
+
+                ingCount++;
+                // Append the new element to the container
+                $("#ingredientList").append(newElement);
+            });
+
+            //removes the input field for the last ingredient
+            $("#removeElementBtn").click(function () {
+                if (ingCount > 1) {
+                    ingCount--;
+                    $(`#ingredient-${ingCount}`).remove();
+                }
+            })
+
+            $("#addStepBtn").click(function () {
+                // make the last add Button invisible
+
+                // Create a new element
+                let newElement = `
+                                                             <li id="step-${stepCount}">
+                                                                <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
+                                                                <span asp-validation-for="StepDescription" class=" small text-danger"></span>
+                                                                <hr />
+                                                             </li>
+                                                             `;
+
+                stepCount++;
+                // Append the new element to the container
+                $("#stepsList").append(newElement);
+            });
+
+            $("#removeStepBtn").click(function () {
+                if (stepCount > 1) {
+                    stepCount--;
+                    $(`#step-${stepCount}`).remove();
+                }
+            })
+
+            //sends the ingredients as json
+            $("#submitIngS").click(function () {
+                document.getElementById("submitIngS").style.display = "none";
+                document.getElementById("successSaved").style.display = "block";
+                document.getElementById("submitBtn").style.display = "block";
+                document.getElementById("details").style.display = "none";
+                document.getElementById("allertSubmit").style.display = "none";
+
+
+                let allIngredient = [];
+
+
+                let names = [];
+                $(".nameIngredient").each(function () {
+                    names.push($(this).val());
+
+                });
+
+                let amounts = [];
+                $(".amountIngredient").each(function () {
+                    amounts.push($(this).val());
+
+                });
+
+                let types = [];
+                $(".amountTypeIngredient").each(function () {
+                    types.push($(this).val());
+                });
+
+                let steps = [];
+                $(".recepieStep").each(function () {
+                    steps.push($(this).val());
+                });
+
+                for (let i = 0; i < ingCount; i++) {
+                    let currIngredient = {
+                        Name: names[i],
+                        Amount: amounts[i],
+                        MeasurementId: types[i],
+                    }
+
+                    allIngredient.push(currIngredient);
+                }
+
+                let allSteps = [];
+                for (let i = 0; i < stepCount; i++) {
+
+                    let currStep = {
+                        Description: steps[i]
+                    }
+
+                    allSteps.push(currStep);
+                }
+
+                console.log(steps);
+                console.log(allIngredient);
+
+                $.ajax({
+                    type: "Post",
+                    url: "@Url.Action("POSTIngredients")",
+                    dataType: "json",
+                    data: $.param({
+                        allIngredient: JSON.stringify(allIngredient),
+                        allSteps: JSON.stringify(allSteps),
+                    }),
+                    success: function (result) {
+                        console.log("Success");
+                        alert("Successfully submitted ingredients!")
+                    },
+                    error: function (req, status, error) {
+                        // console.log(status);
+                    }
+                })
+
+            });
+        })
+    </script>
+}
+
+

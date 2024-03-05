@@ -15,6 +15,6 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         [StringLength(LenghtParams.StepDescriptionMaxLengt)]
         public string Description { get; set; } = string.Empty;
 
-        public DrinkRecepie? DrinkRecepie { get; set; }
+        public ICollection<DrinkRecepieDrinkStep> DrinkRecepiesDrinkSteps { get; set; } = new HashSet<DrinkRecepieDrinkStep>();
     }
 }

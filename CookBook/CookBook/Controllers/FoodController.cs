@@ -10,9 +10,10 @@ using CookBook.Core.DTO;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Core.Utilities;
 using CookBook.Core.Models.Food;
+using CookBook.Core.Models.Shared;
 
 namespace CookBook.Controllers
-    {
+{
     [Authorize]
     public class FoodController : Controller
         {
@@ -87,6 +88,7 @@ namespace CookBook.Controllers
             {
             var allRecepies = context
                 .FoodRecepies
+                .Where(x => !x.IsPrivate)
                 .Select(x => new AllRecepieViewModel()
                     {
                     Id = x.Id,
@@ -114,7 +116,7 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
             {
-            var model = new RecepieViewModel()
+            var model = new FoodViewModel()
                 {
                 RecepieTypes = await GetRecepieType(),
                 OvenTypes = await GetOvenType(),
@@ -126,7 +128,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
-        public async Task<IActionResult> Add(RecepieViewModel model)
+        public async Task<IActionResult> Add(FoodViewModel model)
             {
             if (!ModelState.IsValid)
                 {
@@ -136,7 +138,6 @@ namespace CookBook.Controllers
             var newRecepie = new FoodRecepie()
                 {
                 Name = model.Name,
-                //Steps = addSteps,
                 Descripton = model.Description,
                 DatePosted = DateTime.Now,
                 Image = model.Image,
@@ -219,7 +220,7 @@ namespace CookBook.Controllers
                 return Unauthorized();
                 }
 
-            var model = new EditRecepieForm()
+            var model = new EditFoodForm()
                 {
                 Id = recepie.Id,
                 Name = recepie.Name,
@@ -245,7 +246,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
-        public async Task<IActionResult> Edit(EditRecepieForm model)
+        public async Task<IActionResult> Edit(EditFoodForm model)
             {
             if (!ModelState.IsValid)
                 {
@@ -290,7 +291,7 @@ namespace CookBook.Controllers
             var recepie = await context
                 .FoodRecepies
                 .Where(x => x.Id == id)
-                .Select(x => new DetailedRecepieViewModel()
+                .Select(x => new DetailedFoodViewModel()
                     {
                     Id = x.Id,
                     Name = x.Name,
@@ -350,7 +351,7 @@ namespace CookBook.Controllers
             var recepie = await context
                 .FoodRecepies
                 .Where(x => x.Id == id)
-                .Select(x => new DetailedRecepieViewModel()
+                .Select(x => new DetailedFoodViewModel()
                     {
                     Id = x.Id,
                     Name = x.Name,
@@ -412,7 +413,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteConfirmed(DetailedRecepieViewModel model)
+        public async Task<IActionResult> DeleteConfirmed(DetailedFoodViewModel model)
             {
             var recepie = await context.FoodRecepies.FindAsync(model.Id);
 
@@ -433,6 +434,7 @@ namespace CookBook.Controllers
             return RedirectToAction("All");
             }
 
+
         /// <summary>
         /// Ajax reqests
         /// It takes the ingreadients and steps form Add recepie and converts it in to the right obj.
@@ -444,8 +446,6 @@ namespace CookBook.Controllers
         //if you submit a full form ajax doesnt sends you the bellow data,
         //but if you try to submit only them it does?
         // work around create a separate button to submit the ing and steps
-
-        //ing amount cant be double ?
         [HttpPost]
         public JsonResult POSTIngredients(string allIngredient, string allSteps)
             {

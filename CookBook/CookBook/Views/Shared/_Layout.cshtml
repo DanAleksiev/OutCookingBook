@@ -17,26 +17,48 @@
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        @if (User.Identity.IsAuthenticated)
-                            {
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Food" asp-action="Add">AddNewRecepie</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Food" asp-action="All">AllRecepie</a>
-                            </li>
-                            }
-                        else
-                            {
+                @if (User.Identity.IsAuthenticated)
+                    {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Food
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Food" asp-action="Add">Add Food Recepie</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Food" asp-action="All">All Food Recepie</a></li>
+                                </ul>
+                            </div>
+
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Drink
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Drink" asp-action="Add">Add Drink Recepie</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="nav-link text-dark dropdown-item" asp-area="" asp-controller="Drink" asp-action="All">All Drink Recepie</a></li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <partial name="_LoginPartial" />
+                    </div>
+                    }
+                else
+                    {
+                    <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                        <ul class="navbar-nav flex-grow-1">
                             <li class="nav-item">
                                 <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                             </li>
-                            }
-                    </ul>
-                    <partial name="_LoginPartial" />
-                </div>
+                        </ul>
+                        <partial name="_LoginPartial" />
+                    </div>
+                    }
             </div>
         </nav>
     </header>

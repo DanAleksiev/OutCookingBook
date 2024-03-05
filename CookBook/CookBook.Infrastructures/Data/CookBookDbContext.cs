@@ -33,6 +33,18 @@ namespace CookBook.Infrastructures.Data
                 .HasKey(x => new { x.FoodRecepieId, x.FoodStepId });
 
             modelBuilder
+                .Entity<DrinkRecepieDrinkStep>()
+                .HasKey(x => new { x.DrinkRecepieId, x.StepId });
+
+            modelBuilder
+                .Entity<DrinkLikeUser>()
+                .HasKey(x => new { x.DrinkRecepieId, x.UserId });
+            
+            modelBuilder
+                .Entity<FoodLikeUser>()
+                .HasKey(x => new { x.FoodRecepieId, x.UserId });
+
+            modelBuilder
                .Entity<FoodRecepie>()
                .HasOne(x => x.Owner)
                .WithMany()
@@ -68,6 +80,30 @@ namespace CookBook.Infrastructures.Data
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
+                .Entity<DrinkLikeUser>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<DrinkLikeUser>()
+                .HasOne(x => x.FoodRecepie)
+                .WithMany(x=>x.Likes)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<FoodLikeUser>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<FoodLikeUser>()
+                .HasOne(x => x.FoodRecepie)
+                .WithMany(x => x.Likes)
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
                .Entity<DrinkRecepiesUsers>()
                .HasKey(x => new { x.DrinkRecepieId, x.UserId });
 
@@ -83,20 +119,6 @@ namespace CookBook.Infrastructures.Data
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            //modelBuilder
-            //   .Entity<FoodStep>()
-            //   .HasOne(x => x.FoodRecepie)
-            //   .WithMany(x=>x.Steps)
-            //   .HasForeignKey(x=>x.Id)
-            //   .OnDelete(DeleteBehavior.NoAction);
-
-            modelBuilder
-              .Entity<DrinkStep>()
-              .HasOne(x => x.DrinkRecepie)
-              .WithMany(x => x.Steps)
-              .HasForeignKey(x => x.Id)
-              .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<IdentityUser>().HasData(ConfigHelper.Users);
             modelBuilder.Entity<RecepieType>().HasData(ConfigHelper.RecepieTypes);
             modelBuilder.Entity<OvenType>().HasData(ConfigHelper.OveTypes);
@@ -108,6 +130,9 @@ namespace CookBook.Infrastructures.Data
 
         public DbSet<Ingredient> Ingredients { get; set; }
         public DbSet<FoodRecepiesUsers> FoodRecepiesUsers { get; set; }
+        public DbSet<DrinkRecepieDrinkStep> DrinkRecepiesDrinkSteps { get; set; }
+        public DbSet<FoodLikeUser> FoodLikeUsers { get; set; }
+        public DbSet<DrinkLikeUser> DrinkLikeUsers { get; set; }
         public DbSet<FoodStepsFoodRecepies> FoodStepsFoodRecepies { get; set; }
         public DbSet<FavouriteFoodRecepiesUsers> FavouriteFoodRecepiesUsers { get; set; }
         public DbSet<FoodRecepie> FoodRecepies { get; set; }

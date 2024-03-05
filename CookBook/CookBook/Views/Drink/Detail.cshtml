@@ -1,0 +1,72 @@
+﻿@model DetailedDrinkViewModel;
+@{
+    ViewBag.Title = "Detail";
+}
+
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+<div class="col-sm-12 offset-lg-2 col-lg-8 offset-xl-3 col-xl-6 align-content-center text-center">
+
+    <div class="card-body">
+        <h3 class="card-title mt-1">@Model.Name</h3>
+        <img class="card-img-top" src=@Model.Image alt="Ad Image" style="max-width:30rem; max-height:40rem;">
+        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
+        <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
+        <p class="mb-0"><span class="fw-bold">Seller: </span>@Model.Owner</p>
+    </div>
+    <div>
+
+        <ul class ="text-center row">
+            <h5>Ingredients:</h5>
+            @foreach (var ing in Model.Ingredients)
+                {
+                <li class="card col-" style="width: 15rem;">
+                    <div class="card-body">
+                        <h5 class="card-title mt-1">@ing.Name</h5>
+                        <p class="mb-0"><span class="fw-bold">Description: </span>@ing.Amount</p>
+                        <p class="mb-0"><span class="fw-bold">Likes: </span>@ing.Name</p>
+                        @if (User.Identity.Name == Model.Owner)
+                            {
+                            <a asp-controller="Drink" asp-action="EditIngredient" asp-route-id="@ing.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
+                            }
+                    </div>
+                </li>
+                }
+        </ul>
+        <ul class="text-center row">
+            <h5>Directions:</h5>
+            @foreach (var step in Model.Steps)
+                {
+                <li class="card col-4" style="width: 15rem;">
+                    <div class="card-body">
+                        <p class="mb-0"><span class="fw-bold">Step: </span>@step.Position</p>
+                        <p class="mb-0"><span class="fw-bold">Description: </span>@step.Description</p>
+                        @if (User.Identity.Name == Model.Owner)
+                            {
+                            <a asp-controller="Drink" asp-action="EditStep" asp-route-id="@step.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
+                            }
+                    </div>
+                </li>
+                }
+        </ul>
+
+        @if (User.Identity.Name == Model.Owner)
+            {
+            <a asp-controller="Drink" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
+            <a asp-controller="Drink" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Delete</a>
+            }
+        else
+            {
+            <a asp-controller="Rating" asp-action="Like" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Like</a>
+            }
+    </div>
+</div>
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -22,7 +22,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public DateTime DatePosted { get; set; }
 
         [Required]
-        public ICollection<DrinkStep> Steps { get; set; } = new HashSet<DrinkStep>();
+        public ICollection<DrinkRecepieDrinkStep> Steps { get; set; } = new List<DrinkRecepieDrinkStep>();
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
         public string Descripton { get; set; } = string.Empty;
@@ -31,11 +31,11 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public bool IsAlcoholic { get; set; }
 
         [Required]
-        [StringLength(LenghtParams.ImageMaxLengt)]
-        public string Image { get; set; } = string.Empty;
+        public bool IsPrivate { get; set; }
 
         [Required]
-        public int PrepTime { get; set; }
+        [StringLength(LenghtParams.ImageMaxLengt)]
+        public string Image { get; set; } = string.Empty;
 
         [StringLength(LenghtParams.OrigenMaxLenght)]
         public string Origen { get; set; } = string.Empty;
@@ -48,7 +48,10 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         [Required]
         public int TumbsUp { get; set; } = 0;
+
+        public ICollection<DrinkLikeUser> Likes { get; set; } = new List<DrinkLikeUser>();
+
         [Required]
         public int Cups { get; set; }
-    }
+        }
     }

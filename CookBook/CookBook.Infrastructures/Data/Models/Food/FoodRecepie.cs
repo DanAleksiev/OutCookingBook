@@ -75,6 +75,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         public DateTime LastTimeYouHadIt { get; set; }
 
+        public ICollection<FoodLikeUser> Likes { get; set; } = new List<FoodLikeUser>();
         public bool IsPrivate { get; set; }
     }
     }

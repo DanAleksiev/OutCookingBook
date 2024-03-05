@@ -1,0 +1,20 @@
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
+namespace CookBook.Infrastructures.Data.Models.Food
+    {
+    public class FoodLikeUser
+        {
+        [Required]
+        public int FoodRecepieId { get; set; }
+
+        [ForeignKey(nameof(FoodRecepieId))]
+        public FoodRecepie FoodRecepie { get; set; }
+
+        [Required]
+        public string UserId { get; set; }
+        [ForeignKey(nameof(UserId))]
+        public IdentityUser User { get; set; }
+        }
+    }

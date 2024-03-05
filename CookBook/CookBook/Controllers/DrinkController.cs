@@ -1,0 +1,418 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
+using Microsoft.EntityFrameworkCore;
+using CookBook.Core.Models.Utilities;
+using CookBook.Infrastructures.Data;
+using CookBook.Infrastructures.Data.Models.Shared;
+using CookBook.Core;
+using CookBook.Core.DTO;
+using CookBook.Core.Utilities;
+using CookBook.Infrastructures.Data.Models.Drinks;
+using CookBook.Core.Models.Shared;
+using CookBook.Core.Models.Drink;
+
+namespace CookBook.Controllers
+    {
+    [Authorize]
+    public class DrinkController : Controller
+        {
+        private static List<Ingredient> addIngredients = new List<Ingredient>();
+        private static List<DrinkStep> addSteps { get; set; } = new List<DrinkStep>();
+
+        private readonly CookBookDbContext context;
+        public DrinkController(CookBookDbContext _context)
+            {
+            context = _context;
+            }
+
+
+        /// <summary>
+        /// Suppoting methods to make my life easier
+        /// </summary>
+        /// <returns></returns>
+        private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
+        private async Task<IEnumerable<UtilTypeModel>> GetMeasurmentType()
+            {
+            return await context
+                .Measurements
+                .Select(t => new UtilTypeModel()
+                    {
+                    Id = t.Id,
+                    Name = t.Name,
+                    })
+                .ToListAsync();
+            }
+
+
+        /// <summary>
+        /// Actions from now on
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult All()
+            {
+            var allRecepies = context
+                .DrinkRecepies
+                .Where(x => !x.IsPrivate)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName
+                    })
+                .AsNoTracking()
+                .ToList();
+
+            return View(allRecepies);
+            }
+
+        [HttpPost]
+        public IActionResult All(TempView model)
+            {
+            var name = model.Name;
+
+            return View();
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> Add()
+            {
+            var model = new DrinkViewModel()
+                {
+                MeasurmentTypes = await GetMeasurmentType(),
+                };
+
+            return View(model);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> Add(DrinkViewModel model)
+            {
+            if (!ModelState.IsValid)
+                {
+                return View("Add", model);
+                }
+
+            var newRecepie = new DrinkRecepie()
+                {
+                Name = model.Name,
+                Descripton = model.Description,
+                DatePosted = DateTime.Now,
+                Image = model.Image,
+                Cups = model.Cups,
+                Origen = model.Origen,
+                OwnerId = GetUserId(),
+                IsAlcoholic = model.IsAlcoholic,
+                TumbsUp = 0,
+                IsPrivate = model.IsPrivate,
+                };
+
+
+            foreach (var step in addSteps)
+                {
+                var stepRecepie = new DrinkRecepieDrinkStep()
+                    {
+                    DrinkRecepie = newRecepie,
+                    Step = step,
+                    };
+
+                await context.DrinkStep.AddAsync(step);
+                await context.DrinkRecepiesDrinkSteps.AddAsync(stepRecepie);
+                }
+
+            foreach (var ing in addIngredients)
+                {
+
+                var ingDrinkRec = new IngredientDrinkRecepie
+                    {
+                    Ingredient = ing,
+                    Recepie = newRecepie
+                    };
+                await context.Ingredients.AddAsync(ing);
+                await context.IngredientDrinkRecepies.AddAsync(ingDrinkRec);
+                }
+
+            await context.DrinkRecepies.AddAsync(newRecepie);
+
+
+            try
+                {
+                await context.SaveChangesAsync();
+                }
+            catch (Exception ex)
+                {
+                await Console.Out.WriteLineAsync(ex.Message);
+                if (ex.InnerException != null)
+                    {
+                    await Console.Out.WriteLineAsync(ex.GetCompleteMessage());
+                    }
+                }
+
+            addIngredients.Clear();
+            addSteps.Clear();
+            return RedirectToAction("All");
+            }
+
+        public IActionResult Delete()
+            {
+            return View();
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> Edit(int id)
+            {
+            var recepie = await context.DrinkRecepies.FindAsync(id);
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            var model = new EditDrinkForm()
+                {
+                Id = recepie.Id,
+                Name = recepie.Name,
+                Description = recepie.Descripton,
+                RecepieTypeId = recepie.Id,
+                Image = recepie.Image,
+                MeasurmentTypes = await GetMeasurmentType(),
+                IsPrivate = recepie.IsPrivate,
+                Origen = recepie.Origen,
+                Cups = recepie.Cups,
+                };
+
+            return View(model);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditDrinkForm model)
+            {
+            if (!ModelState.IsValid)
+                {
+                return View("Edit", model);
+                }
+
+            var recepie = await context.DrinkRecepies.FindAsync(model.Id);
+
+            if (recepie == null)
+                {
+                return BadRequest(ModelState);
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            recepie.Name = model.Name;
+            recepie.Descripton = model.Description;
+            recepie.Image = model.Image;
+            recepie.IsPrivate = model.IsPrivate;
+            recepie.Origen = model.Origen;
+            recepie.Cups = model.Cups;
+
+            await context.SaveChangesAsync();
+
+
+            return RedirectToAction("All");
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> Detail(int id)
+            {
+            var recepie = await context
+                .DrinkRecepies
+                .Where(x => x.Id == id)
+                .Select(x => new DetailedDrinkViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Descripton,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    Origen = x.Origen,
+                    TumbsUp = x.TumbsUp,
+                    Cups = x.Cups,
+                    Owner = x.Owner.UserName,
+                    })
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            var ing = await context
+                .IngredientDrinkRecepies
+                .Where(x => x.RecepieId == recepie.Id)
+                .Select(x => new Ingredient()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    Name = x.Ingredient.Name,
+                    })
+                .ToListAsync();
+
+            var steps = await context
+                .DrinkRecepiesDrinkSteps
+                .Where(x => x.DrinkRecepieId == recepie.Id)
+                .Select(x => new DrinkStep()
+                    {
+                    Id = x.Step.Id,
+                    Description = x.Step.Description,
+                    Position = x.Step.Position,
+                    })
+                .OrderBy(x => x.Position)
+                .ToListAsync();
+
+            recepie.Ingredients = ing;
+            recepie.Steps = steps;
+            return View(recepie);
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int id)
+            {
+            var recepie = await context
+                .DrinkRecepies
+                .Where(x => x.Id == id)
+                .Select(x => new DetailedDrinkViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Descripton,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    Origen = x.Origen,
+                    TumbsUp = x.TumbsUp,
+                    Cups = x.Cups,
+                    Owner = x.Owner.UserName,
+                    OwnerId = x.OwnerId,
+                    })
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            var ing = await context
+                .IngredientDrinkRecepies
+                .Where(x => x.RecepieId == recepie.Id)
+                .Select(x => new Ingredient()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    Name = x.Ingredient.Name,
+                    })
+                .ToListAsync();
+
+            var steps = await context
+                .DrinkRecepiesDrinkSteps
+                .Where(x => x.DrinkRecepieId == recepie.Id)
+                .Select(x => new DrinkStep()
+                    {
+                    Id = x.Step.Id,
+                    Description = x.Step.Description,
+                    Position = x.Step.Position,
+                    })
+                .OrderBy(x => x.Position)
+                .ToListAsync();
+
+            recepie.Ingredients = ing;
+            recepie.Steps = steps;
+
+            return View(recepie);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteConfirmed(DetailedDrinkViewModel model)
+            {
+            var recepie = await context.DrinkRecepies.FindAsync(model.Id);
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            context.Remove(recepie);
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("All");
+            }
+
+        /// <summary>
+        /// Ajax reqests
+        /// It takes the ingreadients and steps form Add recepie and converts it in to the right obj.
+        /// </summary>
+        /// <param name="allIngredient"></param>
+        /// <param name="allSteps"></param>
+        /// <returns></returns>
+
+        //if you submit a full form ajax doesnt sends you the bellow data,
+        //but if you try to submit only them it does?
+        // work around create a separate button to submit the ing and steps
+        [HttpPost]
+        public JsonResult POSTIngredients(string allIngredient, string allSteps)
+            {
+            TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
+            TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();
+
+            foreach (var ing in ingredientsListDTO)
+                {
+                if (ing.Name != null)
+                    {
+                    Ingredient newIng = new Ingredient()
+                        {
+
+                        Name = ing.Name,
+                        Amount = ing.Amount,
+                        MeasurementId = ing.MeasurementId
+                        };
+
+                    addIngredients.Add(newIng);
+                    }
+                }
+            int stepPosition = 1;
+            foreach (var step in stepListDTO)
+                {
+                if (step.Description != null)
+                    {
+                    DrinkStep newStep = new DrinkStep()
+                        {
+                        Position = stepPosition++,
+                        Description = step.Description,
+                        };
+
+                    addSteps.Add(newStep);
+                    }
+                }
+            //TODO: figure a way to add to the current recepie without creating a global var?!? or not
+            return new JsonResult(Ok());
+            }
+
+        }
+    }
