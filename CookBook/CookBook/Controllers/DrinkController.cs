@@ -280,6 +280,7 @@ namespace CookBook.Controllers
                     Amount = x.Ingredient.Amount,
                     Calories = x.Ingredient.Calories,
                     Name = x.Ingredient.Name,
+                    Measurement = x.Ingredient.Measurement,
                     })
                 .ToListAsync();
 

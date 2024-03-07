@@ -338,8 +338,6 @@ namespace CookBook.Controllers
 
             var ing = await context
                 .IngredientFoodRecepies
-                .Include(x=>x.Ingredient)
-                .Include(x=>x.Ingredient.Measurement)
                 .Where(x => x.RecepieId == recepie.Id)
                 .Select(x => new Ingredient()
                     {
