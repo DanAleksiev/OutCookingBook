@@ -1,5 +1,9 @@
 ﻿@model IEnumerable<AllRecepieViewModel>;
 
+@{
+    ViewBag.Title = "All Food";
+}
+
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
@@ -19,13 +23,13 @@
 
             @if (User.Identity.Name == a.Owner)
                 {
-                <a asp-controller="Drink" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-                <a asp-controller="Drink" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
+                <a asp-controller="Food" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
+                <a asp-controller="Food" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
                 }
             else
                 {
-                <a asp-controller="Drink" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-                <a asp-controller="Drink" asp-action="Favourite" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Favourit</a>
+                <a asp-controller="Food" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
+                <a asp-controller="Food" asp-action="Favourite" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Favourit</a>
                 <a asp-controller="Rating" asp-action="Like" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Like</a>
 
                 }

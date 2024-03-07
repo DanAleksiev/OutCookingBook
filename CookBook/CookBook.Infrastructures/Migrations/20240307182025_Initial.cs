@@ -247,7 +247,7 @@ namespace CookBook.Infrastructures.Migrations
                     IsAlcoholic = table.Column<bool>(type: "bit", nullable: false),
                     IsPrivate = table.Column<bool>(type: "bit", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
-                    Origen = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Origen = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TumbsUp = table.Column<int>(type: "int", nullable: false),
                     Cups = table.Column<int>(type: "int", nullable: false)
@@ -270,7 +270,7 @@ namespace CookBook.Infrastructures.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     Calories = table.Column<int>(type: "int", nullable: false),
                     Amount = table.Column<double>(type: "float", nullable: false),
                     MeasurementId = table.Column<int>(type: "int", nullable: false)
@@ -297,7 +297,7 @@ namespace CookBook.Infrastructures.Migrations
                     DatePosted = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Image = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     PrepTime = table.Column<int>(type: "int", nullable: false),
-                    Origen = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: false),
+                    Origen = table.Column<string>(type: "nvarchar(250)", maxLength: 250, nullable: true),
                     OwnerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     TumbsUp = table.Column<int>(type: "int", nullable: false),
                     CookTime = table.Column<int>(type: "int", nullable: false),
@@ -361,30 +361,6 @@ namespace CookBook.Infrastructures.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "DrinkRecepiesDrinkSteps",
-                columns: table => new
-                {
-                    DrinkRecepieId = table.Column<int>(type: "int", nullable: false),
-                    StepId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_DrinkRecepiesDrinkSteps", x => new { x.DrinkRecepieId, x.StepId });
-                    table.ForeignKey(
-                        name: "FK_DrinkRecepiesDrinkSteps_DrinkRecepies_DrinkRecepieId",
-                        column: x => x.DrinkRecepieId,
-                        principalTable: "DrinkRecepies",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_DrinkRecepiesDrinkSteps_DrinkStep_StepId",
-                        column: x => x.StepId,
-                        principalTable: "DrinkStep",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DrinksRecepiesUsers",
                 columns: table => new
                 {
@@ -404,6 +380,30 @@ namespace CookBook.Infrastructures.Migrations
                         column: x => x.DrinkRecepieId,
                         principalTable: "DrinkRecepies",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DrinkStepsDrinkRecepies",
+                columns: table => new
+                {
+                    DrinkRecepieId = table.Column<int>(type: "int", nullable: false),
+                    StepId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DrinkStepsDrinkRecepies", x => new { x.DrinkRecepieId, x.StepId });
+                    table.ForeignKey(
+                        name: "FK_DrinkStepsDrinkRecepies_DrinkRecepies_DrinkRecepieId",
+                        column: x => x.DrinkRecepieId,
+                        principalTable: "DrinkRecepies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_DrinkStepsDrinkRecepies_DrinkStep_StepId",
+                        column: x => x.StepId,
+                        principalTable: "DrinkStep",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -547,7 +547,7 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "a1fc0fcf-10db-4745-afbd-b1ea612fec16", 0, "c8718ac4-6ee2-43c3-b78a-5fec4e63818d", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEGJRekNC5StJZBN8tWKXiHG1W245f8lLRCIiEM+5g5MdkCw8PktgtsX/p+z9oVu7Kw==", null, false, "03dd4cf3-2ae7-4179-b391-988b16a77b38", false, "test@test.com" });
+                values: new object[] { "62282cae-1d75-4715-b55e-41869078e7b3", 0, "a93145d9-f1ab-47dc-864b-de042171471c", null, false, false, null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAECKQ0EhjJGiK/3Pxdpgp4gUQbbo0IBFjhLh4RK7ytIu+bryllpMdu08e4yTBI3/AfQ==", null, false, "648ccc52-28c2-41f0-9101-76b27bad7eb9", false, "test@test.com" });
 
             migrationBuilder.InsertData(
                 table: "Measurements",
@@ -648,14 +648,14 @@ namespace CookBook.Infrastructures.Migrations
                 column: "OwnerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_DrinkRecepiesDrinkSteps_StepId",
-                table: "DrinkRecepiesDrinkSteps",
-                column: "StepId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_DrinksRecepiesUsers_UserId",
                 table: "DrinksRecepiesUsers",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_DrinkStepsDrinkRecepies_StepId",
+                table: "DrinkStepsDrinkRecepies",
+                column: "StepId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_FavouriteFoodRecepiesUsers_UserId",
@@ -734,10 +734,10 @@ namespace CookBook.Infrastructures.Migrations
                 name: "DrinkLikeUsers");
 
             migrationBuilder.DropTable(
-                name: "DrinkRecepiesDrinkSteps");
+                name: "DrinksRecepiesUsers");
 
             migrationBuilder.DropTable(
-                name: "DrinksRecepiesUsers");
+                name: "DrinkStepsDrinkRecepies");
 
             migrationBuilder.DropTable(
                 name: "FavouriteFoodRecepiesUsers");

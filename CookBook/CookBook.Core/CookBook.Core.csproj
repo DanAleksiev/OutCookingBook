@@ -14,4 +14,8 @@
     <ProjectReference Include="..\CookBook.Infrastructures\CookBook.Infrastructures.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Models\Ingredients\" />
+  </ItemGroup>
+
 </Project>

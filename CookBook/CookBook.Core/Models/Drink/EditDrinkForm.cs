@@ -14,9 +14,7 @@ namespace CookBook.Core.Models.Drink
         public string Name { get; set; }
 
         [Required]
-        [StringLength(LenghtParams.DescriptionMaxLengt,
-            MinimumLength = LenghtParams.DescriptionMinLengt,
-            ErrorMessage = LenghtErrors.LenghtError)]
+        [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
         public string Description { get; set; }
 
         public int RecepieTypeId { get; set; }

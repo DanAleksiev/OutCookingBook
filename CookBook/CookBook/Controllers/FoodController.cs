@@ -86,6 +86,7 @@ namespace CookBook.Controllers
         [HttpGet]
         public IActionResult All()
             {
+            ViewBag.Title = "All food recepies";
             var allRecepies = context
                 .FoodRecepies
                 .Where(x => !x.IsPrivate)
@@ -105,13 +106,29 @@ namespace CookBook.Controllers
             return View(allRecepies);
             }
 
-        [HttpPost]
-        public IActionResult All(TempView model)
+        [HttpGet]
+        public IActionResult Private()
             {
-            var name = model.Name;
+            ViewBag.Title = "Private food recepies";
+            var allRecepies = context
+                .FoodRecepies
+                .Where(x => x.OwnerId == GetUserId())
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName
+                    })
+                .AsNoTracking()
+                .ToList();
 
-            return View();
+            return View(allRecepies);
             }
+
 
         [HttpGet]
         public async Task<IActionResult> Add()

@@ -40,9 +40,8 @@ namespace CookBook.Core.Models.Food
         public bool IsPrivate { get; set; } = true;
         public bool IsAlcoholic { get; set; } = true;
 
-        [Required]
         [StringLength(LenghtParams.OrigenMaxLenght)]
-        public string Origen { get; set; }
+        public string? Origen { get; set; }
         public int Portions { get; set; }
 
 

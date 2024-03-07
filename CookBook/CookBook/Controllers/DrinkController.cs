@@ -50,9 +50,10 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult All()
+        public async Task<IActionResult> All()
             {
-            var allRecepies = context
+            ViewBag.Title = "All drink recepies";
+            var allRecepies = await context
                 .DrinkRecepies
                 .Where(x => !x.IsPrivate)
                 .Select(x => new AllRecepieViewModel()
@@ -66,18 +67,34 @@ namespace CookBook.Controllers
                     Owner = x.Owner.UserName
                     })
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
 
             return View(allRecepies);
             }
 
-        [HttpPost]
-        public IActionResult All(TempView model)
+        [HttpGet]
+        public async Task<IActionResult> Private()
             {
-            var name = model.Name;
+            ViewBag.Title = "Private drink recepies";
+            var allRecepies = await context
+                .DrinkRecepies
+                .Where(x => x.OwnerId == GetUserId())
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName
+                    })
+                .AsNoTracking()
+                .ToListAsync();
 
-            return View();
+            return View(allRecepies);
             }
+
 
         [HttpGet]
         public async Task<IActionResult> Add()
@@ -373,6 +390,8 @@ namespace CookBook.Controllers
                 .Select(x => new EditIngredientsForm()
                     {
                     Id = x.IngredientId,
+                    Name = x.Ingredient.Name,
+                    Description = x.Ingredient.Description,
                     Amount = x.Ingredient.Amount,
                     Calories = x.Ingredient.Calories,
                     MeasurmentId = x.Ingredient.MeasurementId,
@@ -393,6 +412,38 @@ namespace CookBook.Controllers
 
 
             return View(recepie);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> EditIngredient(EditIngredientsForm model)
+            {
+            var recepie = await context
+                .IngredientDrinkRecepies
+                .Include(x => x.Ingredient)
+                .Include(x => x.Recepie)
+                .Where(x => x.IngredientId == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.Recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            recepie.Ingredient.MeasurementId = model.MeasurmentId;
+            recepie.Ingredient.Name = model.Name;
+            recepie.Ingredient.Amount = model.Amount;
+            recepie.Ingredient.Description = model.Description;
+            recepie.Ingredient.Calories = model.Calories;
+
+            await context.SaveChangesAsync(); 
+
+            return RedirectToAction("Detail",new { id = recepie.Recepie.Id });
             }
 
         [HttpGet]

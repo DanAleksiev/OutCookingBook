@@ -38,7 +38,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public string Image { get; set; } = string.Empty;
 
         [StringLength(LenghtParams.OrigenMaxLenght)]
-        public string Origen { get; set; } = string.Empty;
+        public string? Origen { get; set; } = string.Empty;
 
         [Required]
         public string OwnerId { get; set; } = string.Empty;

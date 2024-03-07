@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookBook.Infrastructures.Migrations
 {
     [DbContext(typeof(CookBookDbContext))]
-    [Migration("20240305175209_renameDrinkRecepiStep3")]
-    partial class renameDrinkRecepiStep3
+    [Migration("20240307182025_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -75,7 +75,6 @@ namespace CookBook.Infrastructures.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Origen")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -195,7 +194,6 @@ namespace CookBook.Infrastructures.Migrations
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("Origen")
-                        .IsRequired()
                         .HasMaxLength(250)
                         .HasColumnType("nvarchar(250)");
 
@@ -443,7 +441,6 @@ namespace CookBook.Infrastructures.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
@@ -681,15 +678,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "6521d05e-74e2-4291-97c2-5021228bcd37",
+                            Id = "62282cae-1d75-4715-b55e-41869078e7b3",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "49d2e90d-b28a-44a7-b79f-74edd3193483",
+                            ConcurrencyStamp = "a93145d9-f1ab-47dc-864b-de042171471c",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEOwUI4UyQVKG6ptRKDII0OoKmFrb9LVUDcKEHLXnWemVv+n3pmHRZzPw+2XYlmg+QA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECKQ0EhjJGiK/3Pxdpgp4gUQbbo0IBFjhLh4RK7ytIu+bryllpMdu08e4yTBI3/AfQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "25d2a96b-daa0-40ce-8b3c-4a6cb2dfa853",
+                            SecurityStamp = "648ccc52-28c2-41f0-9101-76b27bad7eb9",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });

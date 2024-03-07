@@ -26,23 +26,28 @@ namespace CookBook.Infrastructures.Data
 
             modelBuilder
                 .Entity<FoodRecepiesUsers>()
-                .HasKey(x => new { x.FoodRecepieId, x.UserId });
+                .HasKey(x => 
+                new { x.FoodRecepieId, x.UserId });
             
             modelBuilder
                 .Entity<FoodStepsFoodRecepies>()
-                .HasKey(x => new { x.FoodRecepieId, x.FoodStepId });
+                .HasKey(x => 
+                new { x.FoodRecepieId, x.FoodStepId });
 
             modelBuilder
                 .Entity<DrinkStepDrinkRecepie>()
-                .HasKey(x => new { x.DrinkRecepieId, x.StepId });
+                .HasKey(x => 
+                new { x.DrinkRecepieId, x.StepId });
 
             modelBuilder
                 .Entity<DrinkLikeUser>()
-                .HasKey(x => new { x.DrinkRecepieId, x.UserId });
+                .HasKey(x => 
+                new { x.DrinkRecepieId, x.UserId });
             
             modelBuilder
                 .Entity<FoodLikeUser>()
-                .HasKey(x => new { x.FoodRecepieId, x.UserId });
+                .HasKey(x => 
+                new { x.FoodRecepieId, x.UserId });
 
             modelBuilder
                .Entity<FoodRecepie>()
@@ -118,6 +123,20 @@ namespace CookBook.Infrastructures.Data
                 .HasOne(x => x.User)
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
+
+            //modelBuilder
+            //   .Entity<FoodStep>()
+            //   .HasOne(x => x.FoodRecepie)
+            //   .WithMany(x => x.Steps)
+            //   .HasForeignKey(x => x.Id)
+            //   .OnDelete(DeleteBehavior.NoAction);
+
+            //modelBuilder
+            //  .Entity<DrinkStep>()
+            //  .HasOne(x => x.DrinkRecepiesDrinkSteps)
+            //  .WithMany()
+            //  .HasForeignKey(x => x.Id)
+            //  .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder.Entity<IdentityUser>().HasData(ConfigHelper.Users);
             modelBuilder.Entity<RecepieType>().HasData(ConfigHelper.RecepieTypes);
