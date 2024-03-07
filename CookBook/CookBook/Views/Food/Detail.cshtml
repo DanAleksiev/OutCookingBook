@@ -27,8 +27,8 @@
                 <li class="card col-" style="width: 15rem;">
                     <div class="card-body">
                         <h5 class="card-title mt-1">@ing.Name</h5>
-                        <p class="mb-0"><span class="fw-bold">Description: </span>@ing.Amount</p>
-                        <p class="mb-0"><span class="fw-bold">Likes: </span>@ing.Name</p>
+                        <p class="mb-0"><span class="fw-bold">Amount: </span>@ing.Amount</p>
+                        <p class="mb-0"><span class="fw-bold">Likes: </span></p>
                         @if (User.Identity.Name == Model.Owner)
                             {
                             <a asp-controller="Food" asp-action="EditIngredient" asp-route-id="@ing.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>

@@ -322,6 +322,7 @@ namespace CookBook.Controllers
                     CookTime = x.CookTime,
                     Temperature = x.Temperature,
                     TemperatureType = x.TemperatureMeasurment.Name,
+                    
                     OvenType = x.OvenType.Name,
                     Origen = x.Origen,
                     TumbsUp = x.TumbsUp,
@@ -451,6 +452,128 @@ namespace CookBook.Controllers
             await context.SaveChangesAsync();
 
             return RedirectToAction("All");
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> EditIngredient(int id)
+            {
+            var recepie = await context
+                .IngredientFoodRecepies
+                .Where(x => x.IngredientId == id)
+                .Select(x => new EditIngredientsForm()
+                    {
+                    Id = x.IngredientId,
+                    Name = x.Ingredient.Name,
+                    Description = x.Ingredient.Description,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    MeasurmentId = x.Ingredient.MeasurementId,
+                    OwnerId = x.Recepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            recepie.MeasurmentTypes = await GetMeasurmentType();
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            return View(recepie);
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> EditIngredient(EditIngredientsForm model)
+            {
+            var recepie = await context
+                .IngredientFoodRecepies
+                .Include(x => x.Ingredient)
+                .Include(x => x.Recepie)
+                .Where(x => x.IngredientId == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.Recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+            recepie.Ingredient.MeasurementId = model.MeasurmentId;
+            recepie.Ingredient.Name = model.Name;
+            recepie.Ingredient.Amount = model.Amount;
+            recepie.Ingredient.Description = model.Description;
+            recepie.Ingredient.Calories = model.Calories;
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Detail", new { id = recepie.Recepie.Id });
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> EditStep(int id)
+            {
+            var recepie = await context
+                .FoodStepsFoodRecepies
+                .Where(x => x.FoodStepId == id)
+                .Select(x => new EditStepForm()
+                    {
+                    Id = x.FoodStepId,
+                    Description = x.FoodStep.Description,
+                    OwnerId = x.FoodRecepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+
+
+            return View(recepie);
+            }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditStep(EditStepForm model)
+            {
+            var recepie = await context
+                .FoodStepsFoodRecepies
+                .Include(x => x.FoodStep)
+                .Include(x => x.FoodRecepie)
+                .Where(x => x.FoodStepId == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.FoodRecepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            recepie.FoodStep.Description = model.Description;
+
+            await context.SaveChangesAsync();
+
+            return RedirectToAction("Detail", new { id = recepie.FoodRecepie.Id });
             }
 
 

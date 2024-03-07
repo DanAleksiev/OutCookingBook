@@ -473,7 +473,34 @@ namespace CookBook.Controllers
                 }
 
 
+
             return View(recepie);
+            }
+
+
+        [HttpPost]
+        public async Task<IActionResult> EditStep(EditStepForm model)
+            {
+            var recepie = await context
+                .DrinkStepsDrinkRecepies
+                .Include(x => x.DrinkStep)
+                .Include(x => x.DrinkRecepie)
+                .Where(x => x.StepId == model.Id)
+                .FirstOrDefaultAsync();
+
+            if (recepie == null)
+                {
+                return BadRequest();
+                }
+
+            if (recepie.DrinkRecepie.OwnerId != GetUserId())
+                {
+                return Unauthorized();
+                }
+
+            recepie.DrinkStep.Description = model.Description;
+
+            return RedirectToAction("Detail", new { id = recepie.DrinkRecepie.Id });
             }
 
         /// <summary>
