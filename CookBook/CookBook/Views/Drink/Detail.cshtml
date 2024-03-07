@@ -1,6 +1,6 @@
 ﻿@model DetailedDrinkViewModel;
 @{
-    ViewBag.Title = "Detail";
+    ViewBag.Title = "Drink Detail";
 }
 
 
@@ -15,7 +15,7 @@
         <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
         <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
         <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
-        <p class="mb-0"><span class="fw-bold">Seller: </span>@Model.Owner</p>
+        <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>
     </div>
     <div>
 
@@ -26,8 +26,7 @@
                 <li class="card col-" style="width: 15rem;">
                     <div class="card-body">
                         <h5 class="card-title mt-1">@ing.Name</h5>
-                        <p class="mb-0"><span class="fw-bold">Amount: </span>@ing.Amount</p>
-                        <p class="mb-0">@ing.Measurement</p>
+                        <p class="mb-0"><span class="fw-bold">Amount: </span>@ing.Amount @ing.Measurement.Name</p>
                         @if (User.Identity.Name == Model.Owner)
                             {
                             <a asp-controller="Drink" asp-action="EditIngredient" asp-route-id="@ing.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
@@ -56,7 +55,7 @@
         @if (User.Identity.Name == Model.Owner)
             {
             <a asp-controller="Drink" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
-            <a asp-controller="Drink" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Delete</a>
+            <a asp-controller="Drink" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Delete</a>
             }
         else
             {

@@ -338,6 +338,8 @@ namespace CookBook.Controllers
 
             var ing = await context
                 .IngredientFoodRecepies
+                .Include(x=>x.Ingredient)
+                .Include(x=>x.Ingredient.Measurement)
                 .Where(x => x.RecepieId == recepie.Id)
                 .Select(x => new Ingredient()
                     {
@@ -345,6 +347,7 @@ namespace CookBook.Controllers
                     Amount = x.Ingredient.Amount,
                     Calories = x.Ingredient.Calories,
                     Name = x.Ingredient.Name,
+                    Measurement = x.Ingredient.Measurement,
                     })
                 .ToListAsync();
 
