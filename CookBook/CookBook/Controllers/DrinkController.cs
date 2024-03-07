@@ -53,6 +53,7 @@ namespace CookBook.Controllers
         public async Task<IActionResult> All()
             {
             ViewBag.Title = "All drink recepies";
+
             var allRecepies = await context
                 .DrinkRecepies
                 .Where(x => !x.IsPrivate)
@@ -76,6 +77,7 @@ namespace CookBook.Controllers
         public async Task<IActionResult> Private()
             {
             ViewBag.Title = "Private drink recepies";
+
             var allRecepies = await context
                 .DrinkRecepies
                 .Where(x => x.OwnerId == GetUserId())
@@ -92,7 +94,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToListAsync();
 
-            return View(allRecepies);
+            return View("All", allRecepies);
             }
 
 

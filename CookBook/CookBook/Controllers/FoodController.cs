@@ -87,6 +87,7 @@ namespace CookBook.Controllers
         public IActionResult All()
             {
             ViewBag.Title = "All food recepies";
+
             var allRecepies = context
                 .FoodRecepies
                 .Where(x => !x.IsPrivate)
@@ -110,6 +111,7 @@ namespace CookBook.Controllers
         public IActionResult Private()
             {
             ViewBag.Title = "Private food recepies";
+
             var allRecepies = context
                 .FoodRecepies
                 .Where(x => x.OwnerId == GetUserId())
@@ -126,7 +128,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToList();
 
-            return View(allRecepies);
+            return View("All", allRecepies);
             }
 
 
