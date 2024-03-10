@@ -59,7 +59,7 @@
             }
         else
             {
-            <a asp-controller="Rating" asp-action="Like" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Like</a>
+            <a asp-controller="Rating" asp-action="DrinkLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
             }
     </div>
 </div>

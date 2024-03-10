@@ -25,7 +25,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\Rating\" />
     <Folder Include="Views\Shared\Components\" />
+    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>

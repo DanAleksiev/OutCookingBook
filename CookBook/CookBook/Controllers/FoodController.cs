@@ -15,7 +15,7 @@ using CookBook.Core.Models.Shared;
 namespace CookBook.Controllers
 {
     [Authorize]
-    public class FoodController : Controller
+    public class FoodController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
@@ -84,11 +84,11 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult All()
+        public async Task<IActionResult> All()
             {
             ViewBag.Title = "All food recepies";
 
-            var allRecepies = context
+            var allRecepies = await context
                 .FoodRecepies
                 .Where(x => !x.IsPrivate)
                 .Select(x => new AllRecepieViewModel()
@@ -102,7 +102,20 @@ namespace CookBook.Controllers
                     Owner = x.Owner.UserName
                     })
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
+
+            var userId = GetUserId();
+
+            var likes = await context
+                .FoodLikeUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in likes)
+                {
+                allRecepies.First(x => x.Id == item.FoodRecepieId)
+                    .Like = true;
+                }
 
             return View(allRecepies);
             }

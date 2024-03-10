@@ -15,7 +15,7 @@ using CookBook.Core.Models.Drink;
 namespace CookBook.Controllers
     {
     [Authorize]
-    public class DrinkController : Controller
+    public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<DrinkStep> addSteps { get; set; } = new List<DrinkStep>();
@@ -54,6 +54,8 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "All drink recepies";
 
+
+
             var allRecepies = await context
                 .DrinkRecepies
                 .Where(x => !x.IsPrivate)
@@ -69,6 +71,19 @@ namespace CookBook.Controllers
                     })
                 .AsNoTracking()
                 .ToListAsync();
+
+            var userId = GetUserId();
+
+            var likes = await context
+                .DrinkLikeUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in likes)
+                {
+                allRecepies.First(x => x.Id == item.DrinkRecepieId)
+                    .Like = true;
+                }
 
             return View(allRecepies);
             }
@@ -282,6 +297,7 @@ namespace CookBook.Controllers
                     Name = x.Ingredient.Name,
                     Measurement = x.Ingredient.Measurement,
                     })
+                .AsNoTracking()
                 .ToListAsync();
 
             var steps = await context
@@ -294,6 +310,7 @@ namespace CookBook.Controllers
                     Position = x.DrinkStep.Position,
                     })
                 .OrderBy(x => x.Position)
+                .AsNoTracking()
                 .ToListAsync();
 
             recepie.Ingredients = ing;
@@ -389,7 +406,7 @@ namespace CookBook.Controllers
             {
             var recepie = await context
                 .IngredientDrinkRecepies
-                .Where(x=>x.IngredientId == id)
+                .Where(x => x.IngredientId == id)
                 .Select(x => new EditIngredientsForm()
                     {
                     Id = x.IngredientId,
@@ -444,9 +461,9 @@ namespace CookBook.Controllers
             recepie.Ingredient.Description = model.Description;
             recepie.Ingredient.Calories = model.Calories;
 
-            await context.SaveChangesAsync(); 
+            await context.SaveChangesAsync();
 
-            return RedirectToAction("Detail",new { id = recepie.Recepie.Id });
+            return RedirectToAction("Detail", new { id = recepie.Recepie.Id });
             }
 
         [HttpGet]
