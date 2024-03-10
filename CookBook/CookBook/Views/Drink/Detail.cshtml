@@ -13,9 +13,16 @@
         <h3 class="card-title mt-1">@Model.Name</h3>
         <img class="card-img-top" src=@Model.Image alt="Ad Image" style="max-width:30rem; max-height:40rem;">
         <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        @if (Model.IsAlcoholic)
+            {
+            <p class="mb-0"><span class="fw-bold">It is Alcoholic</span></p>
+            }
         <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
-        <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
+        <p class="mb-0"><span class="fw-bold">Origen: </span>@Model.Origen</p>
+        <p class="mb-0"><span class="fw-bold">Cups: </span>@Model.Cups</p>
+        <hr />
         <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>
+        <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
     </div>
     <div>
 

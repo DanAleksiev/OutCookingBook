@@ -12,6 +12,7 @@ namespace CookBook.Core.Models.Drink
         public DateTime DatePosted { get; set; }
         public string Image { get; set; }
         public string Origen { get; set; }
+        public bool IsAlcoholic { get; set; }
         public int Cups { get; set; }
         public int TumbsUp { get; set; }
         public string Owner { get; set; }

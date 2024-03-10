@@ -277,6 +277,7 @@ namespace CookBook.Controllers
                     Image = x.Image,
                     Origen = x.Origen,
                     TumbsUp = x.TumbsUp,
+                    IsAlcoholic = x.IsAlcoholic,
                     Cups = x.Cups,
                     Owner = x.Owner.UserName,
                     })
@@ -314,7 +315,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToListAsync();
 
-             var userId = GetUserId();
+            var userId = GetUserId();
 
             var likes = await context
                 .DrinkLikeUsers

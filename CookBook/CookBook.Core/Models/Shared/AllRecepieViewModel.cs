@@ -10,6 +10,8 @@
         public int TumbsUp { get; set; }
         public string Description { get; set; }
 
+
+        public bool Private { get; set; }
         public bool Like { get; set; }
 
     }
