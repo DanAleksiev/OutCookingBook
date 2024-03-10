@@ -59,6 +59,15 @@
             }
         else
             {
+            if (Model.Like)
+                {
+                ViewBag.Like = "Unlike";
+                }
+            else
+                {
+                ViewBag.Like = "Like";
+                }
+            
             <a asp-controller="Rating" asp-action="DrinkLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
             }
     </div>

@@ -91,7 +91,7 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Private()
             {
-            ViewBag.Title = "Private drink recepies";
+            ViewBag.Title = "Your drink recepies";
 
             var allRecepies = await context
                 .DrinkRecepies
@@ -252,13 +252,14 @@ namespace CookBook.Controllers
             recepie.Descripton = model.Description;
             recepie.Image = model.Image;
             recepie.IsPrivate = model.IsPrivate;
+            recepie.IsAlcoholic = model.IsAlcoholic;
             recepie.Origen = model.Origen;
             recepie.Cups = model.Cups;
 
             await context.SaveChangesAsync();
 
 
-            return RedirectToAction("All");
+            return RedirectToAction("Private");
             }
 
         [HttpGet]
@@ -312,6 +313,21 @@ namespace CookBook.Controllers
                 .OrderBy(x => x.Position)
                 .AsNoTracking()
                 .ToListAsync();
+
+             var userId = GetUserId();
+
+            var likes = await context
+                .DrinkLikeUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in likes)
+                {
+                if (recepie.Id == item.DrinkRecepieId)
+                    {
+                    recepie.Like = true;
+                    }
+                }
 
             recepie.Ingredients = ing;
             recepie.Steps = steps;

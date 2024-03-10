@@ -123,7 +123,7 @@ namespace CookBook.Controllers
         [HttpGet]
         public IActionResult Private()
             {
-            ViewBag.Title = "Private food recepies";
+            ViewBag.Title = "Your food recepies";
 
             var allRecepies = context
                 .FoodRecepies
@@ -314,7 +314,7 @@ namespace CookBook.Controllers
             await context.SaveChangesAsync();
 
 
-            return RedirectToAction("All");
+            return RedirectToAction("Private");
             }
 
         [HttpGet]
@@ -373,6 +373,22 @@ namespace CookBook.Controllers
                     })
                 .OrderBy(x => x.Position)
                 .ToListAsync();
+
+
+            var userId = GetUserId();
+
+            var likes = await context
+                .FoodLikeUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in likes)
+                {
+                if (recepie.Id == item.FoodRecepieId)
+                    {
+                    recepie.Like = true;
+                    }
+                }
 
             recepie.Ingredients = ing;
             recepie.Steps = steps;

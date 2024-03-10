@@ -65,7 +65,7 @@ namespace CookBook.Controllers
                 await context.SaveChangesAsync();
 
 
-            return Ok();
+            return RedirectToAction("All", "Food");
             }
 
         public async Task<IActionResult> DrinkLike(int id)
