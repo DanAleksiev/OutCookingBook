@@ -1,7 +1,17 @@
-﻿body {
+﻿
+#recepie-body {
+    background-color: #347474;
 }
 
-footer{
-    background-color:cornflowerblue;
-    color:black;
+#recepie-nav {
+    background-color: #42b883;
+}
+
+#health-nav {
+    background-color: #ff7e67;
+}
+
+footer {
+    background-color: #35495e;
+    color: black;
 }

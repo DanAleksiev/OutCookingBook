@@ -261,3 +261,4 @@ C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProje
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\obj\Debug\net6.0\CookBook.pdb
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\obj\Debug\net6.0\CookBook.genruntimeconfig.cache
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\obj\Debug\net6.0\ref\CookBook.dll
+C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\obj\Debug\net6.0\scopedcss\Views\Shared\_Health.cshtml.rz.scp.css
