@@ -7,9 +7,12 @@
 <div class="text-center row">
     @foreach (var a in Model)
         {
-        @* <partial name="_RecepieCard" model="a" /> *@
         <div class="card col-4" style="width: 15rem;">
             <div class="card-body">
+                @if (a.Private)
+                    {
+                    <p class="fw-bolder rounded border border-danger" style="background-color:#EED202">Private</p>
+                    }
                 <h5 class="card-title mt-1">@a.Name</h5>
                 <img class="card-img-top" src=@a.Image alt="Ad Image">
                 <p class="mb-0"><span class="fw-bold">Added on: </span>@a.DatePosted</p>

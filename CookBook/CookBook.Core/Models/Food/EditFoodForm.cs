@@ -38,9 +38,9 @@ namespace CookBook.Core.Models.Food
         public int MeasurmentId { get; set; }
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new HashSet<UtilTypeModel>();
         public bool IsPrivate { get; set; } = true;
-        [Required]
+
         [StringLength(LenghtParams.OrigenMaxLenght)]
-        public string Origen { get; set; }
+        public string? Origen { get; set; }
         public int Portions { get; set; }
         }
     }

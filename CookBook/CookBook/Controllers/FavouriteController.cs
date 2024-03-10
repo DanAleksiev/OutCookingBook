@@ -2,9 +2,9 @@
 
 namespace CookBook.Controllers
     {
-    public class FavouriteController : Controller
+    public class FavouriteController : BaseController
         {
-        public IActionResult Index()
+        public async Task<IActionResult> Drinks()
             {
             return View();
             }

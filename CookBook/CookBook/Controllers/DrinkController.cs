@@ -67,7 +67,8 @@ namespace CookBook.Controllers
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
                     Description = x.Descripton,
-                    Owner = x.Owner.UserName
+                    Owner = x.Owner.UserName,
+                    Private = x.IsPrivate
                     })
                 .AsNoTracking()
                 .ToListAsync();
@@ -104,7 +105,8 @@ namespace CookBook.Controllers
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
                     Description = x.Descripton,
-                    Owner = x.Owner.UserName
+                    Owner = x.Owner.UserName,
+                    Private = x.IsPrivate
                     })
                 .AsNoTracking()
                 .ToListAsync();

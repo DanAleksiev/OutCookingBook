@@ -22,6 +22,7 @@ namespace CookBook.Core.Models.Food
         public string OwnerId { get; set; }
 
         public bool Like { get; set; }
+        public bool Private { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<FoodStep> Steps { get; set; } = new List<FoodStep>();
