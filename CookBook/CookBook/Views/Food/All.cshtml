@@ -14,43 +14,7 @@
         }
     @foreach (var a in Model)
         {
-
-        <div class="card col-4" style="width: 15rem;">
-
-            <div class="card-body">
-                @if (a.Private)
-                    {
-                    <p class="fw-bolder rounded border border-danger" style="background-color:#EED202">Private</p>
-                    }
-                <h5 class="card-title mt-1">@a.Name</h5>
-                <img class="card-img-top" src=@a.Image alt="Ad Image">
-                <p class="mb-0"><span class="fw-bold">Added on: </span>@a.DatePosted</p>
-                <p class="mb-0"><span class="fw-bold">Description: </span>@a.Description</p>
-                <p class="mb-0"><span class="fw-bold">Likes: </span>@a.TumbsUp</p>
-                <p class="mb-0"><span class="fw-bold">Publisher: </span>@a.Owner</p>
-            </div>
-
-            @if (User.Identity.Name == a.Owner)
-                {
-                <a asp-controller="Food" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-                <a asp-controller="Food" asp-action="Edit" asp-route-id="@a.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
-                }
-            else
-                {
-                <a asp-controller="Food" asp-action="Detail" asp-route-id="@a.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-                <a asp-controller="Favourite" asp-action="Add" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Favourite</a>
-                if (a.Like)
-                    {
-                    ViewBag.Like = "Unlike";
-                    }
-                else
-                    {
-                    ViewBag.Like = "Like";
-                    }
-                <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@a.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
-
-                }
-        </div>
+        <partial name="_FoodCardPartial" model="a" />
         }
 
     <nav aria-label="Page navigation example">

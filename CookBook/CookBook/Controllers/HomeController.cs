@@ -15,6 +15,7 @@ namespace CookBook.Controllers
 
         public IActionResult Index()
             {
+
             return View();
             }
 

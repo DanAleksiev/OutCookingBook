@@ -13,6 +13,7 @@
 
         public bool Private { get; set; }
         public bool Like { get; set; }
+        public bool Favourite { get; set; }
 
     }
 }

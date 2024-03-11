@@ -100,7 +100,8 @@ namespace CookBook.Controllers
                     TumbsUp = x.TumbsUp,
                     Description = x.Descripton,
                     Owner = x.Owner.UserName,
-                    Private =x.IsPrivate
+                    Private =x.IsPrivate,
+                    
                     })
                 .AsNoTracking()
                 .ToListAsync();
@@ -112,10 +113,21 @@ namespace CookBook.Controllers
                 .Where(x => x.UserId == userId)
                 .ToListAsync();
 
-            foreach (var item in likes)
+            foreach (var i in likes)
                 {
-                allRecepies.First(x => x.Id == item.FoodRecepieId)
+                allRecepies.First(x => x.Id == i.FoodRecepieId)
                     .Like = true;
+                }
+
+            var favourite = await context
+                .FavouriteFoodRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in favourite)
+                {
+                allRecepies.First(x => x.Id == i.FoodRecepieId)
+                    .Favourite = true;
                 }
 
             return View(allRecepies);

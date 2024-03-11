@@ -18,7 +18,15 @@
     else
         {
         <a asp-controller="Food" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-        <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Favourite</a>
+        @if (Model.Favourite)
+            {
+            ViewBag.Favourite = "Unfavourite";
+            }
+        else
+            {
+            ViewBag.Favourite = "Favourite";
+            }
+        <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Favourite</a>
         if (Model.Like)
             {
             ViewBag.Like = "Unlike";

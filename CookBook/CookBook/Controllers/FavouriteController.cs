@@ -41,7 +41,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            var like = new FavouriteFoodRecepiesUsers
+            var favourite = new FavouriteFoodRecepiesUsers
                 {
                 FoodRecepieId = recepie.Id,
                 UserId = userId
@@ -49,13 +49,11 @@ namespace CookBook.Controllers
 
             if (existing != null)
                 {
-                recepie.TumbsUp--;
-                context.FavouriteFoodRecepiesUsers.Remove(like);
+                context.FavouriteFoodRecepiesUsers.Remove(favourite);
                 }
             else
                 {
-                recepie.TumbsUp++;
-                await context.FavouriteFoodRecepiesUsers.AddAsync(like);
+                await context.FavouriteFoodRecepiesUsers.AddAsync(favourite);
                 }
 
             await context.SaveChangesAsync();
@@ -89,7 +87,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            var like = new FavouriteDrinkRecepiesUsers
+            var favourite = new FavouriteDrinkRecepiesUsers
                 {
                 DrinkRecepieId = recepie.Id,
                 UserId = userId
@@ -98,13 +96,11 @@ namespace CookBook.Controllers
 
             if (existing != null)
                 {
-                recepie.TumbsUp--;
-                context.FavouriteDrinkRecepiesUsers.Remove(like);
+                context.FavouriteDrinkRecepiesUsers.Remove(favourite);
                 }
             else
                 {
-                recepie.TumbsUp++;
-                await context.FavouriteDrinkRecepiesUsers.AddAsync(like);
+                await context.FavouriteDrinkRecepiesUsers.AddAsync(favourite);
                 }
 
             await context.SaveChangesAsync();

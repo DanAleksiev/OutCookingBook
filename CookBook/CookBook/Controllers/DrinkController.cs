@@ -86,6 +86,17 @@ namespace CookBook.Controllers
                     .Like = true;
                 }
 
+            var favourite = await context
+                .FavouriteDrinkRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in favourite)
+                {
+                allRecepies.First(x => x.Id == i.DrinkRecepieId)
+                    .Favourite = true;
+                }
+
             return View(allRecepies);
             }
 
@@ -205,6 +216,7 @@ namespace CookBook.Controllers
             {
             var recepie = await context.DrinkRecepies.FindAsync(id);
 
+            
             if (recepie == null)
                 {
                 return BadRequest();
@@ -262,6 +274,8 @@ namespace CookBook.Controllers
 
             await context.SaveChangesAsync();
 
+            var json = recepie.SerializeToJson();
+            await Console.Out.WriteLineAsync(json);
 
             return RedirectToAction("Private");
             }
@@ -286,6 +300,7 @@ namespace CookBook.Controllers
                     Owner = x.Owner.UserName,
                     })
                 .FirstOrDefaultAsync();
+
 
             if (recepie == null)
                 {
@@ -336,6 +351,7 @@ namespace CookBook.Controllers
 
             recepie.Ingredients = ing;
             recepie.Steps = steps;
+            
             return View(recepie);
             }
 
