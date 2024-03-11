@@ -1,4 +1,5 @@
-﻿using CookBook.Infrastructures.Data;
+﻿using CookBook.Core.Models.Shared;
+using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using Microsoft.AspNetCore.Mvc;
@@ -52,19 +53,15 @@ namespace CookBook.Controllers
             if (existing != null)
                 {
                 recepie.TumbsUp--;
-
                 context.FoodLikeUsers.Remove(like);
-                await context.SaveChangesAsync();
-
-                return RedirectToAction("All", "Food");
+                }
+            else
+                {
+                recepie.TumbsUp++;
+                await context.FoodLikeUsers.AddAsync(like);
                 }
 
-        
-            recepie.TumbsUp++;
-            await context.FoodLikeUsers.AddAsync(like);
-                await context.SaveChangesAsync();
-
-
+            await context.SaveChangesAsync();
             return RedirectToAction("All", "Food");
             }
 
@@ -104,19 +101,71 @@ namespace CookBook.Controllers
                 recepie.TumbsUp--;
 
                 context.DrinkLikeUsers.Remove(like);
-                await context.SaveChangesAsync();
-
-                return RedirectToAction("All", "Drink");
+                }
+            else
+                {
+                recepie.TumbsUp++;
+                await context.DrinkLikeUsers.AddAsync(like);
                 }
 
-       
-            recepie.TumbsUp++;
-
-            await context.DrinkLikeUsers.AddAsync(like);
             await context.SaveChangesAsync();
-
             return RedirectToAction("All", "Drink");
             }
+
+        [HttpGet]
+        public async Task<IActionResult> TopTenRatedFood()
+            {
+            var recepis = await context
+                .FoodRecepies
+                .OrderByDescending(x => x.TumbsUp)
+                .Where(x => !x.IsPrivate && x.TumbsUp > 0)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName,
+                    Private = x.IsPrivate
+                    })
+                .Take(10)
+                .AsNoTracking()
+                .ToListAsync();
+
+            ViewBag.Title = "Top 10 Food";
+
+            return View(recepis);
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> TopTenRatedDrink()
+            {
+            var recepis = await context
+                .DrinkRecepies
+                .OrderByDescending(x => x.TumbsUp)
+                .Where(x => !x.IsPrivate && x.TumbsUp > 0)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName,
+                    Private = x.IsPrivate
+                    })
+                .Take(10)
+                .AsNoTracking()
+                .ToListAsync();
+
+            ViewBag.Title = "Top 10 Dinks";
+
+            return View(recepis);
+            }
+
 
         }
     }

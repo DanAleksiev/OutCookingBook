@@ -261,8 +261,9 @@
 
                 $.ajax({
                     type: "Post",
-                    url: "@Url.Action("POSTIngredients")",
+                    url: "@Url.Action("Food/PostIngredients")",
                     dataType: "json",
+                    async: false,
                     data: $.param({
                         allIngredient: JSON.stringify(allIngredient),
                         allSteps: JSON.stringify(allSteps),
@@ -272,7 +273,7 @@
                         alert("Successfully submitted ingredients!")
                     },
                     error: function (req, status, error) {
-                        // console.log(status);
+                        console.log(status);
                     }
                 })
 

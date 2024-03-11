@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using CookBook.Constants;
+using CookBook.Infrastructures.Data.Models.Food;
 
 namespace CookBook.Infrastructures.Data.Models.Drinks
     {
@@ -17,6 +18,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         public IList<IngredientDrinkRecepie> IngredientsRecepies { get; set; } = new List<IngredientDrinkRecepie>();
         public ICollection<DrinkRecepiesUsers> RecepiesUsers { get; set; } = new List<DrinkRecepiesUsers>();
+        public ICollection<FavouriteDrinkRecepiesUsers> FavouriteRecepiesUsers { get; set; } = new List<FavouriteDrinkRecepiesUsers>();
 
         [Required]
         public DateTime DatePosted { get; set; }

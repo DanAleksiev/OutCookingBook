@@ -126,6 +126,21 @@ namespace CookBook.Infrastructures.Migrations
                     b.ToTable("DrinkStepsDrinkRecepies");
                 });
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.FavouriteDrinkRecepiesUsers", b =>
+                {
+                    b.Property<int>("DrinkRecepieId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("DrinkRecepieId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("FavouriteDrinkRecepiesUsers");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
                 {
                     b.Property<int>("FoodRecepieId")
@@ -676,15 +691,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "62282cae-1d75-4715-b55e-41869078e7b3",
+                            Id = "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "a93145d9-f1ab-47dc-864b-de042171471c",
+                            ConcurrencyStamp = "9713b3d2-13c4-4c93-8312-03bf3a16d480",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAECKQ0EhjJGiK/3Pxdpgp4gUQbbo0IBFjhLh4RK7ytIu+bryllpMdu08e4yTBI3/AfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEC576KHkarATRYApJARmrUe/EBFBBwW6zLOzk5sMUaDScD25/Z6naRBxlw6i+lpwNg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "648ccc52-28c2-41f0-9101-76b27bad7eb9",
+                            SecurityStamp = "c15f112f-da6b-4ec1-917a-805694bf9f6a",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });
@@ -822,6 +837,25 @@ namespace CookBook.Infrastructures.Migrations
                     b.Navigation("DrinkRecepie");
 
                     b.Navigation("DrinkStep");
+                });
+
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.FavouriteDrinkRecepiesUsers", b =>
+                {
+                    b.HasOne("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", "DrinkRecepie")
+                        .WithMany("FavouriteRecepiesUsers")
+                        .HasForeignKey("DrinkRecepieId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("DrinkRecepie");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
@@ -1056,6 +1090,8 @@ namespace CookBook.Infrastructures.Migrations
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", b =>
                 {
+                    b.Navigation("FavouriteRecepiesUsers");
+
                     b.Navigation("IngredientsRecepies");
 
                     b.Navigation("Likes");

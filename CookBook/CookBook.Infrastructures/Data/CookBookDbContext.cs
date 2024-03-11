@@ -72,6 +72,7 @@ namespace CookBook.Infrastructures.Data
                .Entity<FavouriteFoodRecepiesUsers>()
                .HasKey(x => new { x.FoodRecepieId, x.UserId });
 
+
             modelBuilder
                 .Entity<FavouriteFoodRecepiesUsers>()
                 .HasOne(x => x.FoodRecepie)
@@ -80,6 +81,22 @@ namespace CookBook.Infrastructures.Data
 
             modelBuilder
                 .Entity<FavouriteFoodRecepiesUsers>()
+                .HasOne(x => x.User)
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+               .Entity<FavouriteDrinkRecepiesUsers>()
+               .HasKey(x => new { x.DrinkRecepieId, x.UserId });
+
+            modelBuilder
+               .Entity<FavouriteDrinkRecepiesUsers>()
+               .HasOne(x => x.DrinkRecepie)
+               .WithMany(x => x.FavouriteRecepiesUsers)
+               .OnDelete(DeleteBehavior.NoAction);
+
+            modelBuilder
+                .Entity<FavouriteDrinkRecepiesUsers>()
                 .HasOne(x => x.User)
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
@@ -154,6 +171,7 @@ namespace CookBook.Infrastructures.Data
         public DbSet<DrinkLikeUser> DrinkLikeUsers { get; set; }
         public DbSet<FoodStepsFoodRecepies> FoodStepsFoodRecepies { get; set; }
         public DbSet<FavouriteFoodRecepiesUsers> FavouriteFoodRecepiesUsers { get; set; }
+        public DbSet<FavouriteDrinkRecepiesUsers> FavouriteDrinkRecepiesUsers { get; set; }
         public DbSet<FoodRecepie> FoodRecepies { get; set; }
         public DbSet<DrinkRecepiesUsers> DrinksRecepiesUsers { get; set; }
         public DbSet<DrinkRecepie> DrinkRecepies { get; set; }

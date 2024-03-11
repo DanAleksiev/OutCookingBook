@@ -163,6 +163,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Add(FoodViewModel model)
             {
             if (!ModelState.IsValid)
@@ -281,6 +282,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Edit(EditFoodForm model)
             {
             if (!ModelState.IsValid)
@@ -466,6 +468,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> DeleteConfirmed(DetailedFoodViewModel model)
             {
             var recepie = await context.FoodRecepies.FindAsync(model.Id);
@@ -521,6 +524,7 @@ namespace CookBook.Controllers
             }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> EditIngredient(EditIngredientsForm model)
             {
             var recepie = await context
@@ -583,6 +587,7 @@ namespace CookBook.Controllers
 
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> EditStep(EditStepForm model)
             {
             var recepie = await context
@@ -622,7 +627,7 @@ namespace CookBook.Controllers
         //but if you try to submit only them it does?
         // work around create a separate button to submit the ing and steps
         [HttpPost]
-        public JsonResult POSTIngredients(string allIngredient, string allSteps)
+        public JsonResult PostIngredients(string allIngredient, string allSteps)
             {
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();

@@ -118,21 +118,21 @@
 
                 // Create a new element
                 let newElement = `
-                                                                        <li id="ingredient-${ingCount}">
-                                                                  <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
-                                                                  <span asp-validation-for="IngredientName" class=" small text-danger"></span>
-                                                                  <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
-                                                                  <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
-                                                                  <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
-        @foreach (var type in Model.MeasurmentTypes)
-            {
-                                                                                             <option value="@type.Id">@type.Name</option>
-            }
-                                                                 </select>
-                                                                 <span class="small text-danger"></span>
-                                                                 <hr />
-                                                               </li>
-                                                               `;
+                    <li id="ingredient-${ingCount}">
+                        <input asp-for="IngredientName" class="form-control nameIngredient" placeholder="Ingredient:" />
+                        <span asp-validation-for="IngredientName" class=" small text-danger"></span>
+                        <input asp-for="IngredientAmount"class="form-control amountIngredient" placeholder="Amount:" />
+                        <span asp-validation-for="IngredientAmount" class=" small text-danger"></span>
+                        <select asp-for="@Model.MeasurmentId" class="form-control amountTypeIngredient" aria-required="true">
+                        @foreach (var type in Model.MeasurmentTypes)
+                            {
+                            <option value="@type.Id">@type.Name</option>
+                            }
+                    </select>
+                    <span class="small text-danger"></span>
+                    <hr />
+                  </li>
+                  `;
 
                 ingCount++;
                 // Append the new element to the container
@@ -152,12 +152,12 @@
 
                 // Create a new element
                 let newElement = `
-                                                             <li id="step-${stepCount}">
-                                                                <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
-                                                                <span asp-validation-for="StepDescription" class=" small text-danger"></span>
-                                                                <hr />
-                                                             </li>
-                                                             `;
+                    <li id="step-${stepCount}">
+                       <input asp-for="StepDescription" id="stepInput-${stepCount}" class="form-control recepieStep" placeholder="Put your description here:" />
+                       <span asp-validation-for="StepDescription" class=" small text-danger"></span>
+                       <hr />
+                    </li>
+                    `;
 
                 stepCount++;
                 // Append the new element to the container
@@ -225,13 +225,14 @@
                     allSteps.push(currStep);
                 }
 
-                console.log(steps);
+                console.log(allSteps);
                 console.log(allIngredient);
 
                 $.ajax({
                     type: "Post",
-                    url: "@Url.Action("POSTIngredients")",
+                    url: "@Url.Action("PostIngredients")",
                     dataType: "json",
+                    async: false,
                     data: $.param({
                         allIngredient: JSON.stringify(allIngredient),
                         allSteps: JSON.stringify(allSteps),
@@ -241,7 +242,7 @@
                         alert("Successfully submitted ingredients!")
                     },
                     error: function (req, status, error) {
-                        // console.log(status);
+                        console.log(status);
                     }
                 })
 
