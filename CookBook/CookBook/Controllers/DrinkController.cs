@@ -273,10 +273,6 @@ namespace CookBook.Controllers
             recepie.Cups = model.Cups;
 
             await context.SaveChangesAsync();
-
-            var json = recepie.SerializeToJson();
-            await Console.Out.WriteLineAsync(json);
-
             return RedirectToAction("Private");
             }
 

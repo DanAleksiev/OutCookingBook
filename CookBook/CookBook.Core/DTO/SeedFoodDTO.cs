@@ -17,7 +17,6 @@
         public int Temperature { get; set; }
         public int TemperatureMeasurmentId { get; set; }
         public int OvenTypeId { get; set; }
-        public DateTime LastTimeYouHadIt { get; set; }
 
         public bool IsPrivate { get; set; }
 
