@@ -90,12 +90,6 @@ namespace CookBook.Controllers
                     "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
                     };
 
-            bool[] isPrivate = new bool[]
-                {
-                    true,
-                    false,
-                    };
-
             var random = new Random();
             var template = new FoodRecepie()
                 {
@@ -103,16 +97,16 @@ namespace CookBook.Controllers
                 Descripton = description,
                 DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length - 1)]),
                 Image = "NeedToFIgureImages",
-                PrepTime = random.Next(0, 20),
-                CookTime = random.Next(0, 120),
+                PrepTime = random.Next(1, 20),
+                CookTime = random.Next(1, 120),
                 Origen = countries[random.Next(0, countries.Length - 1)],
                 OwnerId = testOwners[random.Next(0, testOwners.Length - 1)],
-                Portions = random.Next(0, 6),
-                RecepieTypeId = random.Next(0, 4),
+                Portions = random.Next(1, 6),
+                RecepieTypeId = random.Next(1, 5),
                 Temperature = random.Next(180, 400),
-                TemperatureMeasurmentId = random.Next(0, 1),
-                OvenTypeId = random.Next(0, 3),
-                IsPrivate = isPrivate[random.Next(0, 1)],
+                TemperatureMeasurmentId = random.Next(1, 2),
+                OvenTypeId = random.Next(1, 4),
+                IsPrivate = false,
                 TumbsUp = 0,
                 };
 
@@ -157,7 +151,7 @@ namespace CookBook.Controllers
 
                     Name = ingNames[random.Next(0,ingNames.Length-1)],
                     Amount = random.Next(0,400),
-                    MeasurementId = random.Next(0,9),
+                    MeasurementId = random.Next(1,9),
                     };
 
                 addIngredients.Add(newIng);
@@ -230,7 +224,7 @@ namespace CookBook.Controllers
         public async Task<IActionResult> DrinkRecepiesFromJSON()
             {
             await GenerateNewRandomDrinkRecepies();
-            return RedirectToAction("All", "Food");
+            return RedirectToAction("All", "Drink");
             }
 
         public async Task GenerateNewRandomDrinkRecepies()
@@ -245,7 +239,7 @@ namespace CookBook.Controllers
                 "Placeholder Sause",
                 };
 
-            string description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit.";
+            string description = "Lorem ipsum dolor sit amet";
 
             string[] dates = new string[]{
                     "11/03/2024",
@@ -276,7 +270,7 @@ namespace CookBook.Controllers
                     "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
                     };
 
-            bool[] isPrivate = new bool[]
+            bool[] isAlcoholic = new bool[]
                 {
                     true,
                     false,
@@ -290,10 +284,10 @@ namespace CookBook.Controllers
                 DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length - 1)]),
                 Image = "NeedToFIgureImages",
                 Origen = countries[random.Next(0, countries.Length - 1)],
-                OwnerId = testOwners[random.Next(0, testOwners.Length - 1)],
+                OwnerId = testOwners[random.Next(1, testOwners.Length - 1)],
                 Cups = random.Next(0, 6),
-                IsPrivate = isPrivate[random.Next(0, 1)],
-                IsAlcoholic = isPrivate[random.Next(0, 1)],
+                IsPrivate = false,
+                IsAlcoholic = isAlcoholic[random.Next(0, 1)],
                 TumbsUp = 0,
                 };
 
@@ -338,7 +332,7 @@ namespace CookBook.Controllers
 
                     Name = ingNames[random.Next(0, ingNames.Length - 1)],
                     Amount = random.Next(0, 400),
-                    MeasurementId = random.Next(0, 9),
+                    MeasurementId = random.Next(1, 9),
                     };
 
                 addIngredients.Add(newIng);
