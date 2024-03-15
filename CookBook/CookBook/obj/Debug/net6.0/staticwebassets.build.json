@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "jrkdwl/SsdsdY6LGhZr+7Aseu1gHOqaW6NGK9hZI+VU=",
+  "Hash": "TU+qX5j1F3MIdMhTM+EHHcfcq/5XkjqXhqfdym5dAFc=",
   "Source": "CookBook",
   "BasePath": "_content/CookBook",
   "Mode": "Default",
@@ -1402,6 +1402,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\world-food-day-2020.png",
+      "SourceId": "CookBook",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
+      "BasePath": "_content/CookBook",
+      "RelativePath": "img/world-food-day-2020.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\world-food-day-2020.png"
     },
     {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\js\\btnFunctions.js",

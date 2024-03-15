@@ -84,22 +84,33 @@ namespace CookBook.Controllers
                     "Australia",
                     };
 
+            string[] foodImages = new string[]
+                {
+                    "https://www.southernliving.com/thmb/rWglUDMr6jxNu0pQyNYfgkiJI7E=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Lemon-Chicken-Thighs_TK517C_16x9-196_preview_scale_100_ppi_150_quality_100-5770c66a5145418894bd519c70faf0d6.jpg",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2020/08/chorizo-mozarella-gnocchi-bake-cropped-9ab73a3.jpg?quality=90&resize=556,505",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2013/05/Puttanesca-fd5810c.jpg",
+                    "https://www.kayak.co.uk/news/wp-content/uploads/sites/5/2022/01/feature-image.jpg",
+                    "https://www.seriouseats.com/thmb/DvSDZoMw8WSOQFAMgf3L2wlfY9Y=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/053123_TomatoSoup-MPPSoupsAndStews-Morgan-Hunt-Glaze-f59a081d7efb4625a75a1a907a6b1cbf.jpg",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2017/11/Vegetable-soup-recipes-1eb6583.jpg?resize=768,574",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2023/08/grilled-fish-colllection-60b560c.jpg?quality=90&resize=556,505",
+                    };
+
             string[] testOwners = new string[]
                 {
-                    "566ffce9-543c-4218-93e1-dcc3e0d00fb5",
+                    "b197a4b2-96cb-4d02-a480-2818f59b2857",
                     "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
                     };
 
             var random = new Random();
             var template = new FoodRecepie()
                 {
-                Name = names[random.Next(0, names.Length - 1)],
+                Name = names[random.Next(0, names.Length)],
                 Descripton = description,
-                DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length - 1)]),
-                Image = "NeedToFIgureImages",
+                DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length)]),
+                Image = foodImages[random.Next(0, foodImages.Length)],
                 PrepTime = random.Next(1, 20),
                 CookTime = random.Next(1, 120),
-                Origen = countries[random.Next(0, countries.Length - 1)],
+                Origen = countries[random.Next(0, countries.Length)],
                 OwnerId = testOwners[random.Next(0, testOwners.Length)],
                 Portions = random.Next(1, 6),
                 RecepieTypeId = random.Next(1, 5),
@@ -123,6 +134,7 @@ namespace CookBook.Controllers
 
                 addSteps.Add(newStep);
                 }
+
 
             string[] ingNames = new string[]
                 {
@@ -149,7 +161,7 @@ namespace CookBook.Controllers
                 Ingredient newIng = new Ingredient()
                     {
 
-                    Name = ingNames[random.Next(0,ingNames.Length-1)],
+                    Name = ingNames[random.Next(0,ingNames.Length)],
                     Amount = random.Next(0,400),
                     MeasurementId = random.Next(1,9),
                     };
@@ -230,13 +242,13 @@ namespace CookBook.Controllers
         public async Task GenerateNewRandomDrinkRecepies()
             {
             string[] names = new string[]{
-                "Placeholder Soup",
-                "Placeholder Dish",
-                "Placeholder Pasta",
-                "Placeholder Meat",
-                "Placeholder Veggie",
-                "Placeholder Salad",
-                "Placeholder Sause",
+                "Placeholder juice",
+                "Placeholder Palms",
+                "Placeholder Stroberry Blast",
+                "Placeholder Sunshine",
+                "Placeholder Blue lagoon",
+                "Placeholder Paradicese",
+                "Placeholder Rasberry recharge",
                 };
 
             string description = "Lorem ipsum dolor sit amet";
@@ -266,8 +278,19 @@ namespace CookBook.Controllers
 
             string[] testOwners = new string[]
                 {
-                    "566ffce9-543c-4218-93e1-dcc3e0d00fb5",
+                    "b197a4b2-96cb-4d02-a480-2818f59b2857",
                     "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
+                    };
+
+            string[] drinkImages = new string[]
+                {
+                    "https://hips.hearstapps.com/hmg-prod/images/ice-tea-royalty-free-image-1621872849.jpg?resize=980:*",
+                    "https://www.allrecipes.com/thmb/PSguDhMOlYcrYYQMBhQR1_EL7ck=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Long-Drink-4x3-1-89407cb356934c29bb09a1defc6a5b14.jpg",
+                    "https://www.southernliving.com/thmb/YJTY4hKNKdaCZ4Hd9Y4_aHD8Zrw=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/Southern-Living-Paloma-3X2-1791-ab70507c3266414f81eb2dbcff31c413.jpg",
+                    "https://hips.hearstapps.com/hmg-prod/images/sex-on-the-beach-vertical-6442f7c22a415.jpg",
+                    "https://hips.hearstapps.com/hmg-prod/images/aperol-spritz-index-64763b53b0070.jpg",
+                    "https://www.peelwithzeal.com/wp-content/uploads/2022/05/Red-White-and-Blue-Cocktail.jpg",
+                    "https://images.immediate.co.uk/production/volatile/sites/30/2021/11/diabolo-mockail-440-x400-c795884.jpg?quality=90&resize=556,505",
                     };
 
             bool[] isAlcoholic = new bool[]
@@ -279,11 +302,11 @@ namespace CookBook.Controllers
             var random = new Random();
             var template = new DrinkRecepie()
                 {
-                Name = names[random.Next(0, names.Length - 1)],
+                Name = names[random.Next(0, names.Length)],
                 Descripton = description,
-                DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length - 1)]),
-                Image = "NeedToFIgureImages",
-                Origen = countries[random.Next(0, countries.Length - 1)],
+                DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length)]),
+                Image = drinkImages[random.Next(0, drinkImages.Length)],
+                Origen = countries[random.Next(0, countries.Length)],
                 OwnerId = testOwners[random.Next(0, testOwners.Length)],
                 Cups = random.Next(0, 6),
                 IsPrivate = false,

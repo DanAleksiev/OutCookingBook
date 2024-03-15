@@ -1,0 +1,16 @@
+﻿@model IEnumerable<AllRecepieViewModel>;
+
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<div class="text-center row">
+    @foreach (var a in Model)
+        {
+        <partial name="_FoodCardPartial" model="a" />
+        }
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

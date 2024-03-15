@@ -20,3 +20,10 @@ html {
 body {
     margin-bottom: 60px;
 }
+
+#home-page-img {
+    margin-top: 5rem;
+    border: solid;
+    border-color: #35495e;
+    border-radius: 1rem;
+}

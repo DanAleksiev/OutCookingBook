@@ -1,4 +1,5 @@
-﻿using CookBook.Infrastructures.Data;
+﻿using CookBook.Core.Models.Shared;
+using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using Microsoft.AspNetCore.Mvc;
@@ -106,5 +107,53 @@ namespace CookBook.Controllers
             await context.SaveChangesAsync();
             return RedirectToAction("All", "Drink");
             }
+
+        [HttpGet]
+        public async Task<IActionResult> AllFavouriteFood()
+            {
+            var userId = GetUserId();
+            var existing = await context
+                .FavouriteFoodRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.FoodRecepie.Id,
+                    Name = x.FoodRecepie.Name,
+                    DatePosted = x.FoodRecepie.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.FoodRecepie.Image,
+                    Owner = x.FoodRecepie.Owner.UserName,
+                    TumbsUp = x.FoodRecepie.TumbsUp,
+                    Description = x.FoodRecepie.Descripton,
+                    })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(existing);
+            }
+
+        [HttpGet]
+        public async Task<IActionResult> AllFavouriteDrink()
+            {
+            var userId = GetUserId();
+            var existing = await context
+                .FavouriteDrinkRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.DrinkRecepie.Id,
+                    Name = x.DrinkRecepie.Name,
+                    DatePosted = x.DrinkRecepie.DatePosted.ToString("dd/MM/yyyy"),
+                    Image = x.DrinkRecepie.Image,
+                    Owner = x.DrinkRecepie.Owner.UserName,
+                    TumbsUp = x.DrinkRecepie.TumbsUp,
+                    Description = x.DrinkRecepie.Descripton,
+                    })
+                .AsNoTracking()
+                .ToListAsync();
+
+            return View(existing);
+            }
+
+
         }
     }

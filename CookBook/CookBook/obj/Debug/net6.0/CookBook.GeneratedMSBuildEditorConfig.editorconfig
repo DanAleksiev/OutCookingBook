@@ -66,12 +66,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/FavouriteDrink.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEZhdm91cml0ZURyaW5rLmNzaHRtbA==
+[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteDrink.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEFsbEZhdm91cml0ZURyaW5rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/FavouriteFood.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEZhdm91cml0ZUZvb2QuY3NodG1s
+[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteFood.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEFsbEZhdm91cml0ZUZvb2QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Add.cshtml]
