@@ -12,6 +12,8 @@ using CookBook.Core.Utilities;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
 using CookBook.Areas.Admin.Controllers;
+using CookBook.Core.Services;
+using CookBook.Core.Contracts;
 
 namespace CookBook.Controllers
 {
@@ -22,9 +24,18 @@ namespace CookBook.Controllers
         private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
 
         private readonly CookBookDbContext context;
-        public FoodController(CookBookDbContext _context)
+        private readonly IRecepieService recepieService;
+        private readonly ILogger logger;
+
+        public FoodController(
+            CookBookDbContext _context,
+            IRecepieService _recepieService,
+            ILogger<FoodController> _logger
+            )
             {
             context = _context;
+            recepieService = _recepieService;
+            logger = _logger;
             }
 
 
@@ -85,53 +96,64 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery]AllRecepieQuerySerciveModel query)
             {
             ViewBag.Title = "All food recepies";
 
-            var allRecepies = await context
-                .FoodRecepies
-                .Where(x => !x.IsPrivate)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
-                    Owner = x.Owner.UserName,
-                    Private =x.IsPrivate,
-                    
-                    })
-                .AsNoTracking()
-                .ToListAsync();
+            var result = await recepieService.AllAsync(
+                query.SearchTerm,
+                query.Searching,
+                query.Sorting,
+                query.CurrentPage,
+                AllRecepieQuerySerciveModel.RecepiesPerPage
+                );
 
-            var userId = GetUserId();
+            //query.TotalRecepiesCount = result.TotalRecepies;
+            //query.Recepies = result.Recepies;
 
-            var likes = await context
-                .FoodLikeUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
+            //var allRecepies = await context
+            //    .FoodRecepies
+            //    .Where(x => !x.IsPrivate)
+            //    .Select(x => new AllRecepieViewModel()
+            //        {
+            //        Id = x.Id,
+            //        Name = x.Name,
+            //        DatePosted = x.DatePosted,
+            //        Image = x.Image,
+            //        TumbsUp = x.TumbsUp,
+            //        Description = x.Descripton,
+            //        Owner = x.Owner.UserName,
+            //        Private =x.IsPrivate,
 
-            foreach (var i in likes)
-                {
-                allRecepies.First(x => x.Id == i.FoodRecepieId)
-                    .Like = true;
-                }
+            //        })
+            //    .AsNoTracking()
+            //    .ToListAsync();
 
-            var favourite = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
+            //var userId = GetUserId();
 
-            foreach (var i in favourite)
-                {
-                allRecepies.First(x => x.Id == i.FoodRecepieId)
-                    .Favourite = true;
-                }
+            //var likes = await context
+            //    .FoodLikeUsers
+            //    .Where(x => x.UserId == userId)
+            //    .ToListAsync();
 
-            return View(allRecepies);
+            //foreach (var i in likes)
+            //    {
+            //    allRecepies.First(x => x.Id == i.FoodRecepieId)
+            //        .Like = true;
+            //    }
+
+            //var favourite = await context
+            //    .FavouriteFoodRecepiesUsers
+            //    .Where(x => x.UserId == userId)
+            //    .ToListAsync();
+
+            //foreach (var i in favourite)
+            //    {
+            //    allRecepies.First(x => x.Id == i.FoodRecepieId)
+            //        .Favourite = true;
+            //    }
+
+            return View(query);
             }
 
         [HttpGet]

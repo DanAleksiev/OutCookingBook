@@ -141,20 +141,6 @@ namespace CookBook.Infrastructures.Data
                 .WithMany()
                 .OnDelete(DeleteBehavior.NoAction);
 
-            //modelBuilder
-            //   .Entity<FoodStep>()
-            //   .HasOne(x => x.FoodRecepie)
-            //   .WithMany(x => x.Steps)
-            //   .HasForeignKey(x => x.Id)
-            //   .OnDelete(DeleteBehavior.NoAction);
-
-            //modelBuilder
-            //  .Entity<DrinkStep>()
-            //  .HasOne(x => x.DrinkRecepiesDrinkSteps)
-            //  .WithMany()
-            //  .HasForeignKey(x => x.Id)
-            //  .OnDelete(DeleteBehavior.NoAction);
-
             modelBuilder.Entity<IdentityUser>().HasData(ConfigHelper.Users);
             modelBuilder.Entity<RecepieType>().HasData(ConfigHelper.RecepieTypes);
             modelBuilder.Entity<OvenType>().HasData(ConfigHelper.OveTypes);

@@ -17,7 +17,6 @@
   <ItemGroup>
     <Folder Include="Models\Chef\" />
     <Folder Include="Models\Casual\" />
-    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
