@@ -1,8 +1,9 @@
-﻿using CookBook.Infrastructures.Data.Models.Shared;
+﻿using CookBook.Core.Contracts;
+using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Models.Food
     {
-    public class DetailedFoodViewModel
+    public class DetailedFoodViewModel:IRecepie
         {
         public int Id { get; set; }
         public string Name { get; set; }

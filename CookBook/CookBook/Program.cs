@@ -23,6 +23,7 @@ namespace CookBook
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
             })
+                .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<CookBookDbContext>();
             builder.Services.AddControllersWithViews();
             builder.Services.AddScoped<CookBookDbContext>();

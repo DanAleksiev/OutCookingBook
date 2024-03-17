@@ -65,7 +65,7 @@ namespace CookBook.Controllers
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
                     Description = x.Descripton,
@@ -114,7 +114,7 @@ namespace CookBook.Controllers
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    DatePosted = x.DatePosted.ToString("dd/MM/yyyy"),
+                    DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
                     Description = x.Descripton,

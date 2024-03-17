@@ -1,10 +1,11 @@
-﻿using CookBook.Infrastructures.Data.Models.Drinks;
+﻿using CookBook.Core.Contracts;
+using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Models.Drink
 
     {
-    public class DetailedDrinkViewModel
+    public class DetailedDrinkViewModel:IRecepie
         {
         public int Id { get; set; }
         public string Name { get; set; }

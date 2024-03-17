@@ -122,7 +122,7 @@ namespace CookBook.Controllers
                     {
                     Id = x.FoodRecepie.Id,
                     Name = x.FoodRecepie.Name,
-                    DatePosted = x.FoodRecepie.DatePosted.ToString("dd/MM/yyyy"),
+                    DatePosted = x.FoodRecepie.DatePosted,
                     Image = x.FoodRecepie.Image,
                     Owner = x.FoodRecepie.Owner.UserName,
                     TumbsUp = x.FoodRecepie.TumbsUp,
@@ -145,7 +145,7 @@ namespace CookBook.Controllers
                     {
                     Id = x.DrinkRecepie.Id,
                     Name = x.DrinkRecepie.Name,
-                    DatePosted = x.DrinkRecepie.DatePosted.ToString("dd/MM/yyyy"),
+                    DatePosted = x.DrinkRecepie.DatePosted,
                     Image = x.DrinkRecepie.Image,
                     Owner = x.DrinkRecepie.Owner.UserName,
                     TumbsUp = x.DrinkRecepie.TumbsUp,

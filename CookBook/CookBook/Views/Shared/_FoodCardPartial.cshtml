@@ -4,7 +4,7 @@
     <div class="card-body">
         <h5 class="card-title mt-1">@Model.Name</h5>
         <img class="card-img-top" src=@Model.Image alt="Ad Image">
-        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted.ToString("dd/MM/yyyy")</p>
         <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
         <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
         <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>

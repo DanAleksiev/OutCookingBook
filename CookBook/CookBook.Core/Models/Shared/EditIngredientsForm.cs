@@ -1,4 +1,5 @@
 ﻿using CookBook.Constants;
+using CookBook.Core.Contracts;
 using CookBook.Core.Models.Utilities;
 using System.ComponentModel.DataAnnotations;
 
