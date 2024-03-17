@@ -1,8 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CookBook.Areas.Admin.Controllers;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Controllers
-    {
-    public class HealthController : BaseController
+{
+    public class HealthController : Controller
         {
         
         //public async Task<IActionResult> AdvicePosters()

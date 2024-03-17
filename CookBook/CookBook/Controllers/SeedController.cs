@@ -5,12 +5,14 @@ using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 
 namespace CookBook.Controllers
     {
+    [Authorize]
     public class SeedController : Controller
         {
         //dont forget to delete 

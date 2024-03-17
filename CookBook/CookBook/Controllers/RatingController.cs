@@ -1,14 +1,16 @@
-﻿using CookBook.Core.Models.Shared;
+﻿using CookBook.Areas.Admin.Controllers;
+using CookBook.Core.Models.Shared;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-    {
-
+{
+    [Authorize]
     public class RatingController : BaseController
         {
 
@@ -113,6 +115,7 @@ namespace CookBook.Controllers
             }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> TopTenRatedFood()
             {
             var recepis = await context
@@ -140,6 +143,7 @@ namespace CookBook.Controllers
             }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> TopTenRatedDrink()
             {
             var recepis = await context

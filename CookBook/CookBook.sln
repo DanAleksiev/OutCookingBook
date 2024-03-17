@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Core", "CookBook.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Infrastructures", "CookBook.Infrastructures\CookBook.Infrastructures.csproj", "{373A73C9-268F-4FA0-BC9D-B293FDFDC8B4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.UnitTest", "CookBook.UnitTest\CookBook.UnitTest.csproj", "{3172601F-E1F4-4412-AB42-5908EC22F426}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.UnitTest", "CookBook.UnitTest\CookBook.UnitTest.csproj", "{3172601F-E1F4-4412-AB42-5908EC22F426}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -11,11 +11,12 @@ using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Core.Utilities;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
+using CookBook.Areas.Admin.Controllers;
 
 namespace CookBook.Controllers
 {
     [Authorize]
-    public class FoodController : BaseController
+    public class FoodController : Controller
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();

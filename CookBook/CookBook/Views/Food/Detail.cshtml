@@ -20,7 +20,23 @@
         
         <hr />
         <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
-        <p class="mb-0"><span class="fw-bold">Seller: </span>@Model.Owner</p>
+        <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>
+        <hr />
+        <div id="map-frame">
+            <div id="map"></div>
+
+            <!--
+              The `defer` attribute causes the callback to execute after the full HTML
+              document has been parsed. For non-blocking uses, avoiding race conditions,
+              and consistent behavior across browsers, consider loading using Promises.
+              See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+              for more information.
+              -->
+            <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXk_xp-TBT-lcjChq71urn_Ff1c6uZtTY&callback=initMap&v=weekly" defer></script>
+                    <script src="~/js/map.js"></script>
+
+        </div>
+        <p class="mb-0"><span class="fw-bold">Origen: </span>@Model.Origen</p>
     </div>
     <div>
 

@@ -11,11 +11,12 @@ using CookBook.Core.Utilities;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Models.Drink;
+using CookBook.Areas.Admin.Controllers;
 
 namespace CookBook.Controllers
-    {
+{
     [Authorize]
-    public class DrinkController : BaseController
+    public class DrinkController : Controller
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<DrinkStep> addSteps { get; set; } = new List<DrinkStep>();
@@ -50,6 +51,7 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All()
             {
             ViewBag.Title = "All drink recepies";

@@ -1,14 +1,17 @@
-﻿using CookBook.Core.Models.Shared;
+﻿using CookBook.Areas.Admin.Controllers;
+using CookBook.Core.Models.Shared;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-    {
-    public class FavouriteController : BaseController
+{
+    [Authorize]
+    public class FavouriteController : Controller
         {
         private readonly CookBookDbContext context;
         public FavouriteController(CookBookDbContext _context)
