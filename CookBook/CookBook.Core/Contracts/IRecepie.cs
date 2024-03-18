@@ -16,14 +16,14 @@ namespace CookBook.Core.Contracts
 
         [Display(Name = "Owner")]
         public string Owner { get; set; }
-        
+
         [Display(Name = "Tumbs Up")]
         public int TumbsUp { get; set; }
 
-        [Display(Name ="Description")]
+        [Display(Name = "Description")]
         public string Description { get; set; }
-        
-        [Display(Name ="Private")]
+
+        [Display(Name = "Private")]
         public bool Private { get; set; }
         }
     }

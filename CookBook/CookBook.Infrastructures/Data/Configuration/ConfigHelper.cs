@@ -3,7 +3,7 @@ using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 
 namespace CookBook.Data.Configuration
-{
+    {
     public static class ConfigHelper
         {
         public static Measurement[] Measurements = SeedMesurement();
@@ -86,7 +86,7 @@ namespace CookBook.Data.Configuration
                     {
                     Id = 9,
                     Name = "Ounce"
-                    },  
+                    },
                 new Measurement
                     {
                     Id = 20,
@@ -98,7 +98,7 @@ namespace CookBook.Data.Configuration
         public static OvenType[] SeedOvenType()
             {
             return new OvenType[]
-                {                
+                {
                     new OvenType
                     {
                     Id = 1,

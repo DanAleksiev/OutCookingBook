@@ -1,20 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-using CookBook.Core.Models.Utilities;
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Data.Models.Shared;
-using CookBook.Core;
+﻿using CookBook.Core;
 using CookBook.Core.DTO;
-using CookBook.Infrastructures.Data.Models.Food;
-using CookBook.Core.Utilities;
+using CookBook.Core.Enum;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
-using CookBook.Areas.Admin.Controllers;
+using CookBook.Core.Models.Utilities;
 using CookBook.Core.Services;
-using CookBook.Core.Contracts;
-using CookBook.Core.Enum;
+using CookBook.Core.Utilities;
+using CookBook.Infrastructures.Data;
+using CookBook.Infrastructures.Data.Models.Food;
+using CookBook.Infrastructures.Data.Models.Shared;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
@@ -176,28 +174,35 @@ namespace CookBook.Controllers
                     })
                 .ToList();
 
-            var userId = GetUserId();
-            var likes = await context
-                .FoodLikeUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
 
-            foreach (var i in likes)
+
+            try
                 {
-                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Like = true;
-                }
+                var userId = GetUserId();
+                var likes = await context
+                    .FoodLikeUsers
+                    .Where(x => x.UserId == userId)
+                    .ToListAsync();
 
-            var favourite = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
+                foreach (var i in likes)
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                        .Like = true;
+                    }
 
-            foreach (var i in favourite)
-                {
-                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Favourite = true;
+                var favourite = await context
+                    .FavouriteFoodRecepiesUsers
+                    .Where(x => x.UserId == userId)
+                    .ToListAsync();
+
+                foreach (var i in favourite)
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                        .Favourite = true;
+                    }
                 }
+            catch { }
+
 
             int count = allRecepies.Count();
             return View(new AllRecepieQuerySerciveModel()
@@ -230,7 +235,13 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToList();
 
-            return View("All", allRecepies);
+
+            int count = allRecepies.Count();
+            return View("All", new AllRecepieQuerySerciveModel
+                {
+                Recepies = allRecepies,
+                TotalRecepiesCount = count
+                });
             }
 
 

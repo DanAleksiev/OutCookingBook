@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Infrastructures.Data.Models.Shared
-{
-    public class Ingredient
     {
+    public class Ingredient
+        {
         [Key]
         public int Id { get; set; }
 
@@ -26,6 +26,6 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         [ForeignKey(nameof(MeasurementId))]
         public Measurement Measurement { get; set; }
         public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new HashSet<IngredientFoodRecepie>();
-    }
+        }
 
-}
+    }

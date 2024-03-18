@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Infrastructures.Data.Models.Food
-{
-    public class RecepieType
     {
+    public class RecepieType
+        {
         [Key]
         public int Id { get; set; }
 
@@ -15,4 +15,4 @@ namespace CookBook.Infrastructures.Data.Models.Food
         [StringLength(LenghtParams.RecepieTypeDescriptionLenght)]
         public string Description { get; set; } = string.Empty;
         }
-}
+    }

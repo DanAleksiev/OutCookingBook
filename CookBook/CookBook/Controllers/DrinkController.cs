@@ -1,20 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
-using System.Security.Claims;
-using Microsoft.EntityFrameworkCore;
-using CookBook.Core.Models.Utilities;
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Data.Models.Shared;
-using CookBook.Core;
+﻿using CookBook.Core;
 using CookBook.Core.DTO;
-using CookBook.Core.Utilities;
-using CookBook.Infrastructures.Data.Models.Drinks;
-using CookBook.Core.Models.Shared;
+using CookBook.Core.Enum;
 using CookBook.Core.Models.Drink;
-using CookBook.Areas.Admin.Controllers;
+using CookBook.Core.Models.Shared;
+using CookBook.Core.Models.Utilities;
+using CookBook.Core.Services;
+using CookBook.Core.Utilities;
+using CookBook.Infrastructures.Data;
+using CookBook.Infrastructures.Data.Models.Drinks;
+using CookBook.Infrastructures.Data.Models.Shared;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace CookBook.Controllers
-{
+    {
     [Authorize]
     public class DrinkController : Controller
         {
@@ -52,54 +53,115 @@ namespace CookBook.Controllers
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> All()
+        public async Task<IActionResult> All([FromQuery] AllRecepieQuerySerciveModel query)
             {
             ViewBag.Title = "All drink recepies";
 
+            string searching = query.Searching.ToString();
+            var sort = query.Sorting;
+            int currentPage = query.CurrentPage;
+            int recepiesPerPage = query.RecepiesPerPage;
 
-
-            var allRecepies = await context
+            var targetRec = await context
                 .DrinkRecepies
-                .Where(x => !x.IsPrivate)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
-                    Owner = x.Owner.UserName,
-                    Private = x.IsPrivate
-                    })
+                .Include(t => t.Owner)
+                .Where(x =>
+                !x.IsPrivate)
                 .AsNoTracking()
                 .ToListAsync();
-
-            var userId = GetUserId();
-
-            var likes = await context
-                .DrinkLikeUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var item in likes)
+            if (query.SearchTerm != null)
                 {
-                allRecepies.First(x => x.Id == item.DrinkRecepieId)
-                    .Like = true;
+                string term = query.SearchTerm.ToLower();
+
+                if (searching == SearchFieldsEnum.Name.ToString())
+                    {
+                    targetRec = targetRec
+                        .Where(r =>
+                        r.Name
+                        .ToLower()
+                        .Contains(term))
+                        .ToList();
+                    }
+                else
+                    {
+                    //targetRec = targetRec.Where(r =>
+                    //r.IngredientsRecepies
+                    //.Where(i =>
+                    //    i.Ingredient.Name.ToLower()
+                    //    .Contains(term)).ToList())
+                    // .ToList();
+                    }
                 }
 
-            var favourite = await context
-                .FavouriteDrinkRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var i in favourite)
+            targetRec = sort switch
                 {
-                allRecepies.First(x => x.Id == i.DrinkRecepieId)
-                    .Favourite = true;
-                }
+                    SortingFieldsEnum.Name => targetRec
+                    .OrderBy(r => r.Name)
+                    .ToList(),
+                    SortingFieldsEnum.Newest => targetRec
+                    .OrderByDescending(r => r.DatePosted)
+                    .ToList(),
+                    SortingFieldsEnum.Oldest => targetRec
+                    .OrderBy(r => r.DatePosted)
+                    .ToList(),
+                    SortingFieldsEnum.TumbsUp => targetRec
+                    .OrderByDescending(r => r.TumbsUp)
+                    .ToList(),
+                    _ => targetRec
+                    .OrderBy(r => r.Id)
+                    .ToList(),
 
-            return View(allRecepies);
+                    };
+
+            var allRecepies = targetRec
+                .Skip((currentPage - 1) * recepiesPerPage)
+                .Take(recepiesPerPage)
+                .Select(r => new AllRecepieViewModel()
+                    {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Description = r.Descripton,
+                    Image = r.Image,
+                    Owner = r.Owner.UserName,
+                    TumbsUp = r.TumbsUp,
+                    DatePosted = r.DatePosted,
+                    })
+                .ToList();
+
+            try
+                {
+                var userId = GetUserId();
+                var likes = await context
+                    .DrinkLikeUsers
+                    .Where(x => x.UserId == userId)
+                    .ToListAsync();
+
+                foreach (var item in likes)
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == item.DrinkRecepieId)
+                        .Like = true;
+                    }
+
+                var favourite = await context
+                    .FavouriteDrinkRecepiesUsers
+                    .Where(x => x.UserId == userId)
+                    .ToListAsync();
+
+                foreach (var i in favourite)
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == i.DrinkRecepieId)
+                        .Favourite = true;
+                    }
+
+                }
+            catch { }
+
+            int count = allRecepies.Count();
+            return View(new AllRecepieQuerySerciveModel()
+                {
+                TotalRecepiesCount = count,
+                Recepies = allRecepies
+                });
             }
 
         [HttpGet]
@@ -107,7 +169,7 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "Your drink recepies";
 
-            var allRecepies = await context
+            var allRecepies = context
                 .DrinkRecepies
                 .Where(x => x.OwnerId == GetUserId())
                 .Select(x => new AllRecepieViewModel()
@@ -120,11 +182,18 @@ namespace CookBook.Controllers
                     Description = x.Descripton,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
+
                     })
                 .AsNoTracking()
-                .ToListAsync();
+                .ToList();
 
-            return View("All", allRecepies);
+
+            int count = allRecepies.Count();
+            return View("All", new AllRecepieQuerySerciveModel
+                {
+                Recepies = allRecepies,
+                TotalRecepiesCount = count
+                });
             }
 
 
@@ -218,7 +287,7 @@ namespace CookBook.Controllers
             {
             var recepie = await context.DrinkRecepies.FindAsync(id);
 
-            
+
             if (recepie == null)
                 {
                 return BadRequest();
@@ -349,7 +418,7 @@ namespace CookBook.Controllers
 
             recepie.Ingredients = ing;
             recepie.Steps = steps;
-            
+
             return View(recepie);
             }
 

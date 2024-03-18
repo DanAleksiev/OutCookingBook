@@ -54,7 +54,7 @@ namespace CookBook.Core.Models.Food
         public string IngredientName { get; set; }
 
         [Required]
-        [Range(LenghtParams.IngredienAmountMinRange,LenghtParams.IngredienAmountMaxRange)]
+        [Range(LenghtParams.IngredienAmountMinRange, LenghtParams.IngredienAmountMaxRange)]
         public double IngredientAmount { get; set; }
 
         //Steps to follow 
@@ -67,5 +67,5 @@ namespace CookBook.Core.Models.Food
             ErrorMessage = LenghtErrors.LenghtError)]
         public string StepDescription { get; set; } = string.Empty;
 
-    }
+        }
     }

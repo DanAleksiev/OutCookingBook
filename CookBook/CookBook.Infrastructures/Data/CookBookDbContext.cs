@@ -26,34 +26,34 @@ namespace CookBook.Infrastructures.Data
 
             modelBuilder
                 .Entity<FoodRecepiesUsers>()
-                .HasKey(x => 
+                .HasKey(x =>
                 new { x.FoodRecepieId, x.UserId });
-            
+
             modelBuilder
                 .Entity<FoodStepsFoodRecepies>()
-                .HasKey(x => 
+                .HasKey(x =>
                 new { x.FoodRecepieId, x.FoodStepId });
 
             modelBuilder
                 .Entity<DrinkStepDrinkRecepie>()
-                .HasKey(x => 
+                .HasKey(x =>
                 new { x.DrinkRecepieId, x.StepId });
 
             modelBuilder
                 .Entity<DrinkLikeUser>()
-                .HasKey(x => 
+                .HasKey(x =>
                 new { x.DrinkRecepieId, x.UserId });
-            
+
             modelBuilder
                 .Entity<FoodLikeUser>()
-                .HasKey(x => 
+                .HasKey(x =>
                 new { x.FoodRecepieId, x.UserId });
 
             modelBuilder
                .Entity<FoodRecepie>()
                .HasOne(x => x.Owner)
                .WithMany()
-               .HasForeignKey(x=>x.OwnerId)
+               .HasForeignKey(x => x.OwnerId)
                .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder
@@ -76,7 +76,7 @@ namespace CookBook.Infrastructures.Data
             modelBuilder
                 .Entity<FavouriteFoodRecepiesUsers>()
                 .HasOne(x => x.FoodRecepie)
-                .WithMany(x=>x.FavouriteRecepiesUsers)
+                .WithMany(x => x.FavouriteRecepiesUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
@@ -110,7 +110,7 @@ namespace CookBook.Infrastructures.Data
             modelBuilder
                 .Entity<DrinkLikeUser>()
                 .HasOne(x => x.FoodRecepie)
-                .WithMany(x=>x.Likes)
+                .WithMany(x => x.Likes)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder
@@ -132,7 +132,7 @@ namespace CookBook.Infrastructures.Data
             modelBuilder
                 .Entity<DrinkRecepiesUsers>()
                 .HasOne(x => x.DrinkRecepie)
-                .WithMany(x=>x.RecepiesUsers)
+                .WithMany(x => x.RecepiesUsers)
                 .OnDelete(DeleteBehavior.NoAction);
 
             modelBuilder

@@ -1,14 +1,57 @@
-﻿@model IEnumerable<AllRecepieViewModel>;
-
+﻿@model AllRecepieQuerySerciveModel;
 
 <h2 class="text-center">@ViewBag.Title</h2>
 <hr />
 
 <div class="text-center row">
-    @foreach (var a in Model)
+    <form method="get">
+        <partial name="_DrinkSearchBarPartial" model="Model" />
+    </form>
+
+
+    @foreach (var a in Model.Recepies)
         {
         <partial name="_DrinkCardPartial" model="a" />
         }
+
+
+    @{
+        var prevPage = Model.CurrentPage - 1;
+        if (prevPage < 1)
+            {
+            prevPage = 1;
+            }
+
+        var maxPage = Math.Ceiling((double)Model.TotalRecepiesCount / Model.RecepiesPerPage);
+    }
+    <div class=" row mb-3">
+
+        <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+               asp-controller="Food"
+               asp-action="All"
+               asp-route-currentPage="@prevPage"
+               asp-route-searching="@Model.Searching"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-sorting="@((int)Model.Sorting)"><<</a>
+        </div>
+        @{
+            var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+            !Model.Recepies.Any();
+        }
+        <a class="btn btn-primary">@Model.CurrentPage</a>
+
+        <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+            <a class="btn btn-primary
+           @(shouldButtonBeDisabled ? "disabled" : string.Empty )"
+               asp-controller="Food"
+               asp-action="All"
+               asp-route-currentPage="@(Model.CurrentPage + 1)"
+               asp-route-searching="@((int)Model.Searching)"
+               asp-route-searchTerm="@Model.SearchTerm"
+               asp-route-sorting="@((int)Model.Sorting)">>></a>
+        </div>
+    </div>
 </div>
 
 @section Scripts {

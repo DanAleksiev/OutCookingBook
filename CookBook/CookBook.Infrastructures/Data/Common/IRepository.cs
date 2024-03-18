@@ -10,6 +10,6 @@
 
         Task<int> SaveChangesAsync();
 
-        Task<T?> GetByIdAsync<T>(string id) where T: class; 
+        Task<T?> GetByIdAsync<T>(string id) where T : class;
         }
     }

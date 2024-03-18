@@ -1,9 +1,9 @@
 ﻿using CookBook.Core.Contracts;
 
 namespace CookBook.Core.Models.Shared
-{
-    public class AllRecepieViewModel:IRecepie
     {
+    public class AllRecepieViewModel : IRecepie
+        {
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime DatePosted { get; set; }
@@ -17,5 +17,5 @@ namespace CookBook.Core.Models.Shared
         public bool Like { get; set; }
         public bool Favourite { get; set; }
 
+        }
     }
-}

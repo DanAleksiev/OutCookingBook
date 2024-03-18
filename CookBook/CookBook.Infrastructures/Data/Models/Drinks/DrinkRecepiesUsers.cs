@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace CookBook.Infrastructures.Data.Models.Shared
     {
     public class DrinkRecepiesUsers
-    {
+        {
         [Required]
         public int DrinkRecepieId { get; set; }
 
@@ -17,6 +17,6 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
-    }
+        }
 
-}
+    }

@@ -33,10 +33,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Views\Shared\Components\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\js\map.js" />
   </ItemGroup>
 

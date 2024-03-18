@@ -17,6 +17,6 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [ForeignKey(nameof(FoodStepId))]
         public FoodStep FoodStep { get; set; }
-    }
+        }
 
     }

@@ -18,7 +18,7 @@
         public const int PortionsMaxRange = 20;
         public const int TemperatureMinRange = 0;
         public const int TemperatureMaxRange = 500;
-       
+
         //OvenType
         public const int OvenMaxLenght = 25;
 

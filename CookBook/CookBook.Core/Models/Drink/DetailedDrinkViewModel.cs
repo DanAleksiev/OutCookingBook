@@ -5,7 +5,7 @@ using CookBook.Infrastructures.Data.Models.Shared;
 namespace CookBook.Core.Models.Drink
 
     {
-    public class DetailedDrinkViewModel:IRecepie
+    public class DetailedDrinkViewModel : IRecepie
         {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -19,8 +19,8 @@ namespace CookBook.Core.Models.Drink
         public string Owner { get; set; }
         public string OwnerId { get; set; }
 
-        public bool Like {  get; set; }
-        public bool Private {  get; set; }
+        public bool Like { get; set; }
+        public bool Private { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
         public ICollection<DrinkStep> Steps { get; set; } = new List<DrinkStep>();

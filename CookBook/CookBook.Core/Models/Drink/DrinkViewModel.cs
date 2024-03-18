@@ -41,7 +41,7 @@ namespace CookBook.Core.Models.Drink
         public string IngredientName { get; set; }
 
         [Required]
-        [Range(LenghtParams.IngredienAmountMinRange,LenghtParams.IngredienAmountMaxRange)]
+        [Range(LenghtParams.IngredienAmountMinRange, LenghtParams.IngredienAmountMaxRange)]
         public double IngredientAmount { get; set; }
 
         //Steps to follow 

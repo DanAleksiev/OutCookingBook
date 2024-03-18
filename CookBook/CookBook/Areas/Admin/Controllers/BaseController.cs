@@ -11,7 +11,7 @@ namespace CookBook.Areas.Admin.Controllers
     [Authorize(Roles = AdminRolleName)]
 
     public class BaseController : Controller
-    {
+        {
 
+        }
     }
-}

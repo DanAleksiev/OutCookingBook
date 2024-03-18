@@ -1,8 +1,8 @@
-﻿using CookBook.Infrastructures.Data.Models.Shared;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using CookBook.Constants;
+using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
-using CookBook.Constants;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Infrastructures.Data.Models.Food
     {
@@ -77,5 +77,5 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         public ICollection<FoodLikeUser> Likes { get; set; } = new List<FoodLikeUser>();
         public bool IsPrivate { get; set; }
-    }
+        }
     }

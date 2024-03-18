@@ -1,5 +1,4 @@
-﻿using CookBook.Areas.Admin.Controllers;
-using CookBook.Core.Models.Shared;
+﻿using CookBook.Core.Models.Shared;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
@@ -9,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-{
+    {
     [Authorize]
     public class RatingController : Controller
         {

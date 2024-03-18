@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CookBook.Infrastructures.Data.Models.Shared
     {
     public class FoodStep
-    {
+        {
         [Key]
         public int Id { get; set; }
 
@@ -18,4 +18,4 @@ namespace CookBook.Infrastructures.Data.Models.Shared
 
         public ICollection<FoodStepsFoodRecepies> FoodRecepie { get; set; } = new List<FoodStepsFoodRecepies>();
         }
-}
+    }

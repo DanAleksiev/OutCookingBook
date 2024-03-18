@@ -1,5 +1,4 @@
 ﻿using CookBook.Core;
-using CookBook.Core.DTO;
 using CookBook.Core.Utilities;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
@@ -103,7 +102,7 @@ namespace CookBook.Controllers
                     "https://images.immediate.co.uk/production/volatile/sites/30/2023/08/grilled-fish-colllection-60b560c.jpg?quality=90&resize=556,505",
                     };
 
-            
+
 
             var random = new Random();
             var template = new FoodRecepie()
@@ -128,7 +127,7 @@ namespace CookBook.Controllers
             List<Ingredient> addIngredients = new List<Ingredient>();
             List<FoodStep> addSteps = new List<FoodStep>();
 
-            for (int i = 0; i < random.Next(2,6); i++)
+            for (int i = 0; i < random.Next(2, 6); i++)
                 {
                 FoodStep newStep = new FoodStep()
                     {
@@ -165,9 +164,9 @@ namespace CookBook.Controllers
                 Ingredient newIng = new Ingredient()
                     {
 
-                    Name = ingNames[random.Next(0,ingNames.Length)],
-                    Amount = random.Next(0,400),
-                    MeasurementId = random.Next(1,9),
+                    Name = ingNames[random.Next(0, ingNames.Length)],
+                    Amount = random.Next(0, 400),
+                    MeasurementId = random.Next(1, 9),
                     };
 
                 addIngredients.Add(newIng);
@@ -214,7 +213,7 @@ namespace CookBook.Controllers
                     }
                 }
 
-        
+
             await context.SaveChangesAsync();
 
             }

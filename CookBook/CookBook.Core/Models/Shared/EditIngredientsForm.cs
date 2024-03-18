@@ -1,5 +1,4 @@
 ﻿using CookBook.Constants;
-using CookBook.Core.Contracts;
 using CookBook.Core.Models.Utilities;
 using System.ComponentModel.DataAnnotations;
 
@@ -24,5 +23,5 @@ namespace CookBook.Core.Models.Shared
         public int MeasurmentId { get; set; }
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new HashSet<UtilTypeModel>();
         public string OwnerId { get; set; }
-    }
+        }
     }

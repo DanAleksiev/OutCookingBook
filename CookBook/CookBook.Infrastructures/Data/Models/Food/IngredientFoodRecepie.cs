@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Infrastructures.Data.Models.Shared
-{
-    public class IngredientFoodRecepie
     {
+    public class IngredientFoodRecepie
+        {
         public int IngredientId { get; set; }
 
         [ForeignKey(nameof(IngredientId))]
@@ -13,5 +13,5 @@ namespace CookBook.Infrastructures.Data.Models.Shared
 
         [ForeignKey(nameof(RecepieId))]
         public FoodRecepie Recepie { get; set; }
+        }
     }
-}

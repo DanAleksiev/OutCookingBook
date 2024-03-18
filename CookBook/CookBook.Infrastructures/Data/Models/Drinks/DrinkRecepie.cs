@@ -1,9 +1,8 @@
-﻿using CookBook.Infrastructures.Data.Models.Shared;
+﻿using CookBook.Constants;
+using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
-using CookBook.Constants;
-using CookBook.Infrastructures.Data.Models.Food;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Infrastructures.Data.Models.Drinks
     {

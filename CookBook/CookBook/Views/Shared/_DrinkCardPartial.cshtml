@@ -1,6 +1,10 @@
 ﻿@model AllRecepieViewModel
 
 <div class="card col-4" style="width: 15rem;">
+    @if (Model.Private)
+        {
+        <p class="fw-bolder rounded border border-danger" style="background-color:#EED202">Private</p>
+        }
     <div class="card-body">
         <h5 class="card-title mt-1">@Model.Name</h5>
         <img class="card-img-top" src=@Model.Image alt="Ad Image">

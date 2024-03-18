@@ -2,9 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Infrastructures.Data.Models.Shared
-{
-    public class Measurement
     {
+    public class Measurement
+        {
         [Key]
         public int Id { get; set; }
 
@@ -12,5 +12,5 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         [StringLength(LenghtParams.MeasurementsNameMaxLengt)]
         public string Name { get; set; } = string.Empty;
 
+        }
     }
-}

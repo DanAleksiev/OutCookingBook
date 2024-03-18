@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CookBook.Infrastructures.Data.Models.Food
-{
-    public class FoodRecepiesUsers
     {
+    public class FoodRecepiesUsers
+        {
         [Required]
         public int FoodRecepieId { get; set; }
 
@@ -16,6 +16,6 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public string UserId { get; set; }
         [ForeignKey(nameof(UserId))]
         public IdentityUser User { get; set; }
-    }
+        }
 
-}
+    }

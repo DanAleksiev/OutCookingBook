@@ -1,5 +1,4 @@
-﻿using CookBook.Core.Contracts;
-using CookBook.Core.Services;
+﻿using CookBook.Core.Services;
 
 namespace CookBook.Core.Models.Shared
     {
@@ -8,5 +7,5 @@ namespace CookBook.Core.Models.Shared
         public int TotalRecepies { get; set; }
         public IEnumerable<RecepieServiceModel> Recepies { get; set; }
 
-    }
+        }
     }

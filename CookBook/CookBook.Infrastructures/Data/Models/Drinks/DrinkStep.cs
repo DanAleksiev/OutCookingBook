@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 namespace CookBook.Infrastructures.Data.Models.Drinks
     {
     public class DrinkStep
-    {
+        {
         [Key]
         public int Id { get; set; }
 
@@ -16,5 +16,5 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public string Description { get; set; } = string.Empty;
 
         public ICollection<DrinkStepDrinkRecepie> DrinkRecepiesDrinkSteps { get; set; } = new HashSet<DrinkStepDrinkRecepie>();
+        }
     }
-}

@@ -1,6 +1,6 @@
 ﻿namespace CookBook.Core.Enum
     {
-     public enum SortingFieldsEnum
+    public enum SortingFieldsEnum
         {
         Name = 0,
         Newest = 1,
