@@ -11,7 +11,7 @@ using System.Security.Claims;
 namespace CookBook.Controllers
 {
     [Authorize]
-    public class RatingController : BaseController
+    public class RatingController : Controller
         {
 
         private readonly CookBookDbContext context;

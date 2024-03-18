@@ -16,6 +16,12 @@ namespace CookBook.Controllers
     public class SeedController : Controller
         {
         //dont forget to delete 
+        private static string[] testOwners = new string[]
+                {
+                    "ff6656d5-c9f9-493e-bcf8-ed372b9d6688",
+                    "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
+                    };
+
         private readonly CookBookDbContext context;
         public SeedController(CookBookDbContext _context)
             {
@@ -97,11 +103,7 @@ namespace CookBook.Controllers
                     "https://images.immediate.co.uk/production/volatile/sites/30/2023/08/grilled-fish-colllection-60b560c.jpg?quality=90&resize=556,505",
                     };
 
-            string[] testOwners = new string[]
-                {
-                    "b197a4b2-96cb-4d02-a480-2818f59b2857",
-                    "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
-                    };
+            
 
             var random = new Random();
             var template = new FoodRecepie()
@@ -276,12 +278,6 @@ namespace CookBook.Controllers
                     "Mexico",
                     "India",
                     "Australia",
-                    };
-
-            string[] testOwners = new string[]
-                {
-                    "b197a4b2-96cb-4d02-a480-2818f59b2857",
-                    "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
                     };
 
             string[] drinkImages = new string[]
