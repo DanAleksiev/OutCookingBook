@@ -14,8 +14,6 @@
         <partial name="_FoodCardPartial" model="a" />
         }
 
-
-
     @{
         var prevPage = Model.CurrentPage - 1;
         if (prevPage < 1)
@@ -44,7 +42,7 @@
 
         <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
             <a class="btn btn-primary
-           @(shouldButtonBeDisabled ? string.Empty: "disabled"  )"
+           @(shouldButtonBeDisabled ? "disabled": string.Empty   )"
                asp-controller="Food"
                asp-action="All"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
