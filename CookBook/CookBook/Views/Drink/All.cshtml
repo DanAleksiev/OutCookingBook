@@ -21,11 +21,12 @@
             prevPage = 1;
             }
 
-        int maxPage = (int)Math.Ceiling((decimal)Model.TotalRecepiesCount / Model.RecepiesPerPage);
-    }
-    <div class=" row mb-3">
+        int maxPage = (int)Math.Ceiling((double)Model.TotalRecepiesCount / Model.RecepiesPerPage);
 
-        <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-start">
+    }
+    <div class="btn-group justify-content-center">
+
+        <div class="col gap-2">
             <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
                asp-controller="Food"
                asp-action="All"
@@ -38,9 +39,11 @@
             var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
             !Model.Recepies.Any();
         }
-        <a class="btn btn-primary">@Model.CurrentPage</a>
+        <div>
+            <a class=" col btn btn-primary">@Model.CurrentPage</a>
+        </div>
 
-        <div class="col-md-6 d-grid gap-2 d-md-flex justify-content-md-end">
+        <div class="col gap-2">
             <a class="btn btn-primary
            @(shouldButtonBeDisabled ? "disabled" : string.Empty )"
                asp-controller="Food"

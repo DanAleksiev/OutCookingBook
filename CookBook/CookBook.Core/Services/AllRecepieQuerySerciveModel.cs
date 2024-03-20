@@ -6,7 +6,7 @@ namespace CookBook.Core.Services
     public class AllRecepieQuerySerciveModel
         {
         public int RecepiesPerPage { get; } = 5;
-        public string SearchTerm { get; set; } = null!;
+        public string? SearchTerm { get; set; }
         public SearchFieldsEnum Searching { get; init; }
         public SortingFieldsEnum Sorting { get; init; }
         public int CurrentPage { get; init; } = 1;

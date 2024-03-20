@@ -101,7 +101,6 @@ namespace CookBook.Controllers
             var sort = query.Sorting;
             int currentPage = query.CurrentPage;
             int recepiesPerPage = query.RecepiesPerPage;
-
             var targetRec = await context
                 .FoodRecepies
                 .Include(t => t.Owner)
@@ -205,7 +204,7 @@ namespace CookBook.Controllers
                 }
             catch { }
 
-            int count = allRecepies.Count();
+            int count = targetRec.Count();
 
             query.Recepies = allRecepies;
             query.TotalRecepiesCount = count;
