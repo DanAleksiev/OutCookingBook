@@ -105,6 +105,8 @@ namespace CookBook.Controllers
             var targetRec = await context
                 .FoodRecepies
                 .Include(t => t.Owner)
+                .Include(t=>t.IngredientsRecepies)
+                .ThenInclude(t=>t.Ingredient)
                 .Where(x =>
                 !x.IsPrivate)
                 .AsNoTracking()
@@ -124,12 +126,12 @@ namespace CookBook.Controllers
                     }
                 else
                     {
-                    //targetRec = targetRec.Where(r =>
-                    //r.IngredientsRecepies
-                    //.Where(i =>
-                    //    i.Ingredient.Name.ToLower()
-                    //    .Contains(term)).ToList())
-                    // .ToList();
+                    targetRec = targetRec.Where(r =>
+                    r.IngredientsRecepies
+                    .Any(i =>
+                        i.Ingredient.Name.ToLower()
+                        .Contains(term)))
+                     .ToList();
                     }
                 }
 
@@ -203,13 +205,11 @@ namespace CookBook.Controllers
                 }
             catch { }
 
-
             int count = allRecepies.Count();
-            return View(new AllRecepieQuerySerciveModel()
-                {
-                TotalRecepiesCount = count,
-                Recepies = allRecepies
-                });
+
+            query.Recepies = allRecepies;
+            query.TotalRecepiesCount = count;
+            return View(query);
             }
 
         [HttpGet]
@@ -235,6 +235,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToList();
 
+            
 
             int count = allRecepies.Count();
             return View("All", new AllRecepieQuerySerciveModel
