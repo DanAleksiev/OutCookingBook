@@ -36,4 +36,8 @@
     <None Include="wwwroot\js\map.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\img\quotes\" />
+  </ItemGroup>
+
 </Project>

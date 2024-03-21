@@ -2,7 +2,7 @@
 using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Models.Food
-    {
+{
     public class DetailedFoodViewModel : IRecepie
         {
         public int Id { get; set; }

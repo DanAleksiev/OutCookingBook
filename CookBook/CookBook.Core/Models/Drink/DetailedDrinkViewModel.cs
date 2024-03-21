@@ -4,7 +4,7 @@ using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Models.Drink
 
-    {
+{
     public class DetailedDrinkViewModel : IRecepie
         {
         public int Id { get; set; }

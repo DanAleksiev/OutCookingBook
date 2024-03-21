@@ -28,7 +28,7 @@
 
         <div class="col gap-2">
             <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-               asp-controller="Food"
+               asp-controller="Drink"
                asp-action="All"
                asp-route-currentPage="@prevPage"
                asp-route-searching="@Model.Searching"
@@ -46,7 +46,7 @@
         <div class="col gap-2">
             <a class="btn btn-primary
            @(shouldButtonBeDisabled ? "disabled" : string.Empty )"
-               asp-controller="Food"
+               asp-controller="Drink"
                asp-action="All"
                asp-route-currentPage="@(Model.CurrentPage + 1)"
                asp-route-searching="@((int)Model.Searching)"

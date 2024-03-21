@@ -1,9 +1,9 @@
 ﻿using CookBook.Core.Constants;
-using CookBook.Core.Contracts.Admin;
+using CookBook.Core.Contracts.Users.Admin;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
-    {
+{
     public class UserController : BaseController
         {
         private readonly IUserService userService;

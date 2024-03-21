@@ -49,6 +49,50 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\dinner.png",
+      "PackagePath": "staticwebassets\\img\\dinner.png"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\bars-staggered-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\bars-staggered-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\burger-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\burger-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\calendar-check-regular.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\calendar-check-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\clock-rotate-left-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\clock-rotate-left-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\hourglass-half-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\hourglass-half-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\martini-glass-citrus-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\martini-glass-citrus-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\temperature-full-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\temperature-full-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\thumbs-up-regular.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\thumbs-up-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\user-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\user-solid.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\utensils-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\utensils-solid.svg"
+    },
+    {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\world-food-day-2020.png",
       "PackagePath": "staticwebassets\\img\\world-food-day-2020.png"
     },

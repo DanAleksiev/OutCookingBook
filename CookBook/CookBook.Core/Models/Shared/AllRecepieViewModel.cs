@@ -1,7 +1,7 @@
 ﻿using CookBook.Core.Contracts;
 
 namespace CookBook.Core.Models.Shared
-    {
+{
     public class AllRecepieViewModel : IRecepie
         {
         public int Id { get; set; }
