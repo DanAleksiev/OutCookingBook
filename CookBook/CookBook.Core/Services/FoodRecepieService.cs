@@ -11,11 +11,18 @@ namespace CookBook.Core.Services
     {
     public class FoodRecepieService : IFoodRecepieService
         {
-        private IRepository repository;
+        private readonly IRepository repository;
 
         public FoodRecepieService(IRepository repository)
             {
             this.repository = repository;
+            }
+
+        public async Task<bool> Exist(int id)
+            {
+            return await repository
+                .AllReadOnly<FoodRecepie>()
+                .AnyAsync(r => r.Id == id);
             }
 
         public async Task<IEnumerable<UtilTypeModel>> GetMeasurmentTypeAsync()
@@ -26,7 +33,7 @@ namespace CookBook.Core.Services
                     {
                     Id = m.Id,
                     Name = m.Name,
-                })
+                    })
                 .ToListAsync();
             }
 
@@ -38,7 +45,7 @@ namespace CookBook.Core.Services
                     {
                     Id = t.Id,
                     Name = t.Name,
-                })
+                    })
                 .ToListAsync();
             }
         public async Task<IEnumerable<UtilTypeModel>> GetOvenTypeAsync()
@@ -49,7 +56,7 @@ namespace CookBook.Core.Services
                     {
                     Id = t.Id,
                     Name = t.Name,
-                })
+                    })
                 .ToListAsync(); ;
             }
         public async Task<IEnumerable<UtilTypeModel>> GetRecepieTypeAsync()
@@ -79,7 +86,7 @@ namespace CookBook.Core.Services
                     TumbsUp = r.TumbsUp,
                     DatePosted = r.DatePosted,
                     })
-                .OrderByDescending(x=> x.TumbsUp)
+                .OrderByDescending(x => x.TumbsUp)
                 .ToListAsync();
             }
 
@@ -138,4 +145,4 @@ namespace CookBook.Core.Services
             throw new NotImplementedException();
             }
         }
-}
+    }

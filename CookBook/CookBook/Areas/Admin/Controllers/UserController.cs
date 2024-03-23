@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
 {
-    public class UserController : BaseController
+    public class UserController : BaseAdminController
         {
         private readonly IUserService userService;
 

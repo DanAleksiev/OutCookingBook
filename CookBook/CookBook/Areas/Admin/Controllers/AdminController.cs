@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
     {
-    public class AdminController : BaseController
+    public class AdminController : BaseAdminController
         {
         public IActionResult Index()
             {

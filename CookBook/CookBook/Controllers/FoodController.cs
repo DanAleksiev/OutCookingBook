@@ -1,4 +1,5 @@
 ﻿using CookBook.Core;
+using CookBook.Core.Contracts;
 using CookBook.Core.DTO;
 using CookBook.Core.Enum;
 using CookBook.Core.Models.Food;
@@ -24,15 +25,17 @@ namespace CookBook.Controllers
 
         private readonly CookBookDbContext context;
         private readonly ILogger logger;
+        private readonly IFoodRecepieService foodRecepieService;
 
         public FoodController(
             CookBookDbContext _context,
-
+            IFoodRecepieService _foodRecepieService,
             ILogger<FoodController> _logger
             )
             {
             context = _context;
             logger = _logger;
+            foodRecepieService = _foodRecepieService;
             }
 
 

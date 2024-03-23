@@ -10,7 +10,7 @@ namespace CookBook.Areas.Admin.Controllers
     [Route("/Admin/[controller]/[Action]/{id?}")]
     [Authorize(Roles = AdminRolleName)]
 
-    public class BaseController : Controller
+    public class BaseAdminController : Controller
         {
 
         }

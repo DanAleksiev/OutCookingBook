@@ -1,5 +1,7 @@
 using CookBook.Infrastructures.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook
@@ -11,37 +13,30 @@ namespace CookBook
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            builder.Services.AddDbContext<CookBookDbContext>(options =>
-                options.UseSqlServer(connectionString));
-            builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+            builder.Services.AddApplicationDbContext(builder.Configuration);
+            builder.Services.AddApplicationIdentity(builder.Configuration);
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            builder.Services.AddControllersWithViews(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequireDigit = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.Password.RequireUppercase = false;
-            })
-                .AddRoles<IdentityRole>()
-                .AddEntityFrameworkStores<CookBookDbContext>();
-            builder.Services.AddControllersWithViews();
-            builder.Services.AddScoped<CookBookDbContext>();
+                options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+            });
+
+            builder.Services.AddAplicationServices();
 
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
                 {
+                app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
                 }
             else
                 {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Home/Error/500");
+                app.UseStatusCodePagesWithReExecute("/Home/Error", "?statusCode={0}");
                 app.UseHsts();
                 }
-
-            app.UseStatusCodePages();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
@@ -51,10 +46,15 @@ namespace CookBook
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
-            app.MapRazorPages();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapDefaultControllerRoute();
+                endpoints.MapRazorPages();
+            });
 
             app.Run();
             }
