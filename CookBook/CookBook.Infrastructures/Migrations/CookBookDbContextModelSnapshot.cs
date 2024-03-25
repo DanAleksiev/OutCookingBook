@@ -67,6 +67,9 @@ namespace CookBook.Infrastructures.Migrations
                     b.Property<bool>("IsPrivate")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsProfesional")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -196,6 +199,9 @@ namespace CookBook.Infrastructures.Migrations
                         .HasColumnType("nvarchar(1000)");
 
                     b.Property<bool>("IsPrivate")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsProfesional")
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("LastTimeYouHadIt")
@@ -691,15 +697,15 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d",
+                            Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9713b3d2-13c4-4c93-8312-03bf3a16d480",
+                            ConcurrencyStamp = "ec77f22a-28b7-4c2b-b060-fb7a0a5a2ea0",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEC576KHkarATRYApJARmrUe/EBFBBwW6zLOzk5sMUaDScD25/Z6naRBxlw6i+lpwNg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHkPSf6iIM6dxPxcm5730c3N8FZxz0v1mQpdJ7o4sHmLsVoHQT7t0C0eMflDONYzWg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c15f112f-da6b-4ec1-917a-805694bf9f6a",
+                            SecurityStamp = "5a0ce916-b89a-488b-9f13-6beba0159db2",
                             TwoFactorEnabled = false,
                             UserName = "test@test.com"
                         });

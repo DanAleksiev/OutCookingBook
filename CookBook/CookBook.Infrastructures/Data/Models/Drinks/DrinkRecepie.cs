@@ -35,6 +35,9 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public bool IsPrivate { get; set; }
 
         [Required]
+        public bool IsProfesional { get; set; }
+
+        [Required]
         [StringLength(LenghtParams.ImageMaxLengt)]
         public string Image { get; set; } = string.Empty;
 
@@ -54,5 +57,6 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         [Required]
         public int Cups { get; set; }
+
         }
     }

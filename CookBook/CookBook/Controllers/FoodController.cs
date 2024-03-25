@@ -100,19 +100,18 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "All food recepies";
 
-            string searching = query.Searching.ToString();
-            var sort = query.Sorting;
-            int currentPage = query.CurrentPage;
-            int recepiesPerPage = query.RecepiesPerPage;
             var targetRec = await context
                 .FoodRecepies
                 .Include(t => t.Owner)
-                .Include(t=>t.IngredientsRecepies)
-                .ThenInclude(t=>t.Ingredient)
+                .Include(t => t.IngredientsRecepies)
+                .ThenInclude(t => t.Ingredient)
                 .Where(x =>
                 !x.IsPrivate)
                 .AsNoTracking()
                 .ToListAsync();
+
+            string searching = query.Searching.ToString();
+
             if (query.SearchTerm != null)
                 {
                 string term = query.SearchTerm.ToLower();
@@ -137,6 +136,7 @@ namespace CookBook.Controllers
                     }
                 }
 
+            var sort = query.Sorting;
             targetRec = sort switch
                 {
                     SortingFieldsEnum.Name => targetRec
@@ -163,6 +163,9 @@ namespace CookBook.Controllers
 
                     };
 
+            int currentPage = query.CurrentPage;
+            int recepiesPerPage = query.RecepiesPerPage;
+
             var allRecepies = targetRec
                 .Skip((currentPage - 1) * recepiesPerPage)
                 .Take(recepiesPerPage)
@@ -182,28 +185,7 @@ namespace CookBook.Controllers
 
             try
                 {
-                var userId = GetUserId();
-                var likes = await context
-                    .FoodLikeUsers
-                    .Where(x => x.UserId == userId)
-                    .ToListAsync();
-
-                foreach (var i in likes)
-                    {
-                    allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                        .Like = true;
-                    }
-
-                var favourite = await context
-                    .FavouriteFoodRecepiesUsers
-                    .Where(x => x.UserId == userId)
-                    .ToListAsync();
-
-                foreach (var i in favourite)
-                    {
-                    allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                        .Favourite = true;
-                    }
+                await GetLIkesAndFavorites(allRecepies);
                 }
             catch { }
 
@@ -212,6 +194,32 @@ namespace CookBook.Controllers
             query.Recepies = allRecepies;
             query.TotalRecepiesCount = count;
             return View(query);
+            }
+
+        private async Task GetLIkesAndFavorites(List<AllRecepieViewModel> allRecepies)
+            {
+            var userId = GetUserId();
+            var likes = await context
+                .FoodLikeUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in likes)
+                {
+                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Like = true;
+                }
+
+            var favourite = await context
+                .FavouriteFoodRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in favourite)
+                {
+                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Favourite = true;
+                }
             }
 
         [HttpGet]
@@ -237,7 +245,7 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToList();
 
-            
+
 
             int count = allRecepies.Count();
             return View("All", new AllRecepieQuerySerciveModel

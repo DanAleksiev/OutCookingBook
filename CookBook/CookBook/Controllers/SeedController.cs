@@ -17,8 +17,8 @@ namespace CookBook.Controllers
         //dont forget to delete 
         private static string[] testOwners = new string[]
                 {
-                    "ff6656d5-c9f9-493e-bcf8-ed372b9d6688",
-                    "49ec3dac-49bf-4d50-a7c1-c7f1fae6619d"
+                    "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
+                    "598014d6-5a1a-4b10-8246-543b8ecbc445"
                     };
 
         private readonly CookBookDbContext context;

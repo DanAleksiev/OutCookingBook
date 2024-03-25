@@ -47,7 +47,7 @@ namespace CookBook.Controllers
             var favourite = new FavouriteFoodRecepiesUsers
                 {
                 FoodRecepieId = recepie.Id,
-                UserId = userId
+                UserId = userId,
                 };
 
             if (existing != null)
@@ -130,6 +130,12 @@ namespace CookBook.Controllers
                 .AsNoTracking()
                 .ToListAsync();
 
+            try
+                {
+                await GetLikesAndFavForFood(userId, existing);
+                }
+            catch { }
+
             return View(existing);
             }
 
@@ -152,10 +158,62 @@ namespace CookBook.Controllers
                     })
                 .AsNoTracking()
                 .ToListAsync();
-
+            try
+                {
+                await GetLikesAndFavForDrink(userId, existing);
+                }
+            catch { }
             return View(existing);
             }
 
+        private async Task GetLikesAndFavForDrink(string userId, List<AllRecepieViewModel> existing)
+            {
+            var likes = await context
+                                .FoodLikeUsers
+                                .Where(x => x.UserId == userId)
+                                .ToListAsync();
 
+            foreach (var i in likes)
+                {
+                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Like = true;
+                }
+
+            var favourite = await context
+                .FavouriteDrinkRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in favourite)
+                {
+                existing.FirstOrDefault(x => x.Id == i.DrinkRecepieId)
+                    .Favourite = true;
+                }
+            }
+
+        private async Task GetLikesAndFavForFood(string userId, List<AllRecepieViewModel> existing)
+            {
+            var likes = await context
+                                .FoodLikeUsers
+                                .Where(x => x.UserId == userId)
+                                .ToListAsync();
+
+            foreach (var i in likes)
+                {
+                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Like = true;
+                }
+
+            var favourite = await context
+                .FavouriteFoodRecepiesUsers
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var i in favourite)
+                {
+                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Favourite = true;
+                }
+            }
         }
     }

@@ -76,6 +76,9 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public DateTime LastTimeYouHadIt { get; set; }
 
         public ICollection<FoodLikeUser> Likes { get; set; } = new List<FoodLikeUser>();
+        
+        [Required]
         public bool IsPrivate { get; set; }
+        public bool IsProfesional { get; set; }
         }
     }
