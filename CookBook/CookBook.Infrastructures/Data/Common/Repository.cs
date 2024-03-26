@@ -39,10 +39,19 @@ namespace CookBook.Infrastructures.Data.Common
             return await DbSet<T>().FindAsync(id);
             }
 
-        public Task<int> SaveChangesAsync()
+        public async Task<int> SaveChangesAsync()
             {
-            return context.SaveChangesAsync();
+            return await context.SaveChangesAsync();
             }
 
+        public async Task DeleteAsync<T>(object id) where T : class
+            {
+            T? entity = await GetByIdAsync<T>(id.ToString());
+
+            if (entity != null)
+                {
+                DbSet<T>().Remove(entity);
+                }
+            }
         }
     }

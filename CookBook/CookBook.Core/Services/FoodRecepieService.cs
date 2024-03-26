@@ -1,7 +1,9 @@
 ﻿using CookBook.Core.Contracts;
+using CookBook.Core.Enum;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Models.Utilities;
+using CookBook.Core.Utilities;
 using CookBook.Infrastructures.Data.Common;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
@@ -17,6 +19,12 @@ namespace CookBook.Core.Services
             {
             this.repository = repository;
             }
+
+        /// <summary>
+        /// Helpers
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
 
         public async Task<bool> Exist(int id)
             {
@@ -71,6 +79,64 @@ namespace CookBook.Core.Services
                 .ToListAsync();
             }
 
+        public async Task<bool> Authorised(FoodRecepie? recepie, string userId)
+            {
+            return recepie.OwnerId != userId;
+            }
+
+        public async Task<bool> AuthorisedById(int id, string userId)
+            {
+            return await repository
+                 .AllReadOnly<FoodRecepie>()
+                 .Where(r => r.Id == id)
+                 .AllAsync(x => x.OwnerId == userId); ;
+            }
+
+        public async Task<bool> Exist(FoodRecepie? recepie)
+            {
+            return recepie == null;
+            }
+
+        public async Task<bool> ExistById(int id)
+            {
+            return await repository
+                .AllReadOnly<FoodRecepie>()
+                .AnyAsync(r => r.Id == id);
+            }
+
+        public IEnumerable<AllRecepieViewModel> GetLIkesAndFavorites(List<AllRecepieViewModel> allRecepies, string userId)
+            {
+
+            var likes = repository
+                .AllReadOnly<FoodLikeUser>()
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            foreach (var i in likes)
+                {
+                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Like = true;
+                }
+
+            var favourite = repository
+                .AllReadOnly<FavouriteFoodRecepiesUsers>()
+                .Where(x => x.UserId == userId)
+                .ToList();
+
+            foreach (var i in favourite)
+                {
+                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
+                    .Favourite = true;
+                }
+
+            return allRecepies;
+            }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+
         public async Task<IEnumerable<RecepieServiceModel>> TopFiveRecepiesAsync()
             {
             return await repository
@@ -89,60 +155,451 @@ namespace CookBook.Core.Services
                 .OrderByDescending(x => x.TumbsUp)
                 .ToListAsync();
             }
-
-        public Task<IEnumerable<DetailedFoodViewModel>> DetailedAsync()
+        public async Task<FoodViewModel> AddGetAsync()
             {
-            throw new NotImplementedException();
+             return new FoodViewModel()
+                {
+                RecepieTypes = await GetRecepieTypeAsync(),
+                OvenTypes = await GetOvenTypeAsync(),
+                MeasurmentTypes = await GetMeasurmentTypeAsync(),
+                TemperatureTypes = await GetTemperatureTypeAsync(),
+                };
             }
 
-        public Task<IEnumerable<AllRecepieViewModel>> PrivateAsync()
+        public async Task<AllRecepieQuerySerciveModel> AllAsync(AllRecepieQuerySerciveModel query, string userId)
             {
-            throw new NotImplementedException();
+            var targetRec = await repository
+                .AllReadOnly<FoodRecepie>()
+                .Include(t => t.Owner)
+                .Include(t => t.IngredientsRecepies)
+                .ThenInclude(t => t.Ingredient)
+                .Where(x =>
+                !x.IsPrivate)
+                .AsNoTracking()
+                .ToListAsync();
+
+            string searching = query.Searching.ToString();
+
+            if (query.SearchTerm != null)
+                {
+                string term = query.SearchTerm.ToLower();
+
+                if (searching == SearchFieldsEnum.Name.ToString())
+                    {
+                    targetRec = targetRec
+                        .Where(r =>
+                        r.Name
+                        .ToLower()
+                        .Contains(term))
+                        .ToList();
+                    }
+                else
+                    {
+                    targetRec = targetRec.Where(r =>
+                    r.IngredientsRecepies
+                    .Any(i =>
+                        i.Ingredient.Name.ToLower()
+                        .Contains(term)))
+                     .ToList();
+                    }
+                }
+
+            var sort = query.Sorting;
+            targetRec = sort switch
+                {
+                    SortingFieldsEnum.Name => targetRec
+                    .OrderBy(r => r.Name)
+                    .ToList(),
+                    SortingFieldsEnum.Newest => targetRec
+                    .OrderByDescending(r => r.DatePosted)
+                    .ToList(),
+                    SortingFieldsEnum.Oldest => targetRec
+                    .OrderBy(r => r.DatePosted)
+                    .ToList(),
+                    SortingFieldsEnum.TumbsUp => targetRec
+                    .OrderByDescending(r => r.TumbsUp)
+                    .ToList(),
+                    SortingFieldsEnum.PrepTime => targetRec
+                    .OrderBy(r => r.PrepTime)
+                    .ToList(),
+                    SortingFieldsEnum.CookTime => targetRec
+                    .OrderBy(r => r.CookTime)
+                    .ToList(),
+                    _ => targetRec
+                    .OrderBy(r => r.Id)
+                    .ToList(),
+
+                    };
+
+            int currentPage = query.CurrentPage;
+            int recepiesPerPage = query.RecepiesPerPage;
+
+            var allRecepies = targetRec
+                .Skip((currentPage - 1) * recepiesPerPage)
+                .Take(recepiesPerPage)
+                .Select(r => new AllRecepieViewModel()
+                    {
+                    Id = r.Id,
+                    Name = r.Name,
+                    Description = r.Descripton,
+                    Image = r.Image,
+                    Owner = r.Owner.UserName,
+                    TumbsUp = r.TumbsUp,
+                    DatePosted = r.DatePosted,
+                    })
+                .ToList();
+
+            try
+                {
+                allRecepies = GetLIkesAndFavorites(allRecepies, userId).ToList();
+                }
+            catch { }
+
+            query.Recepies = allRecepies;
+            query.TotalRecepiesCount = targetRec.Count();
+
+            return query;
             }
 
-        public Task<IEnumerable<FoodViewModel>> AddFillGetAsync()
+        public IEnumerable<AllRecepieViewModel> PrivateAsync(string userId)
             {
-            throw new NotImplementedException();
+            var allRecepies = repository
+                .AllReadOnly<FoodRecepie>()
+                .Where(x => x.OwnerId == userId)
+                .Select(x => new AllRecepieViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    TumbsUp = x.TumbsUp,
+                    Description = x.Descripton,
+                    Owner = x.Owner.UserName,
+                    Private = x.IsPrivate
+
+                    })
+                .AsNoTracking()
+                .ToList();
+
+            return allRecepies;
             }
 
-        public Task<IEnumerable<FoodViewModel>> AddFoodAsync()
+        public async Task AddPostAsync(FoodViewModel model, string userId, List<FoodStep> addSteps, List<Ingredient> addIngredients)
             {
-            throw new NotImplementedException();
+            var newRecepie = new FoodRecepie()
+                {
+                Name = model.Name,
+                Descripton = model.Description,
+                DatePosted = DateTime.Now,
+                Image = model.Image,
+                PrepTime = model.PrepTime,
+                CookTime = model.CookTime,
+                Portions = model.Portions,
+                OvenTypeId = model.OvenTypeId,
+                RecepieTypeId = model.RecepieTypeId,
+                Origen = model.Origen,
+                Temperature = model.Temperature,
+                TemperatureMeasurmentId = model.TemperatureTypeId,
+                OwnerId = userId,
+                TumbsUp = 0,
+                IsPrivate = model.IsPrivate,
+                };
+
+
+            foreach (var step in addSteps)
+                {
+                var stepRecepie = new FoodStepsFoodRecepies()
+                    {
+                    FoodRecepie = newRecepie,
+                    FoodStep = step,
+                    };
+                await repository.AddAsync(step);
+                await repository.AddAsync(stepRecepie);
+
+                }
+
+            foreach (var ing in addIngredients)
+                {
+                var ingFoodRec = new IngredientFoodRecepie
+                    {
+                    Ingredient = ing,
+                    Recepie = newRecepie
+                    };
+                await repository.AddAsync(ing);
+                await repository.AddAsync(ingFoodRec);
+                }
+
+            await repository.AddAsync(newRecepie);
+
+            try
+                {
+                await repository.SaveChangesAsync();
+                }
+            catch (Exception ex)
+                {
+                await Console.Out.WriteLineAsync(ex.Message);
+                if (ex.InnerException != null)
+                    {
+                    await Console.Out.WriteLineAsync(ex.GetCompleteMessage());
+                    }
+                }
+            }
+        public async Task<EditFoodForm> EditGetAsync(int id, string userId)
+            {
+            var recepie = await repository
+                .AllReadOnly<FoodRecepie>()
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            return new EditFoodForm()
+                {
+                Id = recepie.Id,
+                Name = recepie.Name,
+                Description = recepie.Descripton,
+                RecepieTypeId = recepie.Id,
+                RecepieTypes = await GetRecepieTypeAsync(),
+                Image = recepie.Image,
+                PrepTime = recepie.PrepTime,
+                CookTime = recepie.CookTime,
+                Temperature = recepie.Temperature,
+                TemperatureTypeId = recepie.TemperatureMeasurmentId,
+                TemperatureTypes = await GetTemperatureTypeAsync(),
+                OvenTypeId = recepie.OvenTypeId,
+                OvenTypes = await GetOvenTypeAsync(),
+                MeasurmentId = recepie.TemperatureMeasurmentId,
+                MeasurmentTypes = await GetMeasurmentTypeAsync(),
+                IsPrivate = recepie.IsPrivate,
+                Origen = recepie.Origen,
+                Portions = recepie.Portions,
+                };
             }
 
-        public Task<IEnumerable<EditFoodForm>> EditAsync()
+        public async Task EditPostAsync(EditFoodForm model)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .GetByIdAsync<FoodRecepie>(model.Id.ToString());
+
+            if (recepie == null)
+                {
+                recepie.Name = model.Name;
+                recepie.Descripton = model.Description;
+                recepie.Image = model.Image;
+                recepie.PrepTime = model.PrepTime;
+                recepie.CookTime = model.CookTime;
+                recepie.Portions = model.Portions;
+                recepie.OvenTypeId = model.OvenTypeId;
+                recepie.RecepieTypeId = model.RecepieTypeId;
+                recepie.IsPrivate = model.IsPrivate;
+                recepie.Origen = model.Origen;
+                recepie.Temperature = model.Temperature;
+                recepie.TemperatureMeasurmentId = model.TemperatureTypeId;
+
+                await repository.SaveChangesAsync();
+                }
             }
 
-        public Task<IEnumerable<FoodViewModel>> AddSeedOptionsAsync()
+        public async Task<DetailedFoodViewModel> DetailGetAsync(int id, string userId)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .All<FoodRecepie>()
+                .Where(x => x.Id == id)
+                .Select(x => new DetailedFoodViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Descripton,
+                    RecepieType = x.RecepieType.Name,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    PrepTime = x.PrepTime,
+                    CookTime = x.CookTime,
+                    Temperature = x.Temperature,
+                    TemperatureType = x.TemperatureMeasurment.Name,
+                    OvenType = x.OvenType.Name,
+                    Origen = x.Origen,
+                    TumbsUp = x.TumbsUp,
+                    Portions = x.Portions,
+                    Owner = x.Owner.UserName,
+                    })
+                .FirstOrDefaultAsync();
+
+            var ing = await repository
+                .AllReadOnly<IngredientFoodRecepie>()
+                .Where(x => x.RecepieId == recepie.Id)
+                .Select(x => new Ingredient()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    Name = x.Ingredient.Name,
+                    Measurement = x.Ingredient.Measurement,
+                    })
+                .ToListAsync();
+
+            var steps = await repository
+                .AllReadOnly<FoodStepsFoodRecepies>()
+                .Where(x => x.FoodRecepieId == recepie.Id)
+                .Select(x => new FoodStep()
+                    {
+                    Id = x.FoodStep.Id,
+                    Description = x.FoodStep.Description,
+                    Position = x.FoodStep.Position,
+                    })
+                .OrderBy(x => x.Position)
+                .ToListAsync();
+
+            var likes = await repository
+                .All<FoodLikeUser>()
+                .Where(x => x.UserId == userId)
+                .ToListAsync();
+
+            foreach (var item in likes)
+                {
+                if (recepie.Id == item.FoodRecepieId)
+                    {
+                    recepie.Like = true;
+                    }
+                }
+
+            recepie.Ingredients = ing;
+            recepie.Steps = steps;
+
+            return recepie;
             }
 
-        public Task<IEnumerable<EditFoodForm>> EditRecepieAsync()
+        public async Task<DetailedFoodViewModel> DeleteAsync(int id, string userId)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .All<FoodRecepie>()
+                .Where(x => x.Id == id)
+                .Select(x => new DetailedFoodViewModel()
+                    {
+                    Id = x.Id,
+                    Name = x.Name,
+                    Description = x.Descripton,
+                    RecepieType = x.RecepieType.Name,
+                    DatePosted = x.DatePosted,
+                    Image = x.Image,
+                    PrepTime = x.PrepTime,
+                    CookTime = x.CookTime,
+                    Temperature = x.Temperature,
+                    TemperatureType = x.TemperatureMeasurment.Name,
+                    OvenType = x.OvenType.Name,
+                    Origen = x.Origen,
+                    TumbsUp = x.TumbsUp,
+                    Portions = x.Portions,
+                    Owner = x.Owner.UserName,
+                    OwnerId = x.OwnerId,
+                    })
+                .FirstOrDefaultAsync();
+
+            var ing = await repository
+                .AllReadOnly<IngredientFoodRecepie>()
+                .Where(x => x.RecepieId == recepie.Id)
+                .Select(x => new Ingredient()
+                    {
+                    Id = x.IngredientId,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    Name = x.Ingredient.Name,
+                    })
+                .ToListAsync();
+
+            var steps = await repository
+                .AllReadOnly<FoodStepsFoodRecepies>()
+                .Where(x => x.FoodRecepieId == recepie.Id)
+                .Select(x => new FoodStep()
+                    {
+                    Id = x.FoodStep.Id,
+                    Description = x.FoodStep.Description,
+                    Position = x.FoodStep.Position,
+                    })
+                .OrderBy(x => x.Position)
+                .ToListAsync();
+
+            recepie.Ingredients = ing;
+            recepie.Steps = steps;
+
+            return recepie;
             }
 
-        public Task<IEnumerable<EditIngredientsForm>> EditIngredientGetAsync(int id)
+        public async Task ConfirmDeleteAsync(int id)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .GetByIdAsync<FoodRecepie>(id.ToString());
+
+            await repository.DeleteAsync<FoodRecepie>(recepie);
+            await repository.SaveChangesAsync();
             }
 
-        public Task<IEnumerable<EditIngredientsForm>> EditIngredientSetAsync(EditIngredientsForm model)
+        public async Task<EditIngredientsForm> EditIngredientGetAsync(int id)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .All<IngredientFoodRecepie>()
+                .Where(x => x.IngredientId == id)
+                .Select(x => new EditIngredientsForm()
+                    {
+                    Id = x.IngredientId,
+                    Name = x.Ingredient.Name,
+                    Description = x.Ingredient.Description,
+                    Amount = x.Ingredient.Amount,
+                    Calories = x.Ingredient.Calories,
+                    MeasurmentId = x.Ingredient.MeasurementId,
+                    OwnerId = x.Recepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            recepie.MeasurmentTypes = await GetMeasurmentTypeAsync();
+
+            return recepie;
             }
 
-        public Task<IEnumerable<EditStepForm>> EditStepGetAsync(int id)
+        public async Task<int> EditIngredientPostAsync(EditIngredientsForm model)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .All<IngredientFoodRecepie>()
+                .Include(x => x.Ingredient)
+                .Include(x => x.Recepie)
+                .Where(x => x.IngredientId == model.Id)
+                .FirstOrDefaultAsync();
+
+            recepie.Ingredient.MeasurementId = model.MeasurmentId;
+            recepie.Ingredient.Name = model.Name;
+            recepie.Ingredient.Amount = model.Amount;
+            recepie.Ingredient.Description = model.Description;
+            recepie.Ingredient.Calories = model.Calories;
+
+            await repository.SaveChangesAsync();
+            return recepie.RecepieId;
             }
 
-        public Task<IEnumerable<EditStepForm>> EditStepSetAsync(EditStepForm model)
+        public async Task<EditStepForm> EditStepGepAsync(int id)
             {
-            throw new NotImplementedException();
+            var recepie = await repository
+                .All<FoodStepsFoodRecepies>()
+                .Where(x => x.FoodStepId == id)
+                .Select(x => new EditStepForm()
+                    {
+                    Id = x.FoodStepId,
+                    Description = x.FoodStep.Description,
+                    OwnerId = x.FoodRecepie.OwnerId
+                    })
+                .FirstOrDefaultAsync();
+
+            return recepie;
+            }
+
+        public async Task<int> EditStepPostAsync(EditStepForm model)
+            {
+            var recepie = await repository
+                .All<FoodStepsFoodRecepies>()
+                .Where(x => x.FoodStepId == model.Id)
+                .FirstOrDefaultAsync();
+
+            recepie.FoodStep.Description = model.Description;
+
+            await repository.SaveChangesAsync();
+
+            return recepie.FoodStepId;
             }
         }
     }

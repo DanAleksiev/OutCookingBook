@@ -9,8 +9,8 @@ using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
-    [Authorize]
-    public class FavouriteController : Controller
+
+    public class FavouriteController : BaseController
         {
         private readonly CookBookDbContext context;
         public FavouriteController(CookBookDbContext _context)

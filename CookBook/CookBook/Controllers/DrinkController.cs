@@ -16,8 +16,7 @@ using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
-    [Authorize]
-    public class DrinkController : Controller
+    public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<DrinkStep> addSteps { get; set; } = new List<DrinkStep>();

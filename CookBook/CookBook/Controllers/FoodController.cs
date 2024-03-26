@@ -1,39 +1,29 @@
 ﻿using CookBook.Core;
 using CookBook.Core.Contracts;
 using CookBook.Core.DTO;
-using CookBook.Core.Enum;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
-using CookBook.Core.Models.Utilities;
 using CookBook.Core.Services;
-using CookBook.Core.Utilities;
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
-    [Authorize]
-    public class FoodController : Controller
+    public class FoodController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
 
-        private readonly CookBookDbContext context;
+
         private readonly ILogger logger;
         private readonly IFoodRecepieService foodRecepieService;
 
         public FoodController(
-            CookBookDbContext _context,
             IFoodRecepieService _foodRecepieService,
             ILogger<FoodController> _logger
             )
             {
-            context = _context;
             logger = _logger;
             foodRecepieService = _foodRecepieService;
             }
@@ -44,52 +34,6 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
-        private async Task<IEnumerable<UtilTypeModel>> GetMeasurmentType()
-            {
-            return await context
-                .Measurements
-                .Select(t => new UtilTypeModel()
-                    {
-                    Id = t.Id,
-                    Name = t.Name,
-                    })
-                .ToListAsync();
-            }
-
-        private async Task<IEnumerable<UtilTypeModel>> GetTemperatureType()
-            {
-            return await context
-                .TemperaturesMeasurments
-                .Select(t => new UtilTypeModel()
-                    {
-                    Id = t.Id,
-                    Name = t.Name,
-                    })
-                .ToListAsync();
-            }
-        private async Task<IEnumerable<UtilTypeModel>> GetOvenType()
-            {
-            return await context
-                .OvenTypes
-                .Select(t => new UtilTypeModel()
-                    {
-                    Id = t.Id,
-                    Name = t.Name,
-                    })
-                .ToListAsync();
-            }
-        private async Task<IEnumerable<UtilTypeModel>> GetRecepieType()
-            {
-            return await context
-                .RecepieTypes
-                .Select(t => new UtilTypeModel()
-                    {
-                    Id = t.Id,
-                    Name = t.Name,
-                    })
-                .ToListAsync();
-            }
-
 
         /// <summary>
         /// Actions from now on
@@ -100,126 +44,9 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "All food recepies";
 
-            var targetRec = await context
-                .FoodRecepies
-                .Include(t => t.Owner)
-                .Include(t => t.IngredientsRecepies)
-                .ThenInclude(t => t.Ingredient)
-                .Where(x =>
-                !x.IsPrivate)
-                .AsNoTracking()
-                .ToListAsync();
+            var newQuery = await foodRecepieService.AllAsync(query, GetUserId());
 
-            string searching = query.Searching.ToString();
-
-            if (query.SearchTerm != null)
-                {
-                string term = query.SearchTerm.ToLower();
-
-                if (searching == SearchFieldsEnum.Name.ToString())
-                    {
-                    targetRec = targetRec
-                        .Where(r =>
-                        r.Name
-                        .ToLower()
-                        .Contains(term))
-                        .ToList();
-                    }
-                else
-                    {
-                    targetRec = targetRec.Where(r =>
-                    r.IngredientsRecepies
-                    .Any(i =>
-                        i.Ingredient.Name.ToLower()
-                        .Contains(term)))
-                     .ToList();
-                    }
-                }
-
-            var sort = query.Sorting;
-            targetRec = sort switch
-                {
-                    SortingFieldsEnum.Name => targetRec
-                    .OrderBy(r => r.Name)
-                    .ToList(),
-                    SortingFieldsEnum.Newest => targetRec
-                    .OrderByDescending(r => r.DatePosted)
-                    .ToList(),
-                    SortingFieldsEnum.Oldest => targetRec
-                    .OrderBy(r => r.DatePosted)
-                    .ToList(),
-                    SortingFieldsEnum.TumbsUp => targetRec
-                    .OrderByDescending(r => r.TumbsUp)
-                    .ToList(),
-                    SortingFieldsEnum.PrepTime => targetRec
-                    .OrderBy(r => r.PrepTime)
-                    .ToList(),
-                    SortingFieldsEnum.CookTime => targetRec
-                    .OrderBy(r => r.CookTime)
-                    .ToList(),
-                    _ => targetRec
-                    .OrderBy(r => r.Id)
-                    .ToList(),
-
-                    };
-
-            int currentPage = query.CurrentPage;
-            int recepiesPerPage = query.RecepiesPerPage;
-
-            var allRecepies = targetRec
-                .Skip((currentPage - 1) * recepiesPerPage)
-                .Take(recepiesPerPage)
-                .Select(r => new AllRecepieViewModel()
-                    {
-                    Id = r.Id,
-                    Name = r.Name,
-                    Description = r.Descripton,
-                    Image = r.Image,
-                    Owner = r.Owner.UserName,
-                    TumbsUp = r.TumbsUp,
-                    DatePosted = r.DatePosted,
-                    })
-                .ToList();
-
-
-
-            try
-                {
-                await GetLIkesAndFavorites(allRecepies);
-                }
-            catch { }
-
-            int count = targetRec.Count();
-
-            query.Recepies = allRecepies;
-            query.TotalRecepiesCount = count;
-            return View(query);
-            }
-
-        private async Task GetLIkesAndFavorites(List<AllRecepieViewModel> allRecepies)
-            {
-            var userId = GetUserId();
-            var likes = await context
-                .FoodLikeUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var i in likes)
-                {
-                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Like = true;
-                }
-
-            var favourite = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var i in favourite)
-                {
-                allRecepies.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Favourite = true;
-                }
+            return View(newQuery);
             }
 
         [HttpGet]
@@ -227,25 +54,7 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "Your food recepies";
 
-            var allRecepies = context
-                .FoodRecepies
-                .Where(x => x.OwnerId == GetUserId())
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
-                    Owner = x.Owner.UserName,
-                    Private = x.IsPrivate
-
-                    })
-                .AsNoTracking()
-                .ToList();
-
-
+            var allRecepies = foodRecepieService.PrivateAsync(GetUserId());
 
             int count = allRecepies.Count();
             return View("All", new AllRecepieQuerySerciveModel
@@ -259,13 +68,7 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Add()
             {
-            var model = new FoodViewModel()
-                {
-                RecepieTypes = await GetRecepieType(),
-                OvenTypes = await GetOvenType(),
-                MeasurmentTypes = await GetMeasurmentType(),
-                TemperatureTypes = await GetTemperatureType(),
-                };
+            var model = await foodRecepieService.AddGetAsync();
 
             return View(model);
             }
@@ -279,66 +82,7 @@ namespace CookBook.Controllers
                 return View("Add", model);
                 }
 
-            var newRecepie = new FoodRecepie()
-                {
-                Name = model.Name,
-                Descripton = model.Description,
-                DatePosted = DateTime.Now,
-                Image = model.Image,
-                PrepTime = model.PrepTime,
-                CookTime = model.CookTime,
-                Portions = model.Portions,
-                OvenTypeId = model.OvenTypeId,
-                RecepieTypeId = model.RecepieTypeId,
-                Origen = model.Origen,
-                Temperature = model.Temperature,
-                TemperatureMeasurmentId = model.TemperatureTypeId,
-                OwnerId = GetUserId(),
-                TumbsUp = 0,
-                IsPrivate = model.IsPrivate,
-                };
-
-
-            foreach (var step in addSteps)
-                {
-                var stepRecepie = new FoodStepsFoodRecepies()
-                    {
-                    FoodRecepie = newRecepie,
-                    FoodStep = step,
-                    };
-
-                await context.FoodStep.AddAsync(step);
-                await context.FoodStepsFoodRecepies.AddAsync(stepRecepie);
-                }
-
-            foreach (var ing in addIngredients)
-                {
-
-                var ingFoodRec = new IngredientFoodRecepie
-                    {
-                    Ingredient = ing,
-                    Recepie = newRecepie
-                    };
-                await context.Ingredients.AddAsync(ing);
-                await context.IngredientFoodRecepies.AddAsync(ingFoodRec);
-                }
-
-            await context.FoodRecepies.AddAsync(newRecepie);
-
-
-            try
-                {
-                await context.SaveChangesAsync();
-                }
-            catch (Exception ex)
-                {
-                await Console.Out.WriteLineAsync(ex.Message);
-                if (ex.InnerException != null)
-                    {
-                    await Console.Out.WriteLineAsync(ex.GetCompleteMessage());
-                    }
-                }
-
+            await foodRecepieService.AddPostAsync(model, GetUserId(), addSteps, addIngredients);
             addIngredients.Clear();
             addSteps.Clear();
             return RedirectToAction("All");
@@ -352,39 +96,19 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
             {
-            var recepie = await context.FoodRecepies.FindAsync(id);
+            //var recepie = await context.FoodRecepies.FindAsync(id);
 
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(id))
                 {
                 return BadRequest();
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-            var model = new EditFoodForm()
-                {
-                Id = recepie.Id,
-                Name = recepie.Name,
-                Description = recepie.Descripton,
-                RecepieTypeId = recepie.Id,
-                RecepieTypes = await GetRecepieType(),
-                Image = recepie.Image,
-                PrepTime = recepie.PrepTime,
-                CookTime = recepie.CookTime,
-                Temperature = recepie.Temperature,
-                TemperatureTypeId = recepie.TemperatureMeasurmentId,
-                TemperatureTypes = await GetTemperatureType(),
-                OvenTypeId = recepie.OvenTypeId,
-                OvenTypes = await GetOvenType(),
-                MeasurmentId = recepie.TemperatureMeasurmentId,
-                MeasurmentTypes = await GetMeasurmentType(),
-                IsPrivate = recepie.IsPrivate,
-                Origen = recepie.Origen,
-                Portions = recepie.Portions,
-                };
+           var model = foodRecepieService.EditGetAsync(id, GetUserId());
 
             return View(model);
             }
@@ -398,179 +122,49 @@ namespace CookBook.Controllers
                 return View("Edit", model);
                 }
 
-            var recepie = await context.FoodRecepies.FindAsync(model.Id);
-
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(model.Id))
                 {
                 return BadRequest(ModelState);
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-            recepie.Name = model.Name;
-            recepie.Descripton = model.Description;
-            recepie.Image = model.Image;
-            recepie.PrepTime = model.PrepTime;
-            recepie.CookTime = model.CookTime;
-            recepie.Portions = model.Portions;
-            recepie.OvenTypeId = model.OvenTypeId;
-            recepie.RecepieTypeId = model.RecepieTypeId;
-            recepie.IsPrivate = model.IsPrivate;
-            recepie.Origen = model.Origen;
-            recepie.Temperature = model.Temperature;
-            recepie.TemperatureMeasurmentId = model.TemperatureTypeId;
-
-
-            await context.SaveChangesAsync();
-
+           await foodRecepieService.EditPostAsync(model);
 
             return RedirectToAction("Private");
             }
 
+    
+
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
-            {
-            var recepie = await context
-                .FoodRecepies
-                .Where(x => x.Id == id)
-                .Select(x => new DetailedFoodViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Descripton,
-                    RecepieType = x.RecepieType.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    PrepTime = x.PrepTime,
-                    CookTime = x.CookTime,
-                    Temperature = x.Temperature,
-                    TemperatureType = x.TemperatureMeasurment.Name,
-
-                    OvenType = x.OvenType.Name,
-                    Origen = x.Origen,
-                    TumbsUp = x.TumbsUp,
-                    Portions = x.Portions,
-                    Owner = x.Owner.UserName,
-                    })
-                .FirstOrDefaultAsync();
-
-            if (recepie == null)
+            {          
+            if (!await foodRecepieService.ExistById(id))
                 {
                 return BadRequest();
                 }
 
-            var ing = await context
-                .IngredientFoodRecepies
-                .Where(x => x.RecepieId == recepie.Id)
-                .Select(x => new Ingredient()
-                    {
-                    Id = x.IngredientId,
-                    Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
-                    Name = x.Ingredient.Name,
-                    Measurement = x.Ingredient.Measurement,
-                    })
-                .ToListAsync();
-
-            var steps = await context
-                .FoodStepsFoodRecepies
-                .Where(x => x.FoodRecepieId == recepie.Id)
-                .Select(x => new FoodStep()
-                    {
-                    Id = x.FoodStep.Id,
-                    Description = x.FoodStep.Description,
-                    Position = x.FoodStep.Position,
-                    })
-                .OrderBy(x => x.Position)
-                .ToListAsync();
-
-
-            var userId = GetUserId();
-
-            var likes = await context
-                .FoodLikeUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var item in likes)
-                {
-                if (recepie.Id == item.FoodRecepieId)
-                    {
-                    recepie.Like = true;
-                    }
-                }
-
-            recepie.Ingredients = ing;
-            recepie.Steps = steps;
+            var recepie = foodRecepieService.DetailGetAsync(id, GetUserId());
             return View(recepie);
             }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
             {
-            var recepie = await context
-                .FoodRecepies
-                .Where(x => x.Id == id)
-                .Select(x => new DetailedFoodViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Description = x.Descripton,
-                    RecepieType = x.RecepieType.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    PrepTime = x.PrepTime,
-                    CookTime = x.CookTime,
-                    Temperature = x.Temperature,
-                    TemperatureType = x.TemperatureMeasurment.Name,
-                    OvenType = x.OvenType.Name,
-                    Origen = x.Origen,
-                    TumbsUp = x.TumbsUp,
-                    Portions = x.Portions,
-                    Owner = x.Owner.UserName,
-                    OwnerId = x.OwnerId,
-                    })
-                .FirstOrDefaultAsync();
-
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(id))
                 {
                 return BadRequest();
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-            var ing = await context
-                .IngredientFoodRecepies
-                .Where(x => x.RecepieId == recepie.Id)
-                .Select(x => new Ingredient()
-                    {
-                    Id = x.IngredientId,
-                    Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
-                    Name = x.Ingredient.Name,
-                    })
-                .ToListAsync();
-
-            var steps = await context
-                .FoodStepsFoodRecepies
-                .Where(x => x.FoodRecepieId == recepie.Id)
-                .Select(x => new FoodStep()
-                    {
-                    Id = x.FoodStep.Id,
-                    Description = x.FoodStep.Description,
-                    Position = x.FoodStep.Position,
-                    })
-                .OrderBy(x => x.Position)
-                .ToListAsync();
-
-            recepie.Ingredients = ing;
-            recepie.Steps = steps;
+            var recepie = foodRecepieService.DeleteAsync(id, GetUserId());
 
             return View(recepie);
             }
@@ -579,21 +173,17 @@ namespace CookBook.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> DeleteConfirmed(DetailedFoodViewModel model)
             {
-            var recepie = await context.FoodRecepies.FindAsync(model.Id);
-
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(model.Id))
                 {
                 return BadRequest();
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-
-            context.Remove(recepie);
-            await context.SaveChangesAsync();
+            await foodRecepieService.ConfirmDeleteAsync(model.Id);
 
             return RedirectToAction("All");
             }
@@ -601,32 +191,16 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> EditIngredient(int id)
             {
-            var recepie = await context
-                .IngredientFoodRecepies
-                .Where(x => x.IngredientId == id)
-                .Select(x => new EditIngredientsForm()
-                    {
-                    Id = x.IngredientId,
-                    Name = x.Ingredient.Name,
-                    Description = x.Ingredient.Description,
-                    Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
-                    MeasurmentId = x.Ingredient.MeasurementId,
-                    OwnerId = x.Recepie.OwnerId
-                    })
-                .FirstOrDefaultAsync();
-
-            recepie.MeasurmentTypes = await GetMeasurmentType();
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(id))
                 {
                 return BadRequest();
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
-
+            var recepie = await foodRecepieService.EditIngredientGetAsync(id);
 
             return View(recepie);
             }
@@ -635,60 +209,40 @@ namespace CookBook.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> EditIngredient(EditIngredientsForm model)
             {
-            var recepie = await context
-                .IngredientFoodRecepies
-                .Include(x => x.Ingredient)
-                .Include(x => x.Recepie)
-                .Where(x => x.IngredientId == model.Id)
-                .FirstOrDefaultAsync();
-
-            if (recepie == null)
+            if (!ModelState.IsValid)
                 {
-                return BadRequest();
+                return View("Edit", model);
                 }
 
-            if (recepie.Recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.ExistById(model.Id))
+                {
+                return BadRequest(ModelState);
+                }
+
+            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
+            var recepieId = await foodRecepieService.EditIngredientPostAsync(model);
 
-            recepie.Ingredient.MeasurementId = model.MeasurmentId;
-            recepie.Ingredient.Name = model.Name;
-            recepie.Ingredient.Amount = model.Amount;
-            recepie.Ingredient.Description = model.Description;
-            recepie.Ingredient.Calories = model.Calories;
-
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Detail", new { id = recepie.Recepie.Id });
+            return RedirectToAction("Detail", new { id = recepieId });
             }
 
         [HttpGet]
         public async Task<IActionResult> EditStep(int id)
             {
-            var recepie = await context
-                .FoodStepsFoodRecepies
-                .Where(x => x.FoodStepId == id)
-                .Select(x => new EditStepForm()
-                    {
-                    Id = x.FoodStepId,
-                    Description = x.FoodStep.Description,
-                    OwnerId = x.FoodRecepie.OwnerId
-                    })
-                .FirstOrDefaultAsync();
-
-            if (recepie == null)
+            if (!await foodRecepieService.ExistById(id))
                 {
                 return BadRequest();
                 }
 
-            if (recepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-
+            var recepie = await foodRecepieService.EditStepGepAsync(id);
 
             return View(recepie);
             }
@@ -698,28 +252,25 @@ namespace CookBook.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> EditStep(EditStepForm model)
             {
-            var recepie = await context
-                .FoodStepsFoodRecepies
-                .Include(x => x.FoodStep)
-                .Include(x => x.FoodRecepie)
-                .Where(x => x.FoodStepId == model.Id)
-                .FirstOrDefaultAsync();
+            var recepie = await foodRecepieService.EditStepPostAsync(model);
 
-            if (recepie == null)
+            if (!ModelState.IsValid)
                 {
-                return BadRequest();
+                return View("Edit", model);
                 }
 
-            if (recepie.FoodRecepie.OwnerId != GetUserId())
+            if (!await foodRecepieService.ExistById(model.Id))
+                {
+                return BadRequest(ModelState);
+                }
+
+            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
+            
 
-            recepie.FoodStep.Description = model.Description;
-
-            await context.SaveChangesAsync();
-
-            return RedirectToAction("Detail", new { id = recepie.FoodRecepie.Id });
+            return RedirectToAction("Detail", new { id = recepie });
             }
 
 
