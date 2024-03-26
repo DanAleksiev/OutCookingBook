@@ -350,7 +350,7 @@ namespace CookBook.Core.Services
                 .AllReadOnly<FoodRecepie>()
                 .FirstOrDefaultAsync(x => x.Id == id);
 
-            return new EditFoodForm()
+            var result = new EditFoodForm()
                 {
                 Id = recepie.Id,
                 Name = recepie.Name,
@@ -371,6 +371,8 @@ namespace CookBook.Core.Services
                 Origen = recepie.Origen,
                 Portions = recepie.Portions,
                 };
+
+            return result;
             }
 
         public async Task EditPostAsync(EditFoodForm model)
@@ -423,7 +425,7 @@ namespace CookBook.Core.Services
                 .FirstOrDefaultAsync();
 
             var ing = await repository
-                .AllReadOnly<IngredientFoodRecepie>()
+                .All<IngredientFoodRecepie>()
                 .Where(x => x.RecepieId == recepie.Id)
                 .Select(x => new Ingredient()
                     {
@@ -436,7 +438,7 @@ namespace CookBook.Core.Services
                 .ToListAsync();
 
             var steps = await repository
-                .AllReadOnly<FoodStepsFoodRecepies>()
+                .All<FoodStepsFoodRecepies>()
                 .Where(x => x.FoodRecepieId == recepie.Id)
                 .Select(x => new FoodStep()
                     {

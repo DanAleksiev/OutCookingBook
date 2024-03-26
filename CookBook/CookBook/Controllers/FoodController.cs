@@ -108,7 +108,7 @@ namespace CookBook.Controllers
                 return Unauthorized();
                 }
 
-           var model = foodRecepieService.EditGetAsync(id, GetUserId());
+           var model = await foodRecepieService.EditGetAsync(id, GetUserId());
 
             return View(model);
             }
@@ -147,7 +147,7 @@ namespace CookBook.Controllers
                 return BadRequest();
                 }
 
-            var recepie = foodRecepieService.DetailGetAsync(id, GetUserId());
+            var recepie = await foodRecepieService.DetailGetAsync(id, GetUserId());
             return View(recepie);
             }
 
