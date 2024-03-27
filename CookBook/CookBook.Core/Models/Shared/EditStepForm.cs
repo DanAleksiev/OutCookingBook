@@ -15,6 +15,6 @@ namespace CookBook.Core.Models.Shared
         [StringLength(LenghtParams.StepDescriptionMaxLengt)]
         public string Description { get; set; } = string.Empty;
 
-        public string OwnerId { get; set; }
+        public string? OwnerId { get; set; }
         }
     }

@@ -34,7 +34,7 @@ namespace CookBook.Infrastructures.Data.Common
             await DbSet<T>().AddAsync(entity);
             }
 
-        public async Task<T?> GetByIdAsync<T>(string id) where T : class
+        public async Task<T?> GetByIdAsync<T>(object id) where T : class
             {
             return await DbSet<T>().FindAsync(id);
             }
@@ -46,7 +46,7 @@ namespace CookBook.Infrastructures.Data.Common
 
         public async Task DeleteAsync<T>(object id) where T : class
             {
-            T? entity = await GetByIdAsync<T>(id.ToString());
+            T? entity = await GetByIdAsync<T>(id);
 
             if (entity != null)
                 {

@@ -15,13 +15,13 @@ namespace CookBook.Core.Models.Shared
         public string Name { get; set; } = string.Empty;
 
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
-        public string Description { get; set; } = string.Empty;
-        public string Type { get; set; } = string.Empty;
+        public string? Description { get; set; }
+        public string? Type { get; set; }
         public int Calories { get; set; }
 
         public double Amount { get; set; }
         public int MeasurmentId { get; set; }
         public IEnumerable<UtilTypeModel> MeasurmentTypes { get; set; } = new HashSet<UtilTypeModel>();
-        public string OwnerId { get; set; }
+        public string? OwnerId { get; set; }
         }
     }

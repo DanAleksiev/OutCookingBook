@@ -76,11 +76,29 @@
         @if (User.Identity.Name == Model.Owner)
             {
             <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
-            <a asp-controller="Food" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Delete</a>
+            <a asp-controller="Food" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
             }
         else
             {
-            <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Like</a>
+            @if (Model.Favourite)
+            {
+            ViewBag.Favourite = "Unfavourite";
+            }
+        else
+            {
+            ViewBag.Favourite = "Favourite";
+            }
+        <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Favourite</a>
+        if (Model.Like)
+            {
+            ViewBag.Like = "Unlike";
+            }
+        else
+            {
+            ViewBag.Like = "Like";
+            }
+        <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
+
             }
     </div>
 </div>

@@ -98,17 +98,17 @@ namespace CookBook.Controllers
             {
             //var recepie = await context.FoodRecepies.FindAsync(id);
 
-            if (!await foodRecepieService.ExistById(id))
+            if (!await foodRecepieService.Exist(id))
                 {
                 return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
+            if (!await foodRecepieService.Authorised(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-           var model = await foodRecepieService.EditGetAsync(id, GetUserId());
+            var model = await foodRecepieService.EditGetAsync(id, GetUserId());
 
             return View(model);
             }
@@ -122,27 +122,30 @@ namespace CookBook.Controllers
                 return View("Edit", model);
                 }
 
-            if (!await foodRecepieService.ExistById(model.Id))
+            if (!await foodRecepieService.Exist(model.Id))
                 {
                 return BadRequest(ModelState);
                 }
 
-            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
+            if (!await foodRecepieService.Authorised(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-           await foodRecepieService.EditPostAsync(model);
+            await foodRecepieService.EditPostAsync(model);
 
+
+            //more like
+            //return RedirectToAction("Detaile", new { id = recepieId });
             return RedirectToAction("Private");
             }
 
-    
+
 
         [HttpGet]
         public async Task<IActionResult> Detail(int id)
-            {          
-            if (!await foodRecepieService.ExistById(id))
+            {
+            if (!await foodRecepieService.Exist(id))
                 {
                 return BadRequest();
                 }
@@ -154,17 +157,17 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
             {
-            if (!await foodRecepieService.ExistById(id))
+            if (!await foodRecepieService.Exist(id))
                 {
                 return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
+            if (!await foodRecepieService.Authorised(id, GetUserId()))
                 {
                 return Unauthorized();
                 }
 
-            var recepie = foodRecepieService.DeleteAsync(id, GetUserId());
+            var recepie = await foodRecepieService.DeleteAsync(id, GetUserId());
 
             return View(recepie);
             }
@@ -173,12 +176,12 @@ namespace CookBook.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> DeleteConfirmed(DetailedFoodViewModel model)
             {
-            if (!await foodRecepieService.ExistById(model.Id))
+            if (!await foodRecepieService.Exist(model.Id))
                 {
                 return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
+            if (!await foodRecepieService.Authorised(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
@@ -191,16 +194,17 @@ namespace CookBook.Controllers
         [HttpGet]
         public async Task<IActionResult> EditIngredient(int id)
             {
-            if (!await foodRecepieService.ExistById(id))
+            var recepie = await foodRecepieService.EditIngredientGetAsync(id);
+
+            if (recepie == null)
                 {
                 return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
+            if (recepie.OwnerId != GetUserId())
                 {
                 return Unauthorized();
                 }
-            var recepie = await foodRecepieService.EditIngredientGetAsync(id);
 
             return View(recepie);
             }
@@ -211,38 +215,36 @@ namespace CookBook.Controllers
             {
             if (!ModelState.IsValid)
                 {
-                return View("Edit", model);
+                return View("EditIngredient", model);
                 }
-
-            if (!await foodRecepieService.ExistById(model.Id))
+            if (!await foodRecepieService.ExistIng(model.Id))
                 {
-                return BadRequest(ModelState);
+                return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
+            if (!await foodRecepieService.AuthorisedIng(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
+            var recepie = await foodRecepieService.EditIngredientPostAsync(model);
 
-            var recepieId = await foodRecepieService.EditIngredientPostAsync(model);
-
-            return RedirectToAction("Detail", new { id = recepieId });
+            return RedirectToAction("Detail", new { id = recepie.Id });
             }
 
         [HttpGet]
         public async Task<IActionResult> EditStep(int id)
             {
-            if (!await foodRecepieService.ExistById(id))
+            var recepie = await foodRecepieService.EditStepGetAsync(id);
+            if (recepie == null)
                 {
                 return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(id, GetUserId()))
+            if (recepie.OwnerId != GetUserId())
                 {
                 return Unauthorized();
                 }
 
-            var recepie = await foodRecepieService.EditStepGepAsync(id);
 
             return View(recepie);
             }
@@ -252,25 +254,25 @@ namespace CookBook.Controllers
         [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> EditStep(EditStepForm model)
             {
-            var recepie = await foodRecepieService.EditStepPostAsync(model);
-
             if (!ModelState.IsValid)
                 {
-                return View("Edit", model);
+                return View("EditStep", model);
                 }
 
-            if (!await foodRecepieService.ExistById(model.Id))
+            //the verification is after the saveDatabase so its pointless
+            if (!await foodRecepieService.ExistStep(model.Id))
                 {
-                return BadRequest(ModelState);
+                return BadRequest();
                 }
 
-            if (!await foodRecepieService.AuthorisedById(model.Id, GetUserId()))
+            if (!await foodRecepieService.AuthorisedStep(model.Id, GetUserId()))
                 {
                 return Unauthorized();
                 }
-            
 
-            return RedirectToAction("Detail", new { id = recepie });
+            var recepie = await foodRecepieService.EditStepPostAsync(model);
+
+            return RedirectToAction("Detail", new { id = recepie.Id });
             }
 
 
