@@ -1,4 +1,5 @@
 ﻿using CookBook.Constants;
+using CookBook.Infrastructures.Data.Models.Food;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

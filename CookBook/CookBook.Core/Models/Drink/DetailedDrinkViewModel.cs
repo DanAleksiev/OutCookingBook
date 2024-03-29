@@ -20,6 +20,7 @@ namespace CookBook.Core.Models.Drink
         public string OwnerId { get; set; }
 
         public bool Like { get; set; }
+        public bool Favourite { get; set; }
         public bool Private { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();

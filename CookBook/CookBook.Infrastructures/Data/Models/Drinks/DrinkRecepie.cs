@@ -23,7 +23,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public DateTime DatePosted { get; set; }
 
         [Required]
-        public ICollection<DrinkStepDrinkRecepie> Steps { get; set; } = new List<DrinkStepDrinkRecepie>();
+        public ICollection<DrinkStepsDrinkRecepies> Steps { get; set; } = new List<DrinkStepsDrinkRecepies>();
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
         public string Descripton { get; set; } = string.Empty;

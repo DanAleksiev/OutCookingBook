@@ -1,8 +1,7 @@
 ﻿using CookBook.Constants;
-using CookBook.Infrastructures.Data.Models.Food;
 using System.ComponentModel.DataAnnotations;
 
-namespace CookBook.Infrastructures.Data.Models.Shared
+namespace CookBook.Infrastructures.Data.Models.Food
     {
     public class FoodStep
         {

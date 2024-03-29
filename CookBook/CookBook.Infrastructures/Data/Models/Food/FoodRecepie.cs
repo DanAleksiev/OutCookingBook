@@ -38,13 +38,13 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public int PrepTime { get; set; }
 
         [StringLength(LenghtParams.OrigenMaxLenght)]
-        public string? Origen { get; set; } = string.Empty;
+        public string? Origen { get; set; }
 
         [Required]
         public string OwnerId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(OwnerId))]
-        public IdentityUser Owner { get; set; }
+        public IdentityUser? Owner { get; set; }
 
         [Required]
         public int TumbsUp { get; set; }

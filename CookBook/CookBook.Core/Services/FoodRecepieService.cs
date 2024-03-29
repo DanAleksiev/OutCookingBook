@@ -422,7 +422,7 @@ namespace CookBook.Core.Services
             return result;
             }
 
-        public async Task EditPostAsync(EditFoodForm model)
+        public async Task<int> EditPostAsync(EditFoodForm model)
             {
             var recepie = await repository
                 .GetByIdAsync<FoodRecepie>(model.Id);
@@ -444,6 +444,8 @@ namespace CookBook.Core.Services
 
                 await repository.SaveChangesAsync();
                 }
+
+            return model.Id;
             }
 
         public async Task<DetailedFoodViewModel> DetailGetAsync(int id, string userId)

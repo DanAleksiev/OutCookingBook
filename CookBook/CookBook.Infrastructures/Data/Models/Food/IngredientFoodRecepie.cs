@@ -1,7 +1,7 @@
-﻿using CookBook.Infrastructures.Data.Models.Food;
+﻿using CookBook.Infrastructures.Data.Models.Shared;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CookBook.Infrastructures.Data.Models.Shared
+namespace CookBook.Infrastructures.Data.Models.Food
     {
     public class IngredientFoodRecepie
         {

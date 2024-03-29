@@ -1,4 +1,5 @@
 ﻿using CookBook.Core.Contracts;
+using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Models.Food
@@ -13,7 +14,7 @@ namespace CookBook.Core.Models.Food
         public int PrepTime { get; set; }
         public int Temperature { get; set; }
         public int CookTime { get; set; }
-        public string Origen { get; set; } = string.Empty;
+        public string? Origen { get; set; }
         public int Portions { get; set; }
         public int TumbsUp { get; set; }
         public string RecepieType { get; set; } = string.Empty;

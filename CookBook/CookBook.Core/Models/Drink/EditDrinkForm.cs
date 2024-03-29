@@ -17,10 +17,6 @@ namespace CookBook.Core.Models.Drink
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
         public string Description { get; set; }
 
-        public int RecepieTypeId { get; set; }
-
-        public IEnumerable<UtilTypeModel> RecepieTypes { get; set; } = new HashSet<UtilTypeModel>();
-
         [Required]
         [StringLength(LenghtParams.ImageMaxLengt)]
         public string Image { get; set; }

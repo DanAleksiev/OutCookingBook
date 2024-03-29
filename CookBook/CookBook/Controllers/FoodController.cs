@@ -4,6 +4,7 @@ using CookBook.Core.DTO;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Services;
+using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -88,16 +89,9 @@ namespace CookBook.Controllers
             return RedirectToAction("All");
             }
 
-        public IActionResult Delete()
-            {
-            return View();
-            }
-
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
             {
-            //var recepie = await context.FoodRecepies.FindAsync(id);
-
             if (!await foodRecepieService.Exist(id))
                 {
                 return BadRequest();
@@ -132,12 +126,8 @@ namespace CookBook.Controllers
                 return Unauthorized();
                 }
 
-            await foodRecepieService.EditPostAsync(model);
-
-
-            //more like
-            //return RedirectToAction("Detaile", new { id = recepieId });
-            return RedirectToAction("Private");
+            int recepieId = await foodRecepieService.EditPostAsync(model);
+            return RedirectToAction("Detaile", new { id = recepieId });
             }
 
 

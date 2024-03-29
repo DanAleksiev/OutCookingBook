@@ -361,7 +361,7 @@ namespace CookBook.Controllers
 
             foreach (var step in addSteps)
                 {
-                var stepRecepie = new DrinkStepDrinkRecepie()
+                var stepRecepie = new DrinkStepsDrinkRecepies()
                     {
                     DrinkRecepie = template,
                     DrinkStep = step,

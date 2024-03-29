@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace CookBook.Infrastructures.Data.Models.Shared
+namespace CookBook.Infrastructures.Data.Models.Drinks
     {
     public class DrinkRecepiesUsers
         {
