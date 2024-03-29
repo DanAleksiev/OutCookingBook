@@ -131,7 +131,7 @@ namespace CookBook.Controllers
                 }
 
             int recepieId = await drinkRecepieService.EditPostAsync(model);
-            return RedirectToAction("Detaile", new { id = recepieId });
+            return RedirectToAction("Detail", new { id = recepieId });
             }
 
         [HttpGet]
