@@ -504,7 +504,7 @@ namespace CookBook.Core.Services
                     })
                 .FirstOrDefaultAsync();
 
-            recepie.MeasurmentTypes = await GetMeasurmentTypeAsync();
+            recepie.MeasurmentTypes = await GetMeasurmentTypeAsync() ;
 
             return recepie;
             }
@@ -547,7 +547,7 @@ namespace CookBook.Core.Services
                     Description = x.DrinkStep.Description,
                     OwnerId = x.DrinkRecepie.OwnerId
                     })
-                .FirstOrDefaultAsync();
+                .FirstAsync();
 
             return recepie;
             }

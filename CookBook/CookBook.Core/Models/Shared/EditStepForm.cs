@@ -5,7 +5,6 @@ namespace CookBook.Core.Models.Shared
     {
     public class EditStepForm
         {
-        [Key]
         public int Id { get; set; }
 
         [Required]
