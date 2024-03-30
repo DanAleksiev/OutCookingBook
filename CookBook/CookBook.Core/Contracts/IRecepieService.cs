@@ -10,7 +10,7 @@ namespace CookBook.Core.Contracts
         IEnumerable<AllRecepieViewModel> GetLIkesAndFavoritesMany(List<AllRecepieViewModel> allRecepies, string userId);
         Task<IEnumerable<AllRecepieViewModel>> TopFiveRecepiesAsync();
         Task<AllRecepieQuerySerciveModel> AllAsync(AllRecepieQuerySerciveModel query, string userId);
-        IEnumerable<AllRecepieViewModel> PrivateAsync(string userId);
+        Task<IEnumerable<AllRecepieViewModel>> PrivateAsync(string userId);
 
         Task ConfirmDeleteAsync(int id);
         Task<EditIngredientsForm> EditIngredientGetAsync(int id);

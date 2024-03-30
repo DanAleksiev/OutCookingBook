@@ -4,7 +4,7 @@
         {
         None = 0,
         Admin = 1,
-        Casual = 2,
-        Chef = 3,
+        Chef = 2,
+        Member = 3,
         }
     }

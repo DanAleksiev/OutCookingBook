@@ -1,4 +1,4 @@
-﻿using CookBook.Core.Models.Admin;
+﻿using CookBook.Areas.Admin.models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
@@ -11,13 +11,13 @@ namespace CookBook.Areas.Admin.Controllers
             }
 
         [HttpGet]
-        public async Task<IActionResult> GiveRoleToUser()
+        public async Task<IActionResult> RoleConroll()
             {
             return View();
             }
 
         [HttpPost]
-        public async Task<IActionResult> GiveRoleToUser(UserRoleModel model)
+        public async Task<IActionResult> RoleConroll(ChangeUserRoleForm model)
             {
             //Give the role to a model here !!
 

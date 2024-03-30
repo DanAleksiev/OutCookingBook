@@ -308,9 +308,9 @@ namespace CookBook.Core.Services
             return query;
             }
 
-        public IEnumerable<AllRecepieViewModel> PrivateAsync(string userId)
+        public async Task<IEnumerable<AllRecepieViewModel>> PrivateAsync(string userId)
             {
-            var allRecepies = repository
+            var allRecepies = await repository
                 .AllReadOnly<FoodRecepie>()
                 .Where(x => x.OwnerId == userId)
                 .Select(x => new AllRecepieViewModel()
@@ -323,10 +323,9 @@ namespace CookBook.Core.Services
                     Description = x.Descripton,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
-
                     })
                 .AsNoTracking()
-                .ToList();
+                .ToListAsync();
 
             return allRecepies;
             }

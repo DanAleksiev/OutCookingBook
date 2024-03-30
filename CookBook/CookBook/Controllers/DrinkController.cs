@@ -1,6 +1,7 @@
 ﻿using CookBook.Core;
 using CookBook.Core.Contracts;
 using CookBook.Core.DTO;
+using CookBook.Core.Extentions;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Services;
@@ -55,7 +56,7 @@ namespace CookBook.Controllers
             {
             ViewBag.Title = "Your drink recepies";
 
-            var allRecepies = drinkRecepieService.PrivateAsync(GetUserId());
+            var allRecepies = await drinkRecepieService.PrivateAsync(GetUserId());
 
             int count = allRecepies.Count();
             return View("All", new AllRecepieQuerySerciveModel
@@ -131,7 +132,7 @@ namespace CookBook.Controllers
             }
 
         [HttpGet]
-        public async Task<IActionResult> Detail(int id)
+        public async Task<IActionResult> Detail(int id, string information)
             {
             if (!await drinkRecepieService.Exist(id))
                 {
@@ -139,6 +140,12 @@ namespace CookBook.Controllers
                 }
 
             var recepie = await drinkRecepieService.DetailGetAsync(id, GetUserId());
+
+            if (information != recepie.GetInformation())
+                {
+                return BadRequest();
+                }
+
             return View(recepie);
             }
 

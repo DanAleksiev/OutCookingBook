@@ -79,7 +79,19 @@
 
                                 </ul>
                             </div>
-
+                            @if (User.IsInRole("Admin"))
+                                {
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Admin
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="RoleControll">Role Controll</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="DrinkRecepiesFromJSON">get drink from json</a></li>
+                                    </ul>
+                                </div>
+                                }
                             <div class="btn-group">
                                 <button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                     DeleteMeWhenDoneSeeding

@@ -51,17 +51,19 @@ namespace CookBook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}/{information}",
+                    defaults: new {Controller ="Food", Action = "All"}
+                    );
 
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapRazorPages();
             });
 
-            using(var scope = app.Services.CreateScope())
+            using (var scope = app.Services.CreateScope())
                 {
                 var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
 
-                var roles = new[] {"Admin", "Chef", "Member" };
+                var roles = new[] { "Admin", "Chef", "Member", "Barman" };
 
                 foreach (var role in roles)
                     {
