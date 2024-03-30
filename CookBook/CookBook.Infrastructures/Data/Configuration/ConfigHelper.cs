@@ -8,19 +8,43 @@ namespace CookBook.Data.Configuration
         {
         public static Measurement[] Measurements = SeedMesurement();
         public static OvenType[] OveTypes = SeedOvenType();
-        public static IdentityUser Users = SeedUser();
+        public static IdentityUser[] Users = SeedUser();
         public static RecepieType[] RecepieTypes = SeedRecepieTipe();
         public static TemperatureMeasurment[] TemperatureMeasurments = SeedTemperatureMeasurments();
-        private static IdentityUser SeedUser()
+        private static IdentityUser[] SeedUser()
             {
-            var testUser = new IdentityUser()
+            var admin = new IdentityUser()
                 {
-                UserName = "test@test.com",
+                Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
+                UserName = "Admin",
+                Email = "admin@admin.com",
+                NormalizedUserName = "ADMIN@ADMIN.COM"
+                };
+            var testUser1 = new IdentityUser()
+                {
+                Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
+                UserName = "NotChef",
+                Email = "test@test.com",
                 NormalizedUserName = "TEST@TEST.COM"
+                
+                };
+            var testUser2 = new IdentityUser()
+                {
+                Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
+                UserName = "Chef",
+                Email = "test2@test.com",
+                NormalizedUserName = "TEST2@TEST.COM"
                 };
 
-            testUser.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(testUser, "softuni");
-            return testUser;
+            testUser1.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(testUser1, "softuni");
+            testUser2.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(testUser2, "softuni");
+            admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "Admin123");
+
+            return new IdentityUser[] {
+                admin,
+                testUser1,
+                testUser2
+                };
             }
 
         private static TemperatureMeasurment[] SeedTemperatureMeasurments()

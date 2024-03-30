@@ -1,22 +1,18 @@
 ﻿using CookBook.Core;
 using CookBook.Core.Contracts;
 using CookBook.Core.DTO;
-using CookBook.Core.Enum;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Shared;
-using CookBook.Core.Models.Utilities;
 using CookBook.Core.Services;
-using CookBook.Core.Utilities;
-using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
+    [Authorize(Roles = "Member")]
     public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
