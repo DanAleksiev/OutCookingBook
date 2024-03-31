@@ -1,4 +1,6 @@
-﻿using CookBook.Core.Contracts;
+﻿using CookBook.Areas.Admin.Contracts;
+using CookBook.Areas.Admin.Services;
+using CookBook.Core.Contracts;
 using CookBook.Core.Services;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Common;
@@ -13,6 +15,7 @@ namespace Microsoft.Extensions.DependencyInjection
             {
             services.AddScoped<IFoodRecepieService, FoodRecepieService>();
             services.AddScoped<IDrinkRecepieService, DrinkRecepieService>();
+            services.AddScoped<IAdminService, AdminService>();
 
             return services;
             }

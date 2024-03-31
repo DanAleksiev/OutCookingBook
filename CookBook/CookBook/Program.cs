@@ -73,29 +73,31 @@ namespace CookBook
                     }
                 }
 
+            //crashes the server for some reason 
             //using (var scope = app.Services.CreateScope())
             //    {
             //    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
             //    string email = "admin@admin.com";
+            //    string id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra";
+            //    string username = "Admin";
             //    string password = "admin123";
+            //    var admin = await userManager.FindByIdAsync(id);
 
-            //    if (await userManager.FindByEmailAsync(email) == null)
+            //    if (admin == null)
             //        {
-            //        var admin = new IdentityUser()
+            //        var newAdmin = new IdentityUser()
             //            {
-            //            Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
-            //            UserName = "Admin",
+            //            Id = id,
+            //            UserName = username,
             //            Email = email,
-            //            //NormalizedUserName = "ADMIN@ADMIN.COM",
             //            };
+            //        newAdmin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(newAdmin, password);
 
-            //        await userManager.CreateAsync(admin, password);
-            //        await userManager.AddToRoleAsync(admin, "Admin");
+            //        await userManager.CreateAsync(newAdmin);
+            //        await userManager.AddToRoleAsync(newAdmin, "Admin");
             //        }
             //    else
             //        {
-            //        var admin = await userManager.FindByEmailAsync(email);
             //        await userManager.AddToRoleAsync(admin, "Admin");
             //        }
             //    }

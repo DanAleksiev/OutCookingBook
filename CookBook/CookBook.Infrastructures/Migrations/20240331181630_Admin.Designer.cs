@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CookBook.Infrastructures.Migrations
 {
     [DbContext(typeof(CookBookDbContext))]
-    [Migration("20240330164935_Admin")]
+    [Migration("20240331181630_Admin")]
     partial class Admin
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -701,14 +701,13 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6ef8abbe-effa-4047-bdac-414860213167",
+                            ConcurrencyStamp = "f9736bc7-b9eb-408a-8615-b3392f442842",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJue5Vbi7iWppzKhWSMJCDo0cGG35j/rak6YirG2w1FNP+zF+K2qZEDkfaS5ELuJXQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEAtX2zmSSDqD8eMgOaIhBXKCx8It07lCzSTuVAh8wKTxb/jrhFpLkF3a+JB4Nkf+jg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3bf12e92-c18b-4b12-bcb6-bccc20e7e369",
+                            SecurityStamp = "67e94dc1-4b5d-488c-ad8f-056c90461863",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         },
@@ -716,14 +715,13 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f25cc876-29c0-442d-99e0-0205b4262a46",
+                            ConcurrencyStamp = "9e5436fb-de36-4b78-aef2-140d431f9062",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            NormalizedUserName = "TEST@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPeH9Ydu6FabnL9v6iP3zMcdyaoDuNqXlMcLh0NusSIo5zh48zjUyn3Bbr4zE37Tcw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIPkFSxGZPd8WPLwKTMBdvRAKoggen4xE/iUANIqEx+A8e9wBZJCsJgBsXnQopbrNw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "2efe2be3-cff0-43de-a1be-7a31dc9c6f59",
+                            SecurityStamp = "04fb3267-177f-4850-b94c-a3dbf634c1cb",
                             TwoFactorEnabled = false,
                             UserName = "NotChef"
                         },
@@ -731,14 +729,14 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f4491589-1bdb-46ec-ab44-4582e4333a40",
+                            ConcurrencyStamp = "8c04fc40-02a8-4678-8e1b-35c0ceb10be3",
                             Email = "test2@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedUserName = "TEST2@TEST.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEAw/J4JvssH5FAIqWtcTXAQcUV6uiw/BWwULlTvka/LUd4DOpoPJK+c2s9gSmnFRsQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEIHp8CUieC8v3kHV29ylPkp438cboxEnsY5Sm0zm89XPPXhCSc/kNfFvmP5FSZ9pOg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "86c9893f-fac4-45c3-9449-68e9c42fc39b",
+                            SecurityStamp = "6436c4a0-7100-486a-a25e-99939c45453b",
                             TwoFactorEnabled = false,
                             UserName = "Chef"
                         });
