@@ -1,8 +1,5 @@
-﻿using CookBook.Core.Models;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
 using static CookBook.Areas.Admin.Constants.AdminConstants;
 
 namespace CookBook.Controllers

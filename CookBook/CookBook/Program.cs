@@ -51,8 +51,7 @@ namespace CookBook
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}/{information}",
-                    defaults: new {Controller ="Food", Action = "All"}
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
                     );
 
                 endpoints.MapDefaultControllerRoute();

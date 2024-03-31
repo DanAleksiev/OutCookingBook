@@ -51,11 +51,11 @@ namespace CookBook.Controllers
             }
 
         [HttpGet]
-        public IActionResult Private()
+        public async Task<IActionResult> Private()
             {
             ViewBag.Title = "Your food recepies";
 
-            var allRecepies = foodRecepieService.PrivateAsync(GetUserId());
+            var allRecepies = await foodRecepieService.PrivateAsync(GetUserId());
 
             int count = allRecepies.Count();
             return View("All", new AllRecepieQuerySerciveModel

@@ -11,7 +11,7 @@ namespace CookBook.Areas.Admin.Controllers
             }
 
         [HttpGet]
-        public async Task<IActionResult> RoleConroll()
+        public async Task<IActionResult> RoleControll()
             {
             return View();
             }
