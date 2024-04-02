@@ -4,7 +4,7 @@
 
 namespace CookBook.Infrastructures.Migrations
 {
-    public partial class Admin : Migration
+    public partial class AdminWithUserName : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,18 +12,18 @@ namespace CookBook.Infrastructures.Migrations
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
-                columns: new[] { "ConcurrencyStamp", "Email", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
-                values: new object[] { "9e5436fb-de36-4b78-aef2-140d431f9062", "test@test.com", null, "AQAAAAEAACcQAAAAEIPkFSxGZPd8WPLwKTMBdvRAKoggen4xE/iUANIqEx+A8e9wBZJCsJgBsXnQopbrNw==", "04fb3267-177f-4850-b94c-a3dbf634c1cb", "NotChef" });
+                columns: new[] { "ConcurrencyStamp", "Email", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
+                values: new object[] { "36fbec4a-2363-4d36-9ea6-4e2ef89c90ae", "test@test.com", "TEST@TEST.COM", "NOTCHEF", "AQAAAAEAACcQAAAAEPwGEmufPUJQO6iNPY2jlqkwMYPNL4kWvxdvvI0pbAPJoZbCFB/QNGMZmmU11FgMPw==", "406a8324-ec88-46a3-8070-e49618438e9b", "NotChef" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "598014d6-5a1a-4b10-8246-543b8ecbc445", 0, "8c04fc40-02a8-4678-8e1b-35c0ceb10be3", "test2@test.com", false, false, null, null, "TEST2@TEST.COM", "AQAAAAEAACcQAAAAEIHp8CUieC8v3kHV29ylPkp438cboxEnsY5Sm0zm89XPPXhCSc/kNfFvmP5FSZ9pOg==", null, false, "6436c4a0-7100-486a-a25e-99939c45453b", false, "Chef" });
+                values: new object[] { "598014d6-5a1a-4b10-8246-543b8ecbc445", 0, "16c9c49e-f544-4c6f-9819-e61a5a6cd095", "test2@test.com", false, false, null, "TEST2@TEST.COM", "CHEF", "AQAAAAEAACcQAAAAEITEDWw5TbhXKRES4gYCH5p5LHHeeCCHr/n7xkhdBhi4rawhk+/PZEUVvOf24CLaBw==", null, false, "f558d3c5-5146-4dad-85fd-278777612b01", false, "Chef" });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "b2d13a3c-8547-4d6d-b7d0-a89322b762ra", 0, "f9736bc7-b9eb-408a-8615-b3392f442842", "admin@admin.com", false, false, null, null, null, "AQAAAAEAACcQAAAAEAtX2zmSSDqD8eMgOaIhBXKCx8It07lCzSTuVAh8wKTxb/jrhFpLkF3a+JB4Nkf+jg==", null, false, "67e94dc1-4b5d-488c-ad8f-056c90461863", false, "Admin" });
+                values: new object[] { "b2d13a3c-8547-4d6d-b7d0-a89322b762ra", 0, "51b918ea-171c-4fac-a92d-755b047ba53c", "admin@admin.com", false, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEB37k2MB+uNoxlgKwJHi4+A8X8amfZoGoQCHbjLbxCa3q8nNGf/s/CPUbIFjvdD0dQ==", null, false, "4dde6115-afd7-46ec-8b87-3d45c1e70673", false, "Admin" });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -42,8 +42,8 @@ namespace CookBook.Infrastructures.Migrations
                 table: "AspNetUsers",
                 keyColumn: "Id",
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
-                columns: new[] { "ConcurrencyStamp", "Email", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
-                values: new object[] { "ec77f22a-28b7-4c2b-b060-fb7a0a5a2ea0", null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEHkPSf6iIM6dxPxcm5730c3N8FZxz0v1mQpdJ7o4sHmLsVoHQT7t0C0eMflDONYzWg==", "5a0ce916-b89a-488b-9f13-6beba0159db2", "test@test.com" });
+                columns: new[] { "ConcurrencyStamp", "Email", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
+                values: new object[] { "ec77f22a-28b7-4c2b-b060-fb7a0a5a2ea0", null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEHkPSf6iIM6dxPxcm5730c3N8FZxz0v1mQpdJ7o4sHmLsVoHQT7t0C0eMflDONYzWg==", "5a0ce916-b89a-488b-9f13-6beba0159db2", "test@test.com" });
         }
     }
 }

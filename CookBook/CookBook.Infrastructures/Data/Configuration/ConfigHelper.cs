@@ -13,39 +13,6 @@ namespace CookBook.Data.Configuration
         public static TemperatureMeasurment[] TemperatureMeasurments = SeedTemperatureMeasurments();
         private static IdentityUser[] SeedUser()
             {
-            //var admin = new IdentityUser()
-            //    {
-            //    Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
-            //    UserName = "Admin",
-            //    Email = "admin@admin.com",
-            //    //NormalizedUserName = "ADMIN@ADMIN.COM"
-            //    };
-            //var testUser1 = new IdentityUser()
-            //    {
-            //    Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
-            //    UserName = "NotChef",
-            //    Email = "test@test.com",
-            //    //NormalizedUserName = "TEST@TEST.COM"
-
-            //    };
-            //var testUser2 = new IdentityUser()
-            //    {
-            //    Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
-            //    UserName = "Chef",
-            //    Email = "test2@test.com",
-            //    NormalizedUserName = "TEST2@TEST.COM"
-            //    };
-
-            //testUser1.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(testUser1, "softuni");
-            //testUser2.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(testUser2, "softuni");
-            //admin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(admin, "admin123");
-
-            //return new IdentityUser[] {
-            //    admin,
-            //    testUser1,
-            //    testUser2
-            //    };
-
             var testUser1 = new IdentityUser()
                 {
                 Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
@@ -59,6 +26,7 @@ namespace CookBook.Data.Configuration
                 {
                 Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
                 UserName = "Chef",
+                NormalizedUserName = "CHEF",
                 Email = "test2@test.com",
                 NormalizedEmail = "TEST2@TEST.COM"
                 };
@@ -66,6 +34,7 @@ namespace CookBook.Data.Configuration
                 {
                 Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
                 UserName = "Admin",
+                NormalizedUserName = "ADMIN",
                 Email = "admin@admin.com",
                 NormalizedEmail = "ADMIN@ADMIN.COM"
                 };
