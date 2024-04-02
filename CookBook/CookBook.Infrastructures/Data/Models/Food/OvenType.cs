@@ -1,4 +1,5 @@
 ﻿using CookBook.Constants;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Infrastructures.Data.Models.Food
@@ -10,6 +11,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [Required]
         [StringLength(LenghtParams.OvenMaxLenght)]
+        [Description("Fan, conventional, gas , etc.")]
         public string Name { get; set; } = string.Empty;
         }
     }

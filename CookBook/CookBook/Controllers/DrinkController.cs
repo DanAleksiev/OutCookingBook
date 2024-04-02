@@ -13,11 +13,10 @@ using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
-    [Authorize(Roles = "Member")]
     public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
-        private static List<DrinkStep> addSteps { get; set; } = new List<DrinkStep>();
+        private static List<Step> addSteps { get; set; } = new List<Step>();
 
         private readonly IDrinkRecepieService drinkRecepieService;
         private readonly ILogger logger;
@@ -307,7 +306,7 @@ namespace CookBook.Controllers
                 {
                 if (step.Description != null)
                     {
-                    DrinkStep newStep = new DrinkStep()
+                    Step newStep = new Step()
                         {
                         Position = stepPosition++,
                         Description = step.Description,

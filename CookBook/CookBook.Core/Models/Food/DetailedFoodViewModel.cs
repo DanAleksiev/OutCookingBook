@@ -28,6 +28,6 @@ namespace CookBook.Core.Models.Food
         public bool Private { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
-        public ICollection<FoodStep> Steps { get; set; } = new List<FoodStep>();
+        public ICollection<Step> Steps { get; set; } = new List<Step>();
         }
     }

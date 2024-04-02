@@ -24,6 +24,6 @@ namespace CookBook.Core.Models.Drink
         public bool Private { get; set; }
 
         public ICollection<Ingredient> Ingredients { get; set; } = new List<Ingredient>();
-        public ICollection<DrinkStep> Steps { get; set; } = new List<DrinkStep>();
+        public ICollection<Step> Steps { get; set; } = new List<Step>();
         }
     }

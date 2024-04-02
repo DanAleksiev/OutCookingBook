@@ -14,14 +14,16 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [Required]
         [StringLength(LenghtParams.RecepieNameMaxLengt)]
+        [Description("Name")]
         public string Name { get; set; } = string.Empty;
 
         [Description("All ingredients in the recepie")]
         public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new List<IngredientFoodRecepie>();
 
-        [Description("All ingredients in the recepie")]
+        [Description("")]
         public ICollection<FoodRecepiesUsers> RecepiesUsers { get; set; } = new List<FoodRecepiesUsers>();
 
+        [Description("All the Users who have Favor this revepie")]
         public ICollection<FavouriteFoodRecepiesUsers> FavouriteRecepiesUsers { get; set; } = new List<FavouriteFoodRecepiesUsers>();
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
@@ -58,7 +60,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [Required]
         [Description("Upvotes")]
-        public int TumbsUp { get; set; }
+        public int TumbsUp { get; set; } = 0;
 
         [Required]
         [Description("the time it takes to cook the ingredients")]

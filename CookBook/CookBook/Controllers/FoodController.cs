@@ -14,7 +14,7 @@ namespace CookBook.Controllers
     public class FoodController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
-        private static List<FoodStep> addSteps { get; set; } = new List<FoodStep>();
+        private static List<Step> addSteps { get; set; } = new List<Step>();
 
 
         private readonly ILogger logger;
@@ -303,7 +303,7 @@ namespace CookBook.Controllers
                 {
                 if (step.Description != null)
                     {
-                    FoodStep newStep = new FoodStep()
+                    Step newStep = new Step()
                         {
                         Position = stepPosition++,
                         Description = step.Description,

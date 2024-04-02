@@ -15,7 +15,7 @@ namespace CookBook.Core.Contracts
         Task<DetailedFoodViewModel> GetLIkesAndFavorites(DetailedFoodViewModel recepie, string userId);
 
         Task<FoodViewModel> AddGetAsync();
-        Task AddPostAsync(FoodViewModel model, string userId, List<FoodStep> addSteps, List<Ingredient> addIngredients);
+        Task AddPostAsync(FoodViewModel model, string userId, List<Step> addSteps, List<Ingredient> addIngredients);
         Task<EditFoodForm> EditGetAsync(int id, string userId);
         Task<int> EditPostAsync(EditFoodForm model);
 

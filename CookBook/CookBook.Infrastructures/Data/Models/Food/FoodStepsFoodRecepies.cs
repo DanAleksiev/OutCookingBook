@@ -10,13 +10,13 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public int FoodRecepieId { get; set; }
 
         [ForeignKey(nameof(FoodRecepieId))]
-        public FoodRecepie FoodRecepie { get; set; }
+        public FoodRecepie? FoodRecepie { get; set; }
 
         [Required]
         public int FoodStepId { get; set; }
 
         [ForeignKey(nameof(FoodStepId))]
-        public FoodStep FoodStep { get; set; }
+        public Step? FoodStep { get; set; }
         }
 
     }

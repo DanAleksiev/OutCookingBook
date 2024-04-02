@@ -1,5 +1,5 @@
 ﻿using CookBook.Constants;
-using CookBook.Infrastructures.Data.Models.Food;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,15 +18,14 @@ namespace CookBook.Infrastructures.Data.Models.Shared
 
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
         public string? Description { get; set; }
-        public int Calories { get; set; }
 
         public double Amount { get; set; }
         [Required]
+        [Description("The type of mesurement used to mesure the ingredient")]
         public int MeasurementId { get; set; }
 
         [ForeignKey(nameof(MeasurementId))]
-        public Measurement Measurement { get; set; }
-        public ICollection<IngredientFoodRecepie> IngredientsRecepies { get; set; } = new HashSet<IngredientFoodRecepie>();
+        public Measurement? Measurement { get; set; }
         }
 
     }

@@ -166,8 +166,7 @@ namespace CookBook.Infrastructures.Data
         public DbSet<Measurement> Measurements { get; set; }
         public DbSet<OvenType> OvenTypes { get; set; }
         public DbSet<RecepieType> RecepieTypes { get; set; }
-        public DbSet<FoodStep> FoodStep { get; set; }
-        public DbSet<DrinkStep> DrinkStep { get; set; }
+        public DbSet<Step> Step { get; set; }
         public DbSet<TemperatureMeasurment> TemperaturesMeasurments { get; set; }
         }
     }

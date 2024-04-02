@@ -14,7 +14,7 @@ namespace CookBook.Core.Contracts
 
         //from here
         Task<DrinkViewModel> AddGetAsync();
-        Task AddPostAsync(DrinkViewModel model, string userId, List<DrinkStep> addSteps, List<Ingredient> addIngredients);
+        Task AddPostAsync(DrinkViewModel model, string userId, List<Step> addSteps, List<Ingredient> addIngredients);
         Task<EditDrinkForm> EditGetAsync(int id, string userId);
         Task<int> EditPostAsync(EditDrinkForm model);
 

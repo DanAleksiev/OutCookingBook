@@ -52,7 +52,7 @@ namespace CookBook.Core.Services
         public async Task<bool> ExistStep(int id)
             {
             return await repository
-                .AllReadOnly<FoodStep>()
+                .AllReadOnly<Step>()
                 .AnyAsync(r => r.Id == id);
             }
 
@@ -330,7 +330,7 @@ namespace CookBook.Core.Services
             return allRecepies;
             }
 
-        public async Task AddPostAsync(FoodViewModel model, string userId, List<FoodStep> addSteps, List<Ingredient> addIngredients)
+        public async Task AddPostAsync(FoodViewModel model, string userId, List<Step> addSteps, List<Ingredient> addIngredients)
             {
             var newRecepie = new FoodRecepie()
                 {
@@ -479,7 +479,6 @@ namespace CookBook.Core.Services
                     {
                     Id = x.IngredientId,
                     Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
                     Name = x.Ingredient.Name,
                     Measurement = x.Ingredient.Measurement,
                     })
@@ -488,7 +487,7 @@ namespace CookBook.Core.Services
             var steps = await repository
                 .All<FoodStepsFoodRecepies>()
                 .Where(x => x.FoodRecepieId == recepie.Id)
-                .Select(x => new FoodStep()
+                .Select(x => new Step()
                     {
                     Id = x.FoodStep.Id,
                     Description = x.FoodStep.Description,
@@ -538,7 +537,6 @@ namespace CookBook.Core.Services
                     {
                     Id = x.IngredientId,
                     Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
                     Name = x.Ingredient.Name,
                     })
                 .ToListAsync();
@@ -546,7 +544,7 @@ namespace CookBook.Core.Services
             var steps = await repository
                 .AllReadOnly<FoodStepsFoodRecepies>()
                 .Where(x => x.FoodRecepieId == recepie.Id)
-                .Select(x => new FoodStep()
+                .Select(x => new Step()
                     {
                     Id = x.FoodStep.Id,
                     Description = x.FoodStep.Description,
@@ -578,7 +576,6 @@ namespace CookBook.Core.Services
                     Name = x.Ingredient.Name,
                     Description = x.Ingredient.Description,
                     Amount = x.Ingredient.Amount,
-                    Calories = x.Ingredient.Calories,
                     MeasurmentId = x.Ingredient.MeasurementId,
                     OwnerId = x.Recepie.OwnerId
                     })
@@ -599,7 +596,6 @@ namespace CookBook.Core.Services
             ing.Name = model.Name;
             ing.Amount = model.Amount;
             ing.Description = model.Description;
-            ing.Calories = model.Calories;
 
             await repository.SaveChangesAsync();
 
@@ -635,7 +631,7 @@ namespace CookBook.Core.Services
         public async Task<EditStepForm> EditStepPostAsync(EditStepForm model)
             {
             var ing = await repository
-                .All<FoodStep>()
+                .All<Step>()
                 .Where(x => x.Id == model.Id)
                 .FirstOrDefaultAsync();
 

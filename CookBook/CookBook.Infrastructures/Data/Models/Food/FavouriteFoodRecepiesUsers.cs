@@ -10,12 +10,12 @@ namespace CookBook.Infrastructures.Data.Models.Food
         public int FoodRecepieId { get; set; }
 
         [ForeignKey(nameof(FoodRecepieId))]
-        public FoodRecepie FoodRecepie { get; set; }
+        public FoodRecepie? FoodRecepie { get; set; }
 
         [Required]
-        public string UserId { get; set; }
+        public string UserId { get; set; } = string.Empty;
         [ForeignKey(nameof(UserId))]
-        public IdentityUser User { get; set; }
+        public IdentityUser? User { get; set; }
         }
 
     }

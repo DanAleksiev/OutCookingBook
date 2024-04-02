@@ -13,7 +13,7 @@ namespace CookBook.Controllers
             logger = _logger;
             }
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
             {
 
             if (User.IsInRole(AdminRolleName))

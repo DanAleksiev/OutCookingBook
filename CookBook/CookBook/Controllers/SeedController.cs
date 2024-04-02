@@ -125,11 +125,11 @@ namespace CookBook.Controllers
                 };
 
             List<Ingredient> addIngredients = new List<Ingredient>();
-            List<FoodStep> addSteps = new List<FoodStep>();
+            List<Step> addSteps = new List<Step>();
 
             for (int i = 0; i < random.Next(2, 6); i++)
                 {
-                FoodStep newStep = new FoodStep()
+                Step newStep = new Step()
                     {
                     Position = i,
                     Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -181,7 +181,7 @@ namespace CookBook.Controllers
                     FoodStep = step,
                     };
 
-                await context.FoodStep.AddAsync(step);
+                await context.Step.AddAsync(step);
                 await context.FoodStepsFoodRecepies.AddAsync(stepRecepie);
                 }
 
@@ -312,11 +312,11 @@ namespace CookBook.Controllers
                 };
 
             List<Ingredient> addIngredients = new List<Ingredient>();
-            List<DrinkStep> addSteps = new List<DrinkStep>();
+            List<Step> addSteps = new List<Step>();
 
             for (int i = 0; i < random.Next(2, 6); i++)
                 {
-                DrinkStep newStep = new DrinkStep()
+                Step newStep = new Step()
                     {
                     Position = i,
                     Description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
@@ -367,7 +367,7 @@ namespace CookBook.Controllers
                     DrinkStep = step,
                     };
 
-                await context.DrinkStep.AddAsync(step);
+                await context.Step.AddAsync(step);
                 await context.DrinkStepsDrinkRecepies.AddAsync(stepRecepie);
                 }
 
