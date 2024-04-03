@@ -1,7 +1,7 @@
 namespace CookBook.UnitTest
     {
     [TestClass]
-    public class UnitTest1
+    public class FoodTest
         {
         [TestMethod]
         public void TestMethod1()

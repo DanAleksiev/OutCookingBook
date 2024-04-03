@@ -1,4 +1,4 @@
-﻿@using CookBook.Areas.Admin.models
+﻿
 @model ChangeUserRoleForm
 
 @{
@@ -8,7 +8,7 @@
 
 <h2>@ViewBag.Title</h2>
 
-<form asp-action="RoleControll" method="post">
+<form asp-area="Admin" asp-controller="Admin" asp-action="RoleControll" method="post">
     <div>
         <input asp-for="Username" placeholder="UserName:" />
         <div class="form-group col-md-3">

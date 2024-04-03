@@ -7,7 +7,7 @@
 {
         @if (User.IsInRole("Member"))
             {
-            ViewBag.Role = "Admin";
+            ViewBag.Role = "Member";
             }
         else if (User.IsInRole("Chef"))
             {

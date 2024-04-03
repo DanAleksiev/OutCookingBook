@@ -26,7 +26,7 @@ namespace CookBook.Areas.Admin.Controllers
             }
 
         [HttpPost]
-        public async Task<IActionResult> RoleConroll(ChangeUserRoleForm model)
+        public async Task<IActionResult> RoleControll(ChangeUserRoleForm model)
             {
             if(!await adminService.UserExist(model.Username))
                 {
@@ -35,7 +35,7 @@ namespace CookBook.Areas.Admin.Controllers
 
             await adminService.ChangeRole(model.Username, model.Roles.ToString());
             await Console.Out.WriteLineAsync($"{model.Username} is now {model.Roles.ToString()}");
-            return View();
+            return View(nameof(Index));
             }
         }
     }

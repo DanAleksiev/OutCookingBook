@@ -9,10 +9,12 @@ namespace CookBook.Areas.Admin.Services
     public class AdminService : IAdminService
         {
         private readonly IRepository repository;
+        private readonly UserManager<IdentityUser> userManager;
 
-        public AdminService(IRepository _repository)
+        public AdminService(IRepository _repository, UserManager<IdentityUser> _userManager)
             {
             repository = _repository;
+            userManager = _userManager;
             }
 
         public async Task<bool> Ban(string username)
@@ -20,7 +22,6 @@ namespace CookBook.Areas.Admin.Services
             var userId = await GetUserId(username);
             if (userId != null)
                 {
-
                 var user = await repository.GetByIdAsync<IdentityUser>(userId);
                 user.LockoutEnabled = true;
                 return true;
@@ -30,16 +31,18 @@ namespace CookBook.Areas.Admin.Services
 
         public async Task ChangeRole(string username, string role)
             {
+            //var userId = await repository
+            //    .AllReadOnly<IdentityUser>()
+            //    .Where(u => u.UserName == username)
+            //    .AsNoTracking()
+            //    .FirstOrDefaultAsync();
             var userId = await GetUserId(username);
-            var roleId = await GetRoleId(role);
 
-            if (userId != null && roleId != null)
+            var user = await userManager.FindByIdAsync(userId);
+
+            if (user != null && role != null)
                 {
-                await repository.AddAsync(new UserRoleModel
-                    {
-                    Role = roleId,
-                    UserId = userId
-                    });
+                await userManager.AddToRoleAsync(user, role);
                 }
             }
 
@@ -48,6 +51,7 @@ namespace CookBook.Areas.Admin.Services
             var roleId = await repository
                 .AllReadOnly<IdentityRole>()
                 .Where(r => r.Name == role)
+                .AsNoTracking()
                 .FirstAsync();
 
             return roleId.Id;
@@ -58,6 +62,7 @@ namespace CookBook.Areas.Admin.Services
             var user = await repository
                 .All<IdentityUser>()
                 .Where(u => u.UserName == username)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return user.Id;
@@ -78,7 +83,8 @@ namespace CookBook.Areas.Admin.Services
         public async Task<bool> UserExist(string username)
             {
             return await repository
-                .All<IdentityUser>()
+                .AllReadOnly<IdentityUser>()
+                .AsNoTracking()
                 .AnyAsync(u => u.UserName == username);
             }
         }
