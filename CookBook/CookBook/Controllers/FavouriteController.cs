@@ -1,112 +1,53 @@
-﻿using CookBook.Core.Models.Shared;
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Data.Models.Drinks;
-using CookBook.Infrastructures.Data.Models.Food;
-using Microsoft.AspNetCore.Authorization;
+﻿using CookBook.Core.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
     {
-
     public class FavouriteController : BaseController
         {
-        private readonly CookBookDbContext context;
-        public FavouriteController(CookBookDbContext _context)
+        private readonly IFavouriteService favouriteService;
+
+        public FavouriteController(IFavouriteService _favouriteService)
             {
-            context = _context;
+            favouriteService = _favouriteService;
             }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         public async Task<IActionResult> FavouriteFood(int id)
             {
-            var userId = GetUserId();
-
-            var recepie = await context
-                .FoodRecepies
-                .FindAsync(id);
-
-            if (recepie == null)
+            if (!await favouriteService.ExistFood(id))
                 {
                 return NotFound();
                 }
 
-            if (recepie.OwnerId == userId)
+            var userId = GetUserId();
+            var ownerId = await favouriteService.FoodOwner(id);
+            if (ownerId != userId)
                 {
                 return BadRequest();
                 }
 
-            var existing = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId && x.FoodRecepieId == recepie.Id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            var favourite = new FavouriteFoodRecepiesUsers
-                {
-                FoodRecepieId = recepie.Id,
-                UserId = userId,
-                };
-
-            if (existing != null)
-                {
-                context.FavouriteFoodRecepiesUsers.Remove(favourite);
-                }
-            else
-                {
-                await context.FavouriteFoodRecepiesUsers.AddAsync(favourite);
-                }
-
-            await context.SaveChangesAsync();
+            await favouriteService.FavourFood(id, userId);
             return RedirectToAction("All", "Food");
             }
 
         public async Task<IActionResult> FavouriteDrink(int id)
             {
-            var userId = GetUserId();
-
-            var recepie = await context
-                .DrinkRecepies
-                .FindAsync(id);
-
-            if (recepie == null)
+            if (!await favouriteService.ExistDrink(id))
                 {
                 return NotFound();
                 }
 
-            if (recepie.OwnerId == userId)
+            var userId = GetUserId();
+            var ownerId = await favouriteService.DrinkOwner(id);
+            if (ownerId != userId)
                 {
                 return BadRequest();
                 }
 
-            var existing = await context
-                .FavouriteDrinkRecepiesUsers
-                .Where(x =>
-                    x.UserId == userId
-                    && x.DrinkRecepieId == recepie.Id
-                    && x.UserId == GetUserId())
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            var favourite = new FavouriteDrinkRecepiesUsers
-                {
-                DrinkRecepieId = recepie.Id,
-                UserId = userId
-                };
-
-
-            if (existing != null)
-                {
-                context.FavouriteDrinkRecepiesUsers.Remove(favourite);
-                }
-            else
-                {
-                await context.FavouriteDrinkRecepiesUsers.AddAsync(favourite);
-                }
-
-            await context.SaveChangesAsync();
+            await favouriteService.FavourDrink(id, userId);
             return RedirectToAction("All", "Drink");
             }
 
@@ -114,27 +55,7 @@ namespace CookBook.Controllers
         public async Task<IActionResult> AllFavouriteFood()
             {
             var userId = GetUserId();
-            var existing = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.FoodRecepie.Id,
-                    Name = x.FoodRecepie.Name,
-                    DatePosted = x.FoodRecepie.DatePosted,
-                    Image = x.FoodRecepie.Image,
-                    Owner = x.FoodRecepie.Owner.UserName,
-                    TumbsUp = x.FoodRecepie.TumbsUp,
-                    Description = x.FoodRecepie.Descripton,
-                    })
-                .AsNoTracking()
-                .ToListAsync();
-
-            try
-                {
-                await GetLikesAndFavForFood(userId, existing);
-                }
-            catch { }
+            var existing = await favouriteService.FavouriteFood(userId);
 
             return View(existing);
             }
@@ -143,77 +64,9 @@ namespace CookBook.Controllers
         public async Task<IActionResult> AllFavouriteDrink()
             {
             var userId = GetUserId();
-            var existing = await context
-                .FavouriteDrinkRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.DrinkRecepie.Id,
-                    Name = x.DrinkRecepie.Name,
-                    DatePosted = x.DrinkRecepie.DatePosted,
-                    Image = x.DrinkRecepie.Image,
-                    Owner = x.DrinkRecepie.Owner.UserName,
-                    TumbsUp = x.DrinkRecepie.TumbsUp,
-                    Description = x.DrinkRecepie.Descripton,
-                    })
-                .AsNoTracking()
-                .ToListAsync();
-            try
-                {
-                await GetLikesAndFavForDrink(userId, existing);
-                }
-            catch { }
+            var existing = await favouriteService.FavouriteDrinks(userId);
+
             return View(existing);
-            }
-
-        private async Task GetLikesAndFavForDrink(string userId, List<AllRecepieViewModel> existing)
-            {
-            var likes = await context
-                                .FoodLikeUsers
-                                .Where(x => x.UserId == userId)
-                                .ToListAsync();
-
-            foreach (var i in likes)
-                {
-                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Like = true;
-                }
-
-            var favourite = await context
-                .FavouriteDrinkRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var i in favourite)
-                {
-                existing.FirstOrDefault(x => x.Id == i.DrinkRecepieId)
-                    .Favourite = true;
-                }
-            }
-
-        private async Task GetLikesAndFavForFood(string userId, List<AllRecepieViewModel> existing)
-            {
-            var likes = await context
-                                .FoodLikeUsers
-                                .Where(x => x.UserId == userId)
-                                .ToListAsync();
-
-            foreach (var i in likes)
-                {
-                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Like = true;
-                }
-
-            var favourite = await context
-                .FavouriteFoodRecepiesUsers
-                .Where(x => x.UserId == userId)
-                .ToListAsync();
-
-            foreach (var i in favourite)
-                {
-                existing.FirstOrDefault(x => x.Id == i.FoodRecepieId)
-                    .Favourite = true;
-                }
-            }
+            }       
         }
     }
