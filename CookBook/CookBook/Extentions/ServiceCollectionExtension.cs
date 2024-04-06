@@ -1,6 +1,6 @@
 ﻿using CookBook.Areas.Admin.Contracts;
 using CookBook.Areas.Admin.Services;
-using CookBook.Core.Contracts;
+using CookBook.Core.Contracts.Services;
 using CookBook.Core.Services;
 using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Common;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
-    {
+{
     public static class ServiceCollectionExtension
         {
         public static IServiceCollection AddAplicationServices(this IServiceCollection services)
@@ -16,6 +16,7 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddScoped<IFoodRecepieService, FoodRecepieService>();
             services.AddScoped<IDrinkRecepieService, DrinkRecepieService>();
             services.AddScoped<IFavouriteService, FavouriteService>();
+            services.AddScoped<IRatingService, RatingService>();
             services.AddScoped<IAdminService, AdminService>();
 
             return services;

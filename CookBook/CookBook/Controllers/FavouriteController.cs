@@ -1,9 +1,9 @@
-﻿using CookBook.Core.Contracts;
+﻿using CookBook.Core.Contracts.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-    {
+{
     public class FavouriteController : BaseController
         {
         private readonly IFavouriteService favouriteService;
@@ -24,7 +24,7 @@ namespace CookBook.Controllers
 
             var userId = GetUserId();
             var ownerId = await favouriteService.FoodOwner(id);
-            if (ownerId != userId)
+            if (ownerId == userId)
                 {
                 return BadRequest();
                 }
@@ -42,7 +42,7 @@ namespace CookBook.Controllers
 
             var userId = GetUserId();
             var ownerId = await favouriteService.DrinkOwner(id);
-            if (ownerId != userId)
+            if (ownerId == userId)
                 {
                 return BadRequest();
                 }

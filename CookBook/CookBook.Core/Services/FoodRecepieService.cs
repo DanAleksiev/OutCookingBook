@@ -1,4 +1,4 @@
-﻿using CookBook.Core.Contracts;
+﻿using CookBook.Core.Contracts.Services;
 using CookBook.Core.Enum;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
@@ -10,14 +10,14 @@ using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Core.Services
-    {
+{
     public class FoodRecepieService : IFoodRecepieService
         {
         private readonly IRepository repository;
 
-        public FoodRecepieService(IRepository repository)
+        public FoodRecepieService(IRepository _repository)
             {
-            this.repository = repository;
+            repository = _repository;
             }
 
         /// <summary>

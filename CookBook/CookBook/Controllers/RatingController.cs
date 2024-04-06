@@ -1,10 +1,6 @@
-﻿using CookBook.Core.Models.Shared;
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Data.Models.Drinks;
-using CookBook.Infrastructures.Data.Models.Food;
+﻿using CookBook.Core.Contracts.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
@@ -13,103 +9,46 @@ namespace CookBook.Controllers
     public class RatingController : Controller
         {
 
-        private readonly CookBookDbContext context;
-        public RatingController(CookBookDbContext _context)
+        private readonly IRatingService ratingService;
+
+        public RatingController(IRatingService _ratingService)
             {
-            context = _context;
+            ratingService = _ratingService;
             }
 
         private string GetUserId() => User.FindFirstValue(ClaimTypes.NameIdentifier);
 
         public async Task<IActionResult> FoodLike(int id)
             {
-            var userId = GetUserId();
-
-            var recepie = await context
-                .FoodRecepies
-                .FindAsync(id);
-
-            if (recepie == null)
+            if (!await ratingService.ExistFood(id))
                 {
                 return NotFound();
                 }
 
-            if (recepie.OwnerId == userId)
+            var userId = GetUserId();
+            if (!await ratingService.AuthorisedFood(id, userId))
                 {
                 return BadRequest();
                 }
 
-            var existing = await context
-                .FoodLikeUsers
-                .Where(x => x.UserId == userId && x.FoodRecepieId == recepie.Id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            var like = new FoodLikeUser
-                {
-                FoodRecepieId = recepie.Id,
-                UserId = userId
-                };
-
-            if (existing != null)
-                {
-                recepie.TumbsUp--;
-                context.FoodLikeUsers.Remove(like);
-                }
-            else
-                {
-                recepie.TumbsUp++;
-                await context.FoodLikeUsers.AddAsync(like);
-                }
-
-            await context.SaveChangesAsync();
+            await ratingService.LikeFood(id, userId);
             return RedirectToAction("All", "Food");
             }
 
         public async Task<IActionResult> DrinkLike(int id)
             {
-            var userId = GetUserId();
-
-            var recepie = await context
-                .DrinkRecepies
-                .FindAsync(id);
-
-            if (recepie == null)
+            if (!await ratingService.ExistDrink(id))
                 {
                 return NotFound();
                 }
 
-            if (recepie.OwnerId == userId)
+            var userId = GetUserId();
+            if (!await ratingService.AuthorisedDrink(id, userId))
                 {
                 return BadRequest();
                 }
 
-            var existing = await context
-                .DrinkLikeUsers
-                .Where(x => x.UserId == userId && x.DrinkRecepieId == recepie.Id)
-                .AsNoTracking()
-                .FirstOrDefaultAsync();
-
-            var like = new DrinkLikeUser
-                {
-                DrinkRecepieId = recepie.Id,
-                UserId = userId
-                };
-
-
-            if (existing != null)
-                {
-                recepie.TumbsUp--;
-
-                context.DrinkLikeUsers.Remove(like);
-                }
-            else
-                {
-                recepie.TumbsUp++;
-                await context.DrinkLikeUsers.AddAsync(like);
-                }
-
-            await context.SaveChangesAsync();
+            await ratingService.LikeDrink(id, userId);
             return RedirectToAction("All", "Drink");
             }
 
@@ -117,24 +56,7 @@ namespace CookBook.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TopTenRatedFood()
             {
-            var recepis = await context
-                .FoodRecepies
-                .OrderByDescending(x => x.TumbsUp)
-                .Where(x => !x.IsPrivate && x.TumbsUp > 0)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
-                    Owner = x.Owner.UserName,
-                    Private = x.IsPrivate
-                    })
-                .Take(10)
-                .AsNoTracking()
-                .ToListAsync();
+            var recepis = await ratingService.TopTenFood();
 
             ViewBag.Title = "Top 10 Food";
 
@@ -145,24 +67,7 @@ namespace CookBook.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> TopTenRatedDrink()
             {
-            var recepis = await context
-                .DrinkRecepies
-                .OrderByDescending(x => x.TumbsUp)
-                .Where(x => !x.IsPrivate && x.TumbsUp > 0)
-                .Select(x => new AllRecepieViewModel()
-                    {
-                    Id = x.Id,
-                    Name = x.Name,
-                    DatePosted = x.DatePosted,
-                    Image = x.Image,
-                    TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
-                    Owner = x.Owner.UserName,
-                    Private = x.IsPrivate
-                    })
-                .Take(10)
-                .AsNoTracking()
-                .ToListAsync();
+            var recepis = await ratingService.TopTenDrink();
 
             ViewBag.Title = "Top 10 Dinks";
 

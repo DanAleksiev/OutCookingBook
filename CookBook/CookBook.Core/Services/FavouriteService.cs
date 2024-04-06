@@ -1,4 +1,4 @@
-﻿using CookBook.Core.Contracts;
+﻿using CookBook.Core.Contracts.Services;
 using CookBook.Core.Models.Shared;
 using CookBook.Infrastructures.Data.Common;
 using CookBook.Infrastructures.Data.Models.Drinks;
@@ -6,7 +6,7 @@ using CookBook.Infrastructures.Data.Models.Food;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Core.Services
-    {
+{
     public class FavouriteService : IFavouriteService
         {
         private readonly IRepository repository;

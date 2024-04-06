@@ -1,30 +1,27 @@
 ﻿using CookBook.Core;
-using CookBook.Core.Contracts;
+using CookBook.Core.Contracts.Services;
 using CookBook.Core.DTO;
 using CookBook.Core.Extentions;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Services;
-using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-    {
+{
     public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();
         private static List<Step> addSteps { get; set; } = new List<Step>();
 
         private readonly IDrinkRecepieService drinkRecepieService;
-        private readonly ILogger logger;
 
-        public DrinkController(IDrinkRecepieService _drinkRecepieService,
-            ILogger<FoodController> _logger)
+        public DrinkController(IDrinkRecepieService _drinkRecepieService
+            )
             {
-            logger = _logger;
             drinkRecepieService = _drinkRecepieService;
             }
 
