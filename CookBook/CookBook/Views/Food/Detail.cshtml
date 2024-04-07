@@ -13,7 +13,7 @@
     <div class="card-body">
         <h3 class="card-title mt-1">@Model.Name</h3>
         <img class="card-img-top" src=@Model.Image alt="Ad Image" style="max-width:30rem; max-height:40rem;">
-        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted.ToString("dd/MM/yyyy")</p>
         <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
         <p class="mb-0"><span class="fw-bold">Teperature: </span>@Model.Temperature @Model.TemperatureType, <span class="fw-bold">Oven:</span>@Model.OvenType</p>
         <p class="mb-0"><span class="fw-bold">Prep time: </span>@Model.PrepTime, <span class="fw-bold">Cook time:</span>@Model.CookTime</p>

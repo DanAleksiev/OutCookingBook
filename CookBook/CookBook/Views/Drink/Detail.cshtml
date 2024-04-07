@@ -12,7 +12,7 @@
     <div class="card-body">
         <h3 class="card-title mt-1">@Model.Name</h3>
         <img class="card-img-top" src=@Model.Image alt="Ad Image" style="max-width:30rem; max-height:40rem;">
-        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted</p>
+        <p class="mb-0"><span class="fw-bold">Added on: </span>@Model.DatePosted.ToString("dd/MM/yyyy")</p>
         @if (Model.IsAlcoholic)
             {
             <p class="mb-0"><span class="fw-bold">It is Alcoholic</span></p>

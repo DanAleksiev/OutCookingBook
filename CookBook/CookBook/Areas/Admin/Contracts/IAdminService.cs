@@ -1,4 +1,5 @@
-﻿using CookBook.Core.Models.Admin;
+﻿using CookBook.Areas.Admin.Models;
+using CookBook.Core.Models.Admin;
 
 namespace CookBook.Areas.Admin.Contracts
     {
@@ -10,6 +11,6 @@ namespace CookBook.Areas.Admin.Contracts
 
         Task ChangeRole(string username, string role);
         Task<string> Ban(BanFormModel model);
-        Task<string> LiftBan(BanFormModel model);
+        Task<string> LiftBan(LiftBanModel model);
         }
     }

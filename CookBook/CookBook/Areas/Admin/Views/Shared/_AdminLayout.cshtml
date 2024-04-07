@@ -66,7 +66,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="RoleControll">Role Controll</a></li>
                                         <li><hr class="dropdown-divider"></li>
-                                        <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="DrinkRecepiesFromJSON">get drink from json</a></li>
+                                        <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="Ban">Ban User</a></li>
+                                        <li><a class="nav-link text-dark dropdown-item" asp-controller="Admin" asp-action="LiftBan">LiftBan User</a></li>
                                     </ul>
                                 </div>
                                 }
@@ -75,11 +76,9 @@
                                     DeleteMeWhenDoneSeeding
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="FoodRecepiesToJSON">get food to json</a></li>
-                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="FoodRecepiesFromJSON">get food from json</a></li>
+                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="FoodRecepiesFromJSON">Generate Food in test user</a></li>
                                     <li><hr class="dropdown-divider"></li>
-                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="DrinkRecepiesToJSON">get drink to json</a></li>
-                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="DrinkRecepiesFromJSON">get drink from json</a></li>
+                                    <li><a class="nav-link text-dark dropdown-item" asp-controller="Seed" asp-action="DrinkRecepiesFromJSON">Generate Drink in test user</a></li>
                                 </ul>
                             </div>
                         </div>

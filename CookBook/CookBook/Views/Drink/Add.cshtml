@@ -16,7 +16,7 @@
         <span asp-validation-for="@Model.Name" class=" small text-danger"></span>
         <hr />
         <label asp-for="Description"></label>
-        <input asp-for="Description" class="form-control" placeholder="Give us a short description of the meal:" />
+        <textarea asp-for="Description" class="form-control" rows="3" placeholder="Give us a short description of the meal:"></textarea>
         <span asp-validation-for="@Model.Description" class=" small text-danger"></span>
         <hr />
         <div id="details">

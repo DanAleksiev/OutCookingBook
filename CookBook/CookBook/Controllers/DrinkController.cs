@@ -136,12 +136,6 @@ namespace CookBook.Controllers
                 }
 
             var recepie = await drinkRecepieService.DetailGetAsync(id, GetUserId());
-
-            if (information != recepie.GetInformation())
-                {
-                return BadRequest();
-                }
-
             return View(recepie);
             }
 

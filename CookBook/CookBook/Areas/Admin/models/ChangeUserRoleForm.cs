@@ -1,6 +1,6 @@
 ﻿using CookBook.Areas.Admin.Enum;
 
-namespace CookBook.Areas.Admin.models
+namespace CookBook.Areas.Admin.Models
     {
     public class ChangeUserRoleForm
         {

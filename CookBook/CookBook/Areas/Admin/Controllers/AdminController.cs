@@ -1,6 +1,5 @@
 ﻿using CookBook.Areas.Admin.Contracts;
-using CookBook.Areas.Admin.models;
-using CookBook.Core.Models.Admin;
+using CookBook.Areas.Admin.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
@@ -46,6 +45,12 @@ namespace CookBook.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Ban(BanFormModel model)
             {
+            if (!await adminService.UserExist(model.Username))
+                {
+                ViewBag.BanStatus = "User does not exist!";
+                return View(model);
+                }
+
             var banStatus = await adminService.Ban(model);
             ViewBag.BanStatus = $"{banStatus}";
 
@@ -59,8 +64,14 @@ namespace CookBook.Areas.Admin.Controllers
             }
 
         [HttpPost]
-        public async Task<IActionResult> LiftBan(BanFormModel model)
+        public async Task<IActionResult> LiftBan(LiftBanModel model)
             {
+            if (!await adminService.UserExist(model.Username))
+                {
+                ViewBag.BanStatus = "User does not exist!";
+                return View(model);
+                }
+
             var banStatus = await adminService.LiftBan(model);
             ViewBag.BanStatus = banStatus;
 

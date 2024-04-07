@@ -1,0 +1,28 @@
+﻿@model BanFormModel
+@{
+    ViewBag.Title = "Ban";
+}
+
+
+<div class="text-center">
+    <h2>@ViewBag.Title</h2>
+    <h3 style="color:yellow">@ViewBag.BanStatus</h3>
+    <form asp-area="Admin" asp-controller="Admin" asp-action="Ban" method="post">
+        <div>
+            <label asp-for="Username">Username</label>
+            <input asp-for="Username" placeholder="UserName:" />
+            <span asp-validation-for="@Model.Username" class=" small text-danger"></span>
+            <label asp-for="Lenght">Lenght</label>
+            <input asp-for="Lenght" placeholder="Lenght in days:" />
+            <span asp-validation-for="@Model.Lenght" class=" small text-danger"></span>
+        </div>
+        <label asp-for="Reason">Reason</label>
+        <textarea asp-for="Reason" class="form-control" rows="3" placeholder="Give us a short description of the meal:"></textarea>
+        <span asp-validation-for="@Model.Reason" class=" small text-danger"></span>
+        <div class="col-md-3 align-content-center">
+            <div class="form-group mt-4 p-2">
+                <input type="submit" value="Change" class="btn btn-warning" />
+            </div>
+        </div>
+    </form>
+</div>

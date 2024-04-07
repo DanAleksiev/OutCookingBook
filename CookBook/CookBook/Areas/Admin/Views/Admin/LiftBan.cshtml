@@ -1,0 +1,16 @@
+﻿@model LiftBanModel
+@{
+    ViewBag.Title = "Lift Ban";
+}
+
+
+<h2>@ViewBag.Title</h2>
+<h3 style ="color:yellow">@ViewBag.BanStatus</h3>
+<form asp-area="Admin" asp-controller="Admin" asp-action="LiftBan" method="post">
+    <input asp-for="Username" placeholder="UserName:" />
+    <div class="col-md-3">
+        <div class="form-group mt-4 p-2">
+            <input type="submit" value="Change" class="btn btn-warning" />
+        </div>
+    </div>
+</form>

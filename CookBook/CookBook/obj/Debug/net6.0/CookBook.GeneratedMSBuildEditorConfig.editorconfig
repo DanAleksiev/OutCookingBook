@@ -18,8 +18,16 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Ban.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQmFuLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/LiftBan.cshtml]
+build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cTGlmdEJhbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/RoleControll.cshtml]

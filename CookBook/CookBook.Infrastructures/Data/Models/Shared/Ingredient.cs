@@ -17,7 +17,7 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public string Name { get; set; } = string.Empty;
 
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
-        public string? Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         public double Amount { get; set; }
         [Required]
@@ -25,7 +25,7 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public int MeasurementId { get; set; }
 
         [ForeignKey(nameof(MeasurementId))]
-        public Measurement? Measurement { get; set; }
+        public Measurement Measurement { get; set; } = null!;
         }
 
     }

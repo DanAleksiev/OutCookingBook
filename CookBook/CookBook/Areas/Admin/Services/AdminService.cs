@@ -1,5 +1,5 @@
 ﻿using CookBook.Areas.Admin.Contracts;
-using CookBook.Core.Models.Admin;
+using CookBook.Areas.Admin.Models;
 using CookBook.Infrastructures.Data.Common;
 using CookBook.Infrastructures.Data.Models.Admin;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +20,7 @@ namespace CookBook.Areas.Admin.Services
 
         public async Task<string> Ban(BanFormModel model)
             {
-            var userId = await GetUserId(model.UserName);
+            var userId = await GetUserId(model.Username);
             if (userId != null)
                 {
                 bool exist = await repository
@@ -84,21 +84,23 @@ namespace CookBook.Areas.Admin.Services
             return user.Id;
             }
 
-        public async Task<string> LiftBan(BanFormModel model)
+        public async Task<string> LiftBan(LiftBanModel model)
             {
-            var userId = await GetUserId(model.UserName);
+            var userId = await GetUserId(model.Username);
             if (userId != null)
                 {
                 var exist = await repository
                     .AllReadOnly<BanedUsers>()
                     .Where(u => u.UserId == userId)
                     .Where(u => u.IsBaned == true)
+                    .AsNoTracking()
                     .FirstOrDefaultAsync();
 
                 if (exist != null)
                     {
-                    exist.IsBaned = false;
-                    await repository.AddAsync(exist);
+                    var user = await repository
+                        .GetByIdAsync<BanedUsers>(exist.Id);
+                    user.IsBaned = false;
                     await repository.SaveChangesAsync();
                     return "Success";
                     }
