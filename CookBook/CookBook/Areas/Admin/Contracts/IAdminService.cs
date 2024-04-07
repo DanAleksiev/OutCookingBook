@@ -1,4 +1,6 @@
-﻿namespace CookBook.Areas.Admin.Contracts
+﻿using CookBook.Core.Models.Admin;
+
+namespace CookBook.Areas.Admin.Contracts
     {
     public interface IAdminService
         {
@@ -7,7 +9,7 @@
         Task<string> GetRoleId(string role);
 
         Task ChangeRole(string username, string role);
-        Task<bool> Ban(string username);
-        Task<bool> LiftBan(string username);
+        Task<string> Ban(BanFormModel model);
+        Task<string> LiftBan(BanFormModel model);
         }
     }

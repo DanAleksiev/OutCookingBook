@@ -7,8 +7,6 @@ namespace CookBook.Controllers
 
         public async Task<IActionResult> AdvicePosters()
             {
-
-
             return View();
             }
         }

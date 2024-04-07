@@ -1,6 +1,6 @@
 ﻿using CookBook.Areas.Admin.Contracts;
 using CookBook.Areas.Admin.models;
-using CookBook.Infrastructures.Data.Common;
+using CookBook.Core.Models.Admin;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
@@ -28,14 +28,44 @@ namespace CookBook.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> RoleControll(ChangeUserRoleForm model)
             {
-            if(!await adminService.UserExist(model.Username))
+            if (!await adminService.UserExist(model.Username))
                 {
                 return View(model);
                 }
 
             await adminService.ChangeRole(model.Username, model.Roles.ToString());
-            await Console.Out.WriteLineAsync($"{model.Username} is now {model.Roles.ToString()}");
             return View(nameof(Index));
             }
+
+        [HttpGet]
+        public IActionResult Ban()
+            {
+            return View();
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> Ban(BanFormModel model)
+            {
+            var banStatus = await adminService.Ban(model);
+            ViewBag.BanStatus = $"{banStatus}";
+
+            return View(model);
+            }
+
+        [HttpGet]
+        public IActionResult LiftBan()
+            {
+            return View();
+            }
+
+        [HttpPost]
+        public async Task<IActionResult> LiftBan(BanFormModel model)
+            {
+            var banStatus = await adminService.LiftBan(model);
+            ViewBag.BanStatus = banStatus;
+
+            return View(model);
+            }
+
         }
     }

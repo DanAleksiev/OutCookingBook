@@ -22,6 +22,33 @@ namespace CookBook.Infrastructures.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Admin.BanedUsers", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<bool>("IsBaned")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Reason")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<string>("UserId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("BanedUsers");
+                });
+
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkLikeUser", b =>
                 {
                     b.Property<int>("DrinkRecepieId")
@@ -675,15 +702,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "af3f662f-4de5-41b3-9e49-36f3445d9157",
+                            ConcurrencyStamp = "0fa6c60d-130e-4147-bd77-71dc4e77343d",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
                             NormalizedUserName = "NOTCHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEMnnjYcoNzapRhq6yYkMemJYZGZrbxPvb4WWhU/lhdUFcrrXuXqSVpT6sRvOX5HUaA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHJ3to9aNFntxju0HUvEQqDnC+qaj21H1aKkjm2k+BBJyr+HdthrTJWvad9SXXQY7Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5c0db0da-2295-4507-8b81-3fb544c16795",
+                            SecurityStamp = "92082abe-6cdb-4ecf-9db0-c5a74d5afc1e",
                             TwoFactorEnabled = false,
                             UserName = "NotChef"
                         },
@@ -691,15 +718,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "67f0e210-c3b1-424e-a72a-1311290831ce",
+                            ConcurrencyStamp = "7f47ccca-e253-4464-8693-c783603eff9d",
                             Email = "test2@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST2@TEST.COM",
                             NormalizedUserName = "CHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJxu14vd6T5YW8fgS/epJoR8kTRU7ty3agKvygez5izBbN9gWPhf+rau3591oFSZfQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHwdPc/kEFoXxbTWoqshsnJem7ZvbccriAzx15fTWDFuqzegUeOwtm0HzWFCRiXzXQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cedbdd80-6303-4ea4-94ea-63e1f73e2354",
+                            SecurityStamp = "37153e46-0e95-4710-a04c-660d89ec4658",
                             TwoFactorEnabled = false,
                             UserName = "Chef"
                         },
@@ -707,15 +734,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c77c8408-d5d2-42e4-a73c-f78799b35ebb",
+                            ConcurrencyStamp = "9dc88e0e-04ae-4249-8880-546a5ac7711e",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJSYwM7Ga3z2lCzxOo9Uk+wuU05F0Me0BwuLnD1TOoOW294E919XcYugtb+C5A4mBA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEFemmr3VdDwyGDn8bKEIAo3iB2MZlmNOuCIp0SrJdcpwudFsWF0S8V0/5CP38oxYSw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "69f6bf49-1bed-4c0b-99dd-1a09fbc97f1c",
+                            SecurityStamp = "6b114109-944c-470d-8cbf-3951e1b8e6ad",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -804,6 +831,17 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Admin.BanedUsers", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkLikeUser", b =>

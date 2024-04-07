@@ -1,4 +1,5 @@
 ﻿using CookBook.Data.Configuration;
+using CookBook.Infrastructures.Data.Models.Admin;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
@@ -168,5 +169,6 @@ namespace CookBook.Infrastructures.Data
         public DbSet<RecepieType> RecepieTypes { get; set; }
         public DbSet<Step> Step { get; set; }
         public DbSet<TemperatureMeasurment> TemperaturesMeasurments { get; set; }
+        public DbSet<BanedUsers> BanedUsers { get; set; }
         }
     }

@@ -44,5 +44,11 @@
         public const int StepDescriptionMinLengt = 10;
         public const int StepDescriptionMaxLengt = 1000;
 
+
+        //Admin
+
+        //BanList
+        public const int BanReasonMinLenght = 10;
+        public const int BanReasonMaxLenght = 200; 
         }
     }
