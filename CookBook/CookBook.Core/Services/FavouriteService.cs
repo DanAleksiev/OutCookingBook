@@ -43,9 +43,9 @@ namespace CookBook.Core.Services
                 .AsNoTracking()
                 .FirstOrDefaultAsync();
 
-            var favourite = new FavouriteFoodRecepiesUsers
+            var favourite = new FavouriteDrinkRecepiesUsers
                 {
-                FoodRecepieId = recepieId,
+                DrinkRecepieId = recepieId,
                 UserId = userId,
                 };
 
@@ -90,17 +90,17 @@ namespace CookBook.Core.Services
         public async Task<IEnumerable<AllRecepieViewModel>> FavouriteDrinks(string userId)
             {
             var existing = await repository
-                .AllReadOnly<FavouriteFoodRecepiesUsers>()
+                .AllReadOnly<FavouriteDrinkRecepiesUsers>()
                 .Where(x => x.UserId == userId)
                 .Select(x => new AllRecepieViewModel()
                     {
-                    Id = x.FoodRecepie.Id,
-                    Name = x.FoodRecepie.Name,
-                    DatePosted = x.FoodRecepie.DatePosted,
-                    Image = x.FoodRecepie.Image,
-                    Owner = x.FoodRecepie.Owner.UserName,
-                    TumbsUp = x.FoodRecepie.TumbsUp,
-                    Description = x.FoodRecepie.Descripton,
+                    Id = x.DrinkRecepie.Id,
+                    Name = x.DrinkRecepie.Name,
+                    DatePosted = x.DrinkRecepie.DatePosted,
+                    Image = x.DrinkRecepie.Image,
+                    Owner = x.DrinkRecepie.Owner.UserName,
+                    TumbsUp = x.DrinkRecepie.TumbsUp,
+                    Description = x.DrinkRecepie.Descripton,
                     })
                 .AsNoTracking()
                 .ToListAsync();
@@ -131,7 +131,7 @@ namespace CookBook.Core.Services
                 .ToListAsync();
             try
                 {
-                await GetLikesAndFavForDrinks(userId, existing);
+                await GetLikesAndFavForFood(userId, existing);
                 }
             catch { }
             return existing;

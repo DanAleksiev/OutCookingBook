@@ -53,5 +53,14 @@ namespace CookBook.Infrastructures.Data.Common
                 DbSet<T>().Remove(entity);
                 }
             }
+
+        public async Task DeleteElementAsync<T>(T element) where T : class
+            {
+
+            if (element != null)
+                {
+                DbSet<T>().Remove(element);
+                }
+            }
         }
     }

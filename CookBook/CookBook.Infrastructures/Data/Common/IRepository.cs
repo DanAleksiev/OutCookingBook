@@ -13,5 +13,6 @@
         Task<T?> GetByIdAsync<T>(object id) where T : class;
 
         Task DeleteAsync<T>(object id) where T : class;
+        Task DeleteElementAsync<T>(T element) where T : class;
         }
     }

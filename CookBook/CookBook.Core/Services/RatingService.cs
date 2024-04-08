@@ -66,7 +66,7 @@ namespace CookBook.Core.Services
             if (existing != null)
                 {
                 recepie.TumbsUp--;
-                await repository.DeleteAsync<FoodLikeUser>(like);
+                await repository.DeleteElementAsync(like);
                 }
             else
                 {
@@ -97,7 +97,7 @@ namespace CookBook.Core.Services
             if (existing != null)
                 {
                 recepie.TumbsUp--;
-                await repository.DeleteAsync<FoodLikeUser>(like);
+                await repository.DeleteElementAsync(like);
                 }
             else
                 {

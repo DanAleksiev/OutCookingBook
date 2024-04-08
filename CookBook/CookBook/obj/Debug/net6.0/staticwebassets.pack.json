@@ -85,6 +85,14 @@
       "PackagePath": "staticwebassets\\img\\icons\\martini-glass-citrus-solid.svg"
     },
     {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\star-regular.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\star-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\star-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\star-solid.svg"
+    },
+    {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\temperature-full-solid.svg",
       "PackagePath": "staticwebassets\\img\\icons\\temperature-full-solid.svg"
     },
