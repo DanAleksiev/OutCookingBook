@@ -2,10 +2,13 @@
 // The .NET Foundation licenses this file to you under the MIT license.
 #nullable disable
 
+using CookBook.Infrastructures.Data.Common;
+using CookBook.Infrastructures.Data.Models.Admin;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Areas.Identity.Pages.Account
@@ -15,14 +18,17 @@ namespace CookBook.Areas.Identity.Pages.Account
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IRepository repository;
 
         public LoginModel(SignInManager<IdentityUser> signInManager,
             ILogger<LoginModel> logger,
-            UserManager<IdentityUser> userManager)
+            UserManager<IdentityUser> userManager,
+            IRepository _repository)
             {
             _signInManager = signInManager;
             _logger = logger;
             _userManager = userManager;
+            repository = _repository;
             }
 
         /// <summary>
@@ -109,9 +115,19 @@ namespace CookBook.Areas.Identity.Pages.Account
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var user = await _userManager.FindByEmailAsync(Input.Email);
-                //var user = await _userManager.FindByEmailAsync("Admin");
+                bool isBaned = await repository
+                    .AllReadOnly<BanedUsers>()
+                    .AnyAsync(u => u.UserId == user.Id 
+                    && u.IsBaned == true);
 
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
+                if (isBaned)
+                    {
+                    _logger.LogInformation("atemt to log in while baned");
+                    return RedirectToPage("./Lockout");
+                    }
+                
                 if (result.Succeeded)
                     {
                     _logger.LogInformation("User logged in.");
