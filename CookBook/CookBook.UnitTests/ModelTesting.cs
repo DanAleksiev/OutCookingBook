@@ -1,6 +1,7 @@
 using CookBook.Core.Models.Admin;
 using CookBook.Infrastructures.Data.Models.Admin;
 using CookBook.Infrastructures.Data.Models.Drinks;
+using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.UnitTests
@@ -8,61 +9,68 @@ namespace CookBook.UnitTests
     [TestFixture]
     public class Models
         {
+        /// <summary>
+        /// Var
+        /// </summary>
         //user
-        private string userId = "TestingUserNotExistingID123";
         private bool isBanned = false;
         private int lenght = 1;
         private string randomText = "Thats a random text long more then 10 char";
         private DateTime date = DateTime.Parse("12/02/1993");
 
-
         //drink
         private int drinkId = 1;
         private string drinkName = "Sambuka";
+
+        //Shared
+        private string userId = "TestingUserNotExistingID123";
         private string origen = "Timbuctu";
         private string img = "https://i.ytimg.com/vi/WSSI27cyklU/maxresdefault.jpg";
+
+        //Food
+        private int foodId = 2;
+        private string foodName = "Tarator";
+
 
         //Ingredient
         private string ingName = "ing";
 
-        //Food
-        private int foodkId = 2;
 
+        /// <summary>
+        /// prop
+        /// </summary>
 
-
-        private DrinkRecepie drinkRecepie = new DrinkRecepie();
-        private IList<DrinkStepsDrinkRecepies> stepsDrinkRecepies;
-        private ICollection<DrinkLikeUser> likes;
-        private IList<IngredientDrinkRecepie> ingDrinkRecepie;
-        private ICollection<FavouriteDrinkRecepiesUsers> favDrinkUsers;
-        private DrinkRecepiesUsers drinkUser;
-        private ICollection<DrinkRecepiesUsers> drinkRecepiesUsers;
-
-
+        //Shared
         private Step step1 = new Step();
         private Step step2 = new Step();
         private Step step3 = new Step();
-        private IEnumerable<Step> steps;
+        private IEnumerable<Step> steps = null!;
         private Ingredient ing1 = new Ingredient();
         private Ingredient ing2 = new Ingredient();
         private Ingredient ing3 = new Ingredient();
-        private IEnumerable<Ingredient> Ingredients;
+        private IEnumerable<Ingredient> Ingredients = null!;
 
+        //Drink
+        private DrinkRecepie drinkRecepie = new DrinkRecepie();
+        private IList<DrinkStepsDrinkRecepies> drinkSteps;
+        private IList<IngredientDrinkRecepie> ingDrinkRecepie;
+        private ICollection<DrinkLikeUser> drinkLikes;
+        private ICollection<FavouriteDrinkRecepiesUsers> favDrinkUsers;
+        private ICollection<DrinkRecepiesUsers> drinkRecepiesUsers;
 
+        //Food
+        private FoodRecepie foodRecepie = new FoodRecepie();
+        private ICollection<FavouriteFoodRecepiesUsers> favouriteFoodUserList;
+        private ICollection<IngredientFoodRecepie> ingredientsRecepies;
+        private ICollection<FoodRecepiesUsers> foodUsers;
+        private ICollection<FoodStepsFoodRecepies> foodSteps;
+        private ICollection<FoodLikeUser> foodLikes;
 
 
         [SetUp]
         public void TestInit()
             {
-            this.likes = new List<DrinkLikeUser>()
-                {
-                new DrinkLikeUser()
-                    {
-                    UserId = userId,
-                    DrinkRecepieId = drinkId
-                    }
-                };
-
+            //shared
             this.ing1 = new Ingredient()
                 {
                 Id = 1,
@@ -90,37 +98,6 @@ namespace CookBook.UnitTests
                 Description = randomText
                 };
 
-            drinkUser = new DrinkRecepiesUsers()
-                {
-                DrinkRecepieId = drinkId,
-                UserId = userId,
-                };
-
-            this.ingDrinkRecepie = new List<IngredientDrinkRecepie>()
-                {
-                new IngredientDrinkRecepie ()
-                    {
-                    IngredientId = 1,
-                    Ingredient = ing1,
-                    RecepieId = 1,
-                    Recepie = drinkRecepie
-                    },
-                new IngredientDrinkRecepie ()
-                    {
-                    IngredientId = 2,
-                    Ingredient = ing2,
-                    RecepieId = 1,
-                    Recepie = drinkRecepie
-                    },
-                new IngredientDrinkRecepie ()
-                    {
-                    IngredientId = 3,
-                    Ingredient = ing3,
-                    RecepieId = 1,
-                    Recepie = drinkRecepie
-                    },
-                };
-
             this.step1 = new Step()
                 {
                 Id = 1,
@@ -142,7 +119,41 @@ namespace CookBook.UnitTests
                 Description = randomText
                 };
 
-            this.stepsDrinkRecepies = new List<DrinkStepsDrinkRecepies>()
+            //Drink
+            this.drinkLikes = new List<DrinkLikeUser>()
+                {
+                new DrinkLikeUser()
+                    {
+                    UserId = userId,
+                    DrinkRecepieId = drinkId
+                    }
+                };
+
+            this.ingDrinkRecepie = new List<IngredientDrinkRecepie>()
+                {
+                new IngredientDrinkRecepie ()
+                    {
+                    IngredientId = 1,
+                    Ingredient = ing1,
+                    RecepieId = 1,
+                    },
+                new IngredientDrinkRecepie ()
+                    {
+                    IngredientId = 2,
+                    Ingredient = ing2,
+                    RecepieId = 1,
+                    },
+                new IngredientDrinkRecepie ()
+                    {
+                    IngredientId = 3,
+                    Ingredient = ing3,
+                    RecepieId = 1,
+                    },
+                };
+
+
+
+            this.drinkSteps = new List<DrinkStepsDrinkRecepies>()
                 {
                 new DrinkStepsDrinkRecepies ()
                     {
@@ -175,7 +186,11 @@ namespace CookBook.UnitTests
 
             this.drinkRecepiesUsers = new List<DrinkRecepiesUsers>()
                 {
-                drinkUser,
+                new DrinkRecepiesUsers()
+                {
+                DrinkRecepieId = drinkId,
+                UserId = userId,
+                }
                 };
 
             this.drinkRecepie = new DrinkRecepie()
@@ -193,12 +208,13 @@ namespace CookBook.UnitTests
                 TumbsUp = 1,
                 Cups = 2,
                 IngredientsRecepies = ingDrinkRecepie,
-                Steps = stepsDrinkRecepies,
-                Likes = likes,
+                Steps = drinkSteps,
+                Likes = drinkLikes,
                 FavouriteRecepiesUsers = favDrinkUsers,
                 RecepiesUsers = drinkRecepiesUsers,
                 };
 
+            //Food
 
             }
 
@@ -229,14 +245,14 @@ namespace CookBook.UnitTests
         [Test]
         public void Test_DrinkLikeUserDbModel()
             {
-            DrinkLikeUser drinkLikeUser = likes.First();
+            DrinkLikeUser drinkLikeUser = drinkLikes.First();
 
             Assert.IsNotNull(drinkLikeUser);
             Assert.IsNull(drinkLikeUser.User);
             Assert.IsNull(drinkLikeUser.DrinkRecepie);
 
             Assert.That(drinkLikeUser.UserId == userId);
-            Assert.That(drinkLikeUser.DrinkRecepieId != foodkId);
+            Assert.That(drinkLikeUser.DrinkRecepieId != foodId);
             Assert.That(drinkLikeUser.DrinkRecepieId == drinkId);
             }
 
@@ -258,8 +274,8 @@ namespace CookBook.UnitTests
             Assert.That(recepie.Descripton == randomText);
             Assert.That(recepie.OwnerId == userId);
             Assert.That(recepie.IngredientsRecepies.Count == ingDrinkRecepie.Count);
-            Assert.That(recepie.Steps.Count == stepsDrinkRecepies.Count);
-            Assert.That(recepie.Likes.Count == likes.Count);
+            Assert.That(recepie.Steps.Count == drinkSteps.Count);
+            Assert.That(recepie.Likes.Count == drinkLikes.Count);
             Assert.That(recepie.TumbsUp == 1);
             Assert.That(recepie.TumbsUp != 0);
             Assert.That(recepie.Origen == origen);
@@ -294,7 +310,7 @@ namespace CookBook.UnitTests
         [Test]
         public void Test_DrinkStepsDrinkRecepies_DBModel()
             {
-            var stepDrinkRecepie = stepsDrinkRecepies;
+            var stepDrinkRecepie = drinkSteps;
             var firstStepDrink = stepDrinkRecepie.First();
 
             Assert.IsNotNull(firstStepDrink);
@@ -331,7 +347,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(ingListDrink);
             Assert.IsNotNull(firstIngDrink);
-            Assert.IsNotNull(firstIngDrink.Recepie);
+            Assert.IsNull(firstIngDrink.Recepie);
 
             Assert.That(firstIngDrink.RecepieId == drinkId);
             Assert.That(firstIngDrink.IngredientId == ing1.Id);
