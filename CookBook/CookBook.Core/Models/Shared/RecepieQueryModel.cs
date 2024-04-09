@@ -1,6 +1,4 @@
-﻿using CookBook.Core.Services;
-
-namespace CookBook.Core.Models.Shared
+﻿namespace CookBook.Core.Models.Shared
     {
     public class RecepieQueryModel
         {

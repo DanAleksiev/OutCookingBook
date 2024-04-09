@@ -1,14 +1,10 @@
 ﻿using CookBook.Core.Models.Drink;
-using CookBook.Core.Models.Shared;
-using CookBook.Core.Models.Utilities;
-using CookBook.Core.Services;
-using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Shared;
 
 namespace CookBook.Core.Contracts.Services
-{
-    public interface IDrinkRecepieService : IRecepieService
     {
+    public interface IDrinkRecepieService : IRecepieService
+        {
 
         Task<DetailedDrinkViewModel> GetLIkesAndFavorites(DetailedDrinkViewModel recepie, string userId);
 
@@ -21,5 +17,5 @@ namespace CookBook.Core.Contracts.Services
         Task<DetailedDrinkViewModel> DetailGetAsync(int id, string userId);
         Task<DetailedDrinkViewModel> DeleteAsync(int id, string userId);
 
+        }
     }
-}

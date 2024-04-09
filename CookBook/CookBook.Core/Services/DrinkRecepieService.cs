@@ -10,7 +10,7 @@ using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Core.Services
-{
+    {
     public class DrinkRecepieService : IDrinkRecepieService
         {
         private readonly IRepository repository;
@@ -124,20 +124,20 @@ namespace CookBook.Core.Services
                 .Where(x => x.UserId == userId && x.DrinkRecepieId == recepie.Id)
                 .FirstOrDefaultAsync();
 
-                if (likes != null)
-                    {
-                    recepie.Like = true;
-                    }
+            if (likes != null)
+                {
+                recepie.Like = true;
+                }
 
             var favourite = repository
                 .AllReadOnly<FavouriteDrinkRecepiesUsers>()
                 .Where(x => x.UserId == userId && x.DrinkRecepieId == recepie.Id)
                 .FirstOrDefaultAsync();
 
-                if (favourite != null)
-                    {
-                    recepie.Favourite = true;
-                    }
+            if (favourite != null)
+                {
+                recepie.Favourite = true;
+                }
 
 
             return recepie;
@@ -501,7 +501,7 @@ namespace CookBook.Core.Services
                     })
                 .FirstOrDefaultAsync();
 
-            recepie.MeasurmentTypes = await GetMeasurmentTypeAsync() ;
+            recepie.MeasurmentTypes = await GetMeasurmentTypeAsync();
 
             return recepie;
             }

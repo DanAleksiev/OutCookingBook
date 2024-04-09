@@ -10,7 +10,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         public int DrinkRecepieId { get; set; }
 
         [ForeignKey(nameof(DrinkRecepieId))]
-        public DrinkRecepie? FoodRecepie { get; set; }
+        public DrinkRecepie? DrinkRecepie { get; set; }
 
         [Required]
         public string UserId { get; set; } = string.Empty;

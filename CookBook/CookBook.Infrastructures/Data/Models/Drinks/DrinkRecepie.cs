@@ -1,5 +1,4 @@
 ﻿using CookBook.Constants;
-using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -23,7 +22,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         [Description("")]
         public ICollection<DrinkRecepiesUsers> RecepiesUsers { get; set; } = new List<DrinkRecepiesUsers>();
-        
+
         [Description("All the Users who have Favor this revepie")]
         public ICollection<FavouriteDrinkRecepiesUsers> FavouriteRecepiesUsers { get; set; } = new List<FavouriteDrinkRecepiesUsers>();
 

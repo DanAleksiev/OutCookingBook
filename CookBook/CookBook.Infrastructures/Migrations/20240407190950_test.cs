@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CookBook.Infrastructures.Migrations
-{
-    public partial class test : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+    public partial class test : Migration
         {
+        protected override void Up(MigrationBuilder migrationBuilder)
+            {
             migrationBuilder.AddColumn<DateTime>(
                 name: "BanDate",
                 table: "BanedUsers",
@@ -43,10 +42,10 @@ namespace CookBook.Infrastructures.Migrations
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
                 values: new object[] { "8ffacc87-e8f1-48a9-ac03-62239a88c380", "AQAAAAEAACcQAAAAELiBi2NGuR3Xeyv1wiEFDSQxH9U86A0nvE3azl9gWPb9jPWUtnwZYTBtHLc8JBxyUA==", "7332b12a-9398-477d-98d3-c181d723e897" });
-        }
+            }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DropColumn(
                 name: "BanDate",
                 table: "BanedUsers");
@@ -75,6 +74,6 @@ namespace CookBook.Infrastructures.Migrations
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
                 values: new object[] { "0fa6c60d-130e-4147-bd77-71dc4e77343d", "AQAAAAEAACcQAAAAEHJ3to9aNFntxju0HUvEQqDnC+qaj21H1aKkjm2k+BBJyr+HdthrTJWvad9SXXQY7Q==", "92082abe-6cdb-4ecf-9db0-c5a74d5afc1e" });
+            }
         }
     }
-}

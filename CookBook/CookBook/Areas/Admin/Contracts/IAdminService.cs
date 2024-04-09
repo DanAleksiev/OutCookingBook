@@ -1,5 +1,4 @@
 ﻿using CookBook.Areas.Admin.Models;
-using CookBook.Core.Models.Admin;
 
 namespace CookBook.Areas.Admin.Contracts
     {

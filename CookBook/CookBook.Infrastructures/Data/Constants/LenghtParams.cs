@@ -49,6 +49,6 @@
 
         //BanList
         public const int BanReasonMinLenght = 10;
-        public const int BanReasonMaxLenght = 200; 
+        public const int BanReasonMaxLenght = 200;
         }
     }

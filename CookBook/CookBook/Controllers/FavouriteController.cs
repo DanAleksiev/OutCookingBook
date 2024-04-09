@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-{
+    {
     public class FavouriteController : BaseController
         {
         private readonly IFavouriteService favouriteService;
@@ -67,6 +67,6 @@ namespace CookBook.Controllers
             var existing = await favouriteService.FavouriteDrinks(userId);
 
             return View(existing);
-            }       
+            }
         }
     }

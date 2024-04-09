@@ -1,6 +1,6 @@
 ﻿namespace CookBook.Core.Contracts.Users
-{
-    public interface IChef
     {
+    public interface IChef
+        {
+        }
     }
-}

@@ -3,11 +3,11 @@
 #nullable disable
 
 namespace CookBook.Infrastructures.Migrations
-{
-    public partial class AdminWithUserName : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+    public partial class AdminWithUserName : Migration
         {
+        protected override void Up(MigrationBuilder migrationBuilder)
+            {
             migrationBuilder.UpdateData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
@@ -24,10 +24,10 @@ namespace CookBook.Infrastructures.Migrations
                 table: "AspNetUsers",
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[] { "b2d13a3c-8547-4d6d-b7d0-a89322b762ra", 0, "51b918ea-171c-4fac-a92d-755b047ba53c", "admin@admin.com", false, false, null, "ADMIN@ADMIN.COM", "ADMIN", "AQAAAAEAACcQAAAAEB37k2MB+uNoxlgKwJHi4+A8X8amfZoGoQCHbjLbxCa3q8nNGf/s/CPUbIFjvdD0dQ==", null, false, "4dde6115-afd7-46ec-8b87-3d45c1e70673", false, "Admin" });
-        }
+            }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DeleteData(
                 table: "AspNetUsers",
                 keyColumn: "Id",
@@ -44,6 +44,6 @@ namespace CookBook.Infrastructures.Migrations
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                 columns: new[] { "ConcurrencyStamp", "Email", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "SecurityStamp", "UserName" },
                 values: new object[] { "ec77f22a-28b7-4c2b-b060-fb7a0a5a2ea0", null, null, "TEST@TEST.COM", "AQAAAAEAACcQAAAAEHkPSf6iIM6dxPxcm5730c3N8FZxz0v1mQpdJ7o4sHmLsVoHQT7t0C0eMflDONYzWg==", "5a0ce916-b89a-488b-9f13-6beba0159db2", "test@test.com" });
+            }
         }
     }
-}

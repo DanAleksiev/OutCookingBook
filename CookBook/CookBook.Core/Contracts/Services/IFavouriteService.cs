@@ -1,9 +1,9 @@
 ﻿using CookBook.Core.Models.Shared;
 
 namespace CookBook.Core.Contracts.Services
-{
-    public interface IFavouriteService
     {
+    public interface IFavouriteService
+        {
         Task<IEnumerable<AllRecepieViewModel>> FavouriteFood(string userId);
         Task<IEnumerable<AllRecepieViewModel>> FavouriteDrinks(string userId);
 
@@ -15,5 +15,5 @@ namespace CookBook.Core.Contracts.Services
 
         Task<string> DrinkOwner(int recepieId);
         Task<string> FoodOwner(int recepieId);
+        }
     }
-}

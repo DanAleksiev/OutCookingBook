@@ -3,21 +3,21 @@
 #nullable disable
 
 namespace CookBook.Infrastructures.Migrations
-{
-    public partial class BanList : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+    public partial class BanList : Migration
         {
+        protected override void Up(MigrationBuilder migrationBuilder)
+            {
             migrationBuilder.CreateTable(
                 name: "BanedUsers",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     IsBaned = table.Column<bool>(type: "bit", nullable: false),
                     Reason = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_BanedUsers", x => x.Id);
@@ -54,10 +54,10 @@ namespace CookBook.Infrastructures.Migrations
                 name: "IX_BanedUsers_UserId",
                 table: "BanedUsers",
                 column: "UserId");
-        }
+            }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DropTable(
                 name: "BanedUsers");
 
@@ -81,6 +81,6 @@ namespace CookBook.Infrastructures.Migrations
                 keyValue: "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                 columns: new[] { "ConcurrencyStamp", "PasswordHash", "SecurityStamp" },
                 values: new object[] { "af3f662f-4de5-41b3-9e49-36f3445d9157", "AQAAAAEAACcQAAAAEMnnjYcoNzapRhq6yYkMemJYZGZrbxPvb4WWhU/lhdUFcrrXuXqSVpT6sRvOX5HUaA==", "5c0db0da-2295-4507-8b81-3fb544c16795" });
+            }
         }
     }
-}

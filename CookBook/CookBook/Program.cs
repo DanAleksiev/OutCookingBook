@@ -1,9 +1,5 @@
-using CookBook.Infrastructures.Data;
-using CookBook.Infrastructures.Migrations;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding.Binders;
-using Microsoft.EntityFrameworkCore;
 
 namespace CookBook
     {
@@ -74,32 +70,32 @@ namespace CookBook
                 }
 
             using (var scope = app.Services.CreateScope())
+                {
+                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+                string email = "admin@admin.com";
+                string id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra";
+                string username = "Admin";
+                string password = "admin123";
+                var admin = await userManager.FindByIdAsync(id);
+
+                if (admin == null)
                     {
-                    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
-                    string email = "admin@admin.com";
-                    string id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra";
-                    string username = "Admin";
-                    string password = "admin123";
-                    var admin = await userManager.FindByIdAsync(id);
-
-                    if (admin == null)
+                    var newAdmin = new IdentityUser()
                         {
-                        var newAdmin = new IdentityUser()
-                            {
-                            Id = id,
-                            UserName = username,
-                            Email = email,
-                            };
-                        newAdmin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(newAdmin, password);
+                        Id = id,
+                        UserName = username,
+                        Email = email,
+                        };
+                    newAdmin.PasswordHash = new PasswordHasher<IdentityUser>().HashPassword(newAdmin, password);
 
-                        await userManager.CreateAsync(newAdmin);
-                        await userManager.AddToRoleAsync(newAdmin, "Admin");
-                        }
-                    else
-                        {
-                        await userManager.AddToRoleAsync(admin, "Admin");
-                        }
+                    await userManager.CreateAsync(newAdmin);
+                    await userManager.AddToRoleAsync(newAdmin, "Admin");
                     }
+                else
+                    {
+                    await userManager.AddToRoleAsync(admin, "Admin");
+                    }
+                }
 
             app.Run();
             }

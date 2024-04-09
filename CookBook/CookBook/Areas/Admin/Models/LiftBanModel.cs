@@ -3,5 +3,5 @@
     public class LiftBanModel
         {
         public string Username { get; set; } = null!;
-    }
+        }
     }

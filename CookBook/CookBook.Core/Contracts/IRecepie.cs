@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace CookBook.Core.Contracts
-{
-    public interface IRecepie
     {
+    public interface IRecepie
+        {
         public int Id { get; set; }
         [Display(Name = "Recepie Name")]
         public string Name { get; set; }
@@ -25,5 +25,5 @@ namespace CookBook.Core.Contracts
 
         [Display(Name = "Private")]
         public bool Private { get; set; }
+        }
     }
-}

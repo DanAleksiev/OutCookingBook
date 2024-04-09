@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Microsoft.Extensions.DependencyInjection
-{
+    {
     public static class ServiceCollectionExtension
         {
         public static IServiceCollection AddAplicationServices(this IServiceCollection services)

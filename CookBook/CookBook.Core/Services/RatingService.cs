@@ -1,5 +1,4 @@
-﻿using CookBook.Core.Contracts;
-using CookBook.Core.Contracts.Services;
+﻿using CookBook.Core.Contracts.Services;
 using CookBook.Core.Models.Shared;
 using CookBook.Infrastructures.Data.Common;
 using CookBook.Infrastructures.Data.Models.Drinks;

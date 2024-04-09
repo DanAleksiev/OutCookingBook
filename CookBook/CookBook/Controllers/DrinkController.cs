@@ -1,7 +1,6 @@
 ﻿using CookBook.Core;
 using CookBook.Core.Contracts.Services;
 using CookBook.Core.DTO;
-using CookBook.Core.Extentions;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Services;
@@ -11,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-{
+    {
     public class DrinkController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();

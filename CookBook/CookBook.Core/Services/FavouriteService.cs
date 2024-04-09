@@ -6,7 +6,7 @@ using CookBook.Infrastructures.Data.Models.Food;
 using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.Core.Services
-{
+    {
     public class FavouriteService : IFavouriteService
         {
         private readonly IRepository repository;

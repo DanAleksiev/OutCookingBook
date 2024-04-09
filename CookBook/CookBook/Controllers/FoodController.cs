@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
 namespace CookBook.Controllers
-{
+    {
     public class FoodController : BaseController
         {
         private static List<Ingredient> addIngredients = new List<Ingredient>();

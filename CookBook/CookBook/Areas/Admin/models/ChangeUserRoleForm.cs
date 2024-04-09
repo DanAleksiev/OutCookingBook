@@ -6,5 +6,5 @@ namespace CookBook.Areas.Admin.Models
         {
         public string Username { get; set; } = string.Empty;
         public RolesEnum Roles { get; init; }
-    }
+        }
     }

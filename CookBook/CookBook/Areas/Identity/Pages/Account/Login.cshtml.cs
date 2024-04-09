@@ -117,7 +117,7 @@ namespace CookBook.Areas.Identity.Pages.Account
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 bool isBaned = await repository
                     .AllReadOnly<BanedUsers>()
-                    .AnyAsync(u => u.UserId == user.Id 
+                    .AnyAsync(u => u.UserId == user.Id
                     && u.IsBaned == true);
 
                 var result = await _signInManager.PasswordSignInAsync(user.UserName, Input.Password, Input.RememberMe, lockoutOnFailure: false);
@@ -127,7 +127,7 @@ namespace CookBook.Areas.Identity.Pages.Account
                     _logger.LogInformation("atemt to log in while baned");
                     return RedirectToPage("./Lockout");
                     }
-                
+
                 if (result.Succeeded)
                     {
                     _logger.LogInformation("User logged in.");

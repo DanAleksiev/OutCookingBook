@@ -30,7 +30,7 @@ namespace CookBook.Controllers
         public IActionResult Error(int statusCode)
             {
             string error = "Error";
-            if(statusCode == 400)
+            if (statusCode == 400)
                 {
                 ViewBag.Error = $"{error} {statusCode}";
                 ViewBag.Messege = "Couldn't find what you were looking for!";

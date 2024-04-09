@@ -1,14 +1,13 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
 namespace CookBook.Infrastructures.Migrations
-{
-    public partial class ChangesAndDescriptions : Migration
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
+    public partial class ChangesAndDescriptions : Migration
         {
+        protected override void Up(MigrationBuilder migrationBuilder)
+            {
             migrationBuilder.DropForeignKey(
                 name: "FK_DrinkStepsDrinkRecepies_DrinkStep_StepId",
                 table: "DrinkStepsDrinkRecepies");
@@ -41,12 +40,12 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.CreateTable(
                 name: "Step",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Position = table.Column<int>(type: "int", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Step", x => x.Id);
@@ -88,10 +87,10 @@ namespace CookBook.Infrastructures.Migrations
                 principalTable: "Step",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
-        }
+            }
 
         protected override void Down(MigrationBuilder migrationBuilder)
-        {
+            {
             migrationBuilder.DropForeignKey(
                 name: "FK_DrinkStepsDrinkRecepies_Step_StepId",
                 table: "DrinkStepsDrinkRecepies");
@@ -124,12 +123,12 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.CreateTable(
                 name: "DrinkStep",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_DrinkStep", x => x.Id);
@@ -138,12 +137,12 @@ namespace CookBook.Infrastructures.Migrations
             migrationBuilder.CreateTable(
                 name: "FoodStep",
                 columns: table => new
-                {
+                    {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(1000)", maxLength: 1000, nullable: false),
                     Position = table.Column<int>(type: "int", nullable: false)
-                },
+                    },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_FoodStep", x => x.Id);
@@ -185,6 +184,6 @@ namespace CookBook.Infrastructures.Migrations
                 principalTable: "FoodStep",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
+            }
         }
     }
-}

@@ -1,5 +1,4 @@
 ﻿using CookBook.Constants;
-using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.AspNetCore.Identity;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
@@ -94,11 +93,11 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [Description("List of people who like the recepie")]
         public ICollection<FoodLikeUser> Likes { get; set; } = new List<FoodLikeUser>();
-        
+
         [Required]
         [Description("Is the recepie private")]
         public bool IsPrivate { get; set; }
-        
+
         [Description("Is the recepie published by profesional cook")]
         public bool IsProfesional { get; set; }
 

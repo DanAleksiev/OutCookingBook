@@ -3,7 +3,7 @@ using CookBook.Core.Contracts.Users.Admin;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CookBook.Areas.Admin.Controllers
-{
+    {
     public class UserController : BaseAdminController
         {
         private readonly IUserService userService;

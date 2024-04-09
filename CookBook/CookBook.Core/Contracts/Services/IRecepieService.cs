@@ -3,9 +3,9 @@ using CookBook.Core.Models.Utilities;
 using CookBook.Core.Services;
 
 namespace CookBook.Core.Contracts.Services
-{
-    public interface IRecepieService
     {
+    public interface IRecepieService
+        {
         Task<IEnumerable<UtilTypeModel>> GetMeasurmentTypeAsync();
         IEnumerable<AllRecepieViewModel> GetLIkesAndFavoritesMany(List<AllRecepieViewModel> allRecepies, string userId);
         Task<IEnumerable<AllRecepieViewModel>> TopFiveRecepiesAsync();
@@ -24,5 +24,5 @@ namespace CookBook.Core.Contracts.Services
         Task<bool> ExistStep(int Id);
         Task<bool> AuthorisedIng(int id, string userId);
         Task<bool> ExistIng(int Id);
+        }
     }
-}

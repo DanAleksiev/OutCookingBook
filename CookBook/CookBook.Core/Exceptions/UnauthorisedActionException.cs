@@ -2,7 +2,7 @@
     {
     public class UnauthorisedActionException : Exception
         {
-        public UnauthorisedActionException(){ }
+        public UnauthorisedActionException() { }
         public UnauthorisedActionException(string messe)
             : base(messe) { }
         }
