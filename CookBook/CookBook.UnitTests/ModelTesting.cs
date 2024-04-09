@@ -30,6 +30,9 @@ namespace CookBook.UnitTests
         //Food
         private int foodId = 2;
         private string foodName = "Tarator";
+        private int foodTargetSupId = 2;
+        private int cookTime = 10;
+        private int prepTime = 12;
 
 
         //Ingredient
@@ -52,19 +55,22 @@ namespace CookBook.UnitTests
 
         //Drink
         private DrinkRecepie drinkRecepie = new DrinkRecepie();
-        private IList<DrinkStepsDrinkRecepies> drinkSteps;
-        private IList<IngredientDrinkRecepie> ingDrinkRecepie;
-        private ICollection<DrinkLikeUser> drinkLikes;
         private ICollection<FavouriteDrinkRecepiesUsers> favDrinkUsers;
-        private ICollection<DrinkRecepiesUsers> drinkRecepiesUsers;
+        private ICollection<IngredientDrinkRecepie> ingDrinkRecepie;
+        private ICollection<DrinkRecepiesUsers> drinkUsers;
+        private ICollection<DrinkStepsDrinkRecepies> drinkSteps;
+        private ICollection<DrinkLikeUser> drinkLikes;
 
         //Food
         private FoodRecepie foodRecepie = new FoodRecepie();
         private ICollection<FavouriteFoodRecepiesUsers> favouriteFoodUserList;
-        private ICollection<IngredientFoodRecepie> ingredientsRecepies;
+        private ICollection<IngredientFoodRecepie> ingFoodRecepies;
         private ICollection<FoodRecepiesUsers> foodUsers;
         private ICollection<FoodStepsFoodRecepies> foodSteps;
         private ICollection<FoodLikeUser> foodLikes;
+        private ICollection<TemperatureMeasurment> temperatureMeasurments;
+        private ICollection<OvenType> ovenTypes;
+        private ICollection<RecepieType> recepieTypes;
 
 
         [SetUp]
@@ -184,7 +190,7 @@ namespace CookBook.UnitTests
                     },
                 };
 
-            this.drinkRecepiesUsers = new List<DrinkRecepiesUsers>()
+            this.drinkUsers = new List<DrinkRecepiesUsers>()
                 {
                 new DrinkRecepiesUsers()
                 {
@@ -211,11 +217,154 @@ namespace CookBook.UnitTests
                 Steps = drinkSteps,
                 Likes = drinkLikes,
                 FavouriteRecepiesUsers = favDrinkUsers,
-                RecepiesUsers = drinkRecepiesUsers,
+                RecepiesUsers = drinkUsers,
+                VerifyedLocation = false
                 };
 
             //Food
+            this.temperatureMeasurments = new List<TemperatureMeasurment>()
+                {
+                new TemperatureMeasurment()
+                    {
+                    Id = 1,
+                    Name ="C"
+                    },
+                new TemperatureMeasurment()
+                    {
+                    Id = 2,
+                    Name = "F"
+                    }
+                };
 
+            this.recepieTypes = new List<RecepieType>()
+                {
+                new RecepieType()
+                    {
+                    Id = 1,
+                    Name = "First Type",
+                    Description = randomText,
+                    },
+                new RecepieType()
+                    {
+                    Id = 2,
+                    Name = "Second Type",
+                    Description = randomText
+                    }
+                };
+
+            this.foodUsers = new List<FoodRecepiesUsers>()
+                {
+                new FoodRecepiesUsers()
+                    {
+                    FoodRecepieId = foodId,
+                    UserId = userId
+                    }
+                };
+            this.favouriteFoodUserList = new List<FavouriteFoodRecepiesUsers>()
+                {
+                new FavouriteFoodRecepiesUsers()
+                    {
+                    FoodRecepieId = foodId,
+                    UserId = userId,
+                    }
+                };
+
+            this.ovenTypes = new List<OvenType>()
+                {
+                new OvenType()
+                    {
+                    Id = 1,
+                    Name = "Gas",
+                    },
+                new OvenType()
+                    {
+                    Id = 2,
+                    Name = "No Oven"
+                    }
+                };
+
+            this.foodLikes = new List<FoodLikeUser>()
+                {
+                new FoodLikeUser()
+                    {
+                    FoodRecepieId = foodId,
+                    UserId = userId,
+                    }
+                };
+
+            this.ingFoodRecepies = new List<IngredientFoodRecepie>()
+                {
+                new IngredientFoodRecepie()
+                    {
+                    IngredientId = ing1.Id,
+                    Ingredient = ing1,
+                    RecepieId = foodId
+                    },
+                new IngredientFoodRecepie()
+                    {
+                    IngredientId = ing2.Id,
+                    Ingredient = ing2,
+                    RecepieId = foodId
+                    },
+                new IngredientFoodRecepie()
+                    {
+                    IngredientId = ing3.Id,
+                    Ingredient = ing3,
+                    RecepieId = foodId
+                    }
+                };
+
+            this.foodSteps = new List<FoodStepsFoodRecepies>()
+                {
+                new FoodStepsFoodRecepies()
+                    {
+                    FoodStepId = step1.Id,
+                    FoodStep = step1,
+                    FoodRecepieId = foodId
+                    },
+                new FoodStepsFoodRecepies()
+                    {
+                    FoodStepId = step2.Id,
+                    FoodStep = step2,
+                    FoodRecepieId = foodId
+                    },
+                new FoodStepsFoodRecepies()
+                    {
+                    FoodStepId = step3.Id,
+                    FoodStep = step3,
+                    FoodRecepieId = foodId
+                    },
+                };
+
+            this.foodRecepie = new FoodRecepie()
+                {
+                Id = foodId,
+                OwnerId = userId,
+                Name = foodName,
+                DatePosted = date,
+                Descripton = randomText,
+                IsPrivate = true,
+                IsProfesional = true,
+                Origen = origen,
+                Image = img,
+                TumbsUp = foodTargetSupId,
+                Temperature = foodTargetSupId,
+                TemperatureMeasurmentId = foodTargetSupId,
+                TemperatureMeasurment = temperatureMeasurments.Where(t => t.Id == foodTargetSupId).First(),
+                RecepieTypeId = foodTargetSupId,
+                RecepieType = recepieTypes.Where(r => r.Id == foodTargetSupId).First(),
+                RecepiesUsers = foodUsers,
+                CookTime = cookTime,
+                PrepTime = prepTime,
+                Portions = foodTargetSupId,
+                FavouriteRecepiesUsers = favouriteFoodUserList,
+                OvenTypeId = foodTargetSupId,
+                OvenType = ovenTypes.Where(o => o.Id == foodTargetSupId).First(),
+                Likes = foodLikes,
+                IngredientsRecepies = ingFoodRecepies,
+                Steps = foodSteps,
+                VerifyedLocation = false
+                };
             }
 
         //Infrastructure
@@ -267,6 +416,7 @@ namespace CookBook.UnitTests
             Assert.IsNull(recepie.Owner);
 
             Assert.IsFalse(recepie.IsAlcoholic);
+            Assert.IsFalse(recepie.VerifyedLocation);
             Assert.IsTrue(recepie.IsProfesional);
             Assert.IsTrue(recepie.IsPrivate);
 
@@ -287,13 +437,13 @@ namespace CookBook.UnitTests
             Assert.That(recepie.IsPrivate == true);
             Assert.That(recepie.IsProfesional == true);
             Assert.That(recepie.Cups == 2);
-            Assert.That(recepie.RecepiesUsers.Count == drinkRecepiesUsers.Count);
+            Assert.That(recepie.RecepiesUsers.Count == drinkUsers.Count);
             }
 
         [Test]
         public void Test_DrinkRecepieUsersDBModel()
             {
-            var drinkRecepieUser = drinkRecepiesUsers;
+            var drinkRecepieUser = drinkUsers;
             var firstDrinkUser = drinkRecepieUser.First();
 
             Assert.IsNotNull(drinkRecepieUser);
@@ -356,10 +506,93 @@ namespace CookBook.UnitTests
 
         //Food
         [Test]
+        public void Test_FavouriteFoodRecepiesUsers_DBModel()
+            {
+            var favList = favouriteFoodUserList;
+            var firstFav = favList.First();
+
+            Assert.IsNotNull(firstFav);
+            Assert.IsNotNull(favList);
+            Assert.IsNull(firstFav.User);
+            Assert.IsNull(firstFav.FoodRecepie);
+
+            Assert.That(favList.Count == 1);
+            Assert.That(firstFav.UserId == userId);
+            Assert.That(firstFav.FoodRecepieId == foodId);
+
+            }
+
+        [Test]
+        public void Test_FoodLikeUser_DBModel()
+            {
+            var likes = foodLikes;
+            var firstLike = likes.First();
+
+            Assert.NotNull(firstLike);
+            Assert.NotNull(likes);
+            Assert.IsNull(firstLike.User);
+            Assert.IsNull(firstLike.FoodRecepie);
+
+            Assert.That(likes.Count == 1);
+            Assert.That(firstLike.UserId == userId);
+            Assert.That(firstLike.FoodRecepieId == foodId);
+            }
+
+        [Test]
+        public void Test_FoodRecepie_DBModel()
+            {
+            var recepie = foodRecepie;
+
+            Assert.IsNotNull(recepie);
+            Assert.IsNull(recepie.Owner);
+
+            Assert.IsFalse(recepie.VerifyedLocation);
+            Assert.IsTrue(recepie.IsPrivate);
+            Assert.IsTrue(recepie.IsProfesional);
+
+            Assert.That(recepie.OwnerId == userId);
+            Assert.That(recepie.Id == foodId);
+            Assert.That(recepie.Name == foodName);
+            Assert.That(recepie.Descripton == randomText);
+            Assert.That(recepie.CookTime == cookTime);
+            Assert.That(recepie.PrepTime == prepTime);
+            Assert.That(recepie.OvenTypeId == foodTargetSupId);
+            Assert.That(recepie.TemperatureMeasurmentId == foodTargetSupId);
+            Assert.That(recepie.DatePosted == date);
+            Assert.That(recepie.Temperature == foodTargetSupId);
+            Assert.That(recepie.TemperatureMeasurment == temperatureMeasurments.Skip(1).First());
+            Assert.That(recepie.OvenType == ovenTypes.Skip(1).First());
+            Assert.That(recepie.Likes == foodLikes);
+            Assert.That(recepie.RecepiesUsers == foodUsers);
+            Assert.That(recepie.Image == img);
+            Assert.That(recepie.Steps == foodSteps);
+            Assert.That(recepie.IngredientsRecepies == ingFoodRecepies);
+            Assert.That(recepie.Origen == origen);
+            Assert.That(recepie.TumbsUp == foodTargetSupId);
+            Assert.That(recepie.Portions == foodTargetSupId);
+            Assert.That(recepie.RecepieTypeId == foodTargetSupId);
+            Assert.That(recepie.RecepieType == recepieTypes.Skip(1).First());
+            }
+
+        [Test]
+        public void Test_FoodRecepiesUsers_DBModel()
+            {
+            var foodUs = foodUsers;
+            var fu = foodUsers.First();
+
+            Assert.IsNotNull(foodUs);
+            Assert.IsNotNull(fu);
+
+            Assert.IsNull(fu.FoodRecepie);
+            Assert.IsNull(fu.User);
+
+            Assert.That(fu.FoodRecepieId == foodId);
+            Assert.That(fu.UserId == userId);
+            }
+
+        [Test]
         public void Test_PlaceHolderCopyPaste_DBModel()
             {
-
-
 
             }
         //Core

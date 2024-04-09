@@ -18,7 +18,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         [Required]
         [Description("All ingredients in the recepie")]
-        public IList<IngredientDrinkRecepie> IngredientsRecepies { get; set; } = new List<IngredientDrinkRecepie>();
+        public ICollection<IngredientDrinkRecepie> IngredientsRecepies { get; set; } = new List<IngredientDrinkRecepie>();
 
         [Description("")]
         public ICollection<DrinkRecepiesUsers> RecepiesUsers { get; set; } = new List<DrinkRecepiesUsers>();
@@ -76,6 +76,8 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
         [Required]
         [Description("How many cups are maid if you follow the recepie")]
         public int Cups { get; set; }
+        [Description("Did the Admin validated the location")]
+        public bool VerifyedLocation { get; set; }
 
         }
     }
