@@ -32,3 +32,12 @@
 /CookBook/.vs
 /CookBook/CookBook.UnitTests/obj
 /CookBook/CookBook.UnitTests/obj
+/CookBook/CookBook.Core/obj
+/CookBook/CookBook.Core/bin
+/CookBook/CookBook.Infrastructures/obj
+/CookBook/CookBook.UnitTests/obj
+/CookBook/CookBook/bin
+/CookBook/CookBook/obj
+/CookBook/CookBook/obj
+/CookBook/CookBook.UnitTests/obj
+/CookBook/CookBook.Infrastructures/bin
