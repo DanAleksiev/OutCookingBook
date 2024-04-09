@@ -41,3 +41,6 @@
 /CookBook/CookBook/obj
 /CookBook/CookBook.UnitTests/obj
 /CookBook/CookBook.Infrastructures/bin
+/CookBook/.vs/CookBook/v17/TestStore/0
+/CookBook/CookBook.Core/bin/Debug/net6.0
+/CookBook/CookBook.Core/bin
