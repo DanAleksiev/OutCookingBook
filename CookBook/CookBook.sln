@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Core", "CookBook.C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.Infrastructures", "CookBook.Infrastructures\CookBook.Infrastructures.csproj", "{373A73C9-268F-4FA0-BC9D-B293FDFDC8B4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookBook.UnitTest", "CookBook.UnitTest\CookBook.UnitTest.csproj", "{3172601F-E1F4-4412-AB42-5908EC22F426}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookBook.UnitTests", "CookBook.UnitTests\CookBook.UnitTests.csproj", "{E91EF912-0E39-4D27-9418-7DF232A2502C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,10 @@ Global
 		{373A73C9-268F-4FA0-BC9D-B293FDFDC8B4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{373A73C9-268F-4FA0-BC9D-B293FDFDC8B4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{373A73C9-268F-4FA0-BC9D-B293FDFDC8B4}.Release|Any CPU.Build.0 = Release|Any CPU
-		{3172601F-E1F4-4412-AB42-5908EC22F426}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{3172601F-E1F4-4412-AB42-5908EC22F426}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{3172601F-E1F4-4412-AB42-5908EC22F426}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{3172601F-E1F4-4412-AB42-5908EC22F426}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E91EF912-0E39-4D27-9418-7DF232A2502C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E91EF912-0E39-4D27-9418-7DF232A2502C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E91EF912-0E39-4D27-9418-7DF232A2502C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E91EF912-0E39-4D27-9418-7DF232A2502C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

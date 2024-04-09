@@ -1,3 +1,19 @@
 
 *.vsidx
 *.vsidx
+/CookBook/.vs
+/CookBook/.vs/CookBook/DesignTimeBuild
+/CookBook/.vs/CookBook
+/CookBook/.vs
+/CookBook/CookBook.Core/bin
+/CookBook/CookBook.Core/obj
+/CookBook/CookBook.Core/obj
+/CookBook/CookBook.Infrastructures/bin
+/CookBook/CookBook.Infrastructures/obj
+/CookBook/CookBook.UnitTest/bin
+/CookBook/CookBook.UnitTest/bin
+/CookBook/CookBook.UnitTest/bin
+/CookBook/CookBook.UnitTest/bin/Debug
+/CookBook/CookBook.UnitTest/bin/Debug/net6.0
+/CookBook/CookBook.UnitTests/bin
+/CookBook/CookBook/obj
