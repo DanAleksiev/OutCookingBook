@@ -1,6 +1,8 @@
+using CookBook.Areas.Admin.Models;
 using CookBook.Core.Models.Admin;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Food;
+using CookBook.Core.Models.Shared;
 using CookBook.Core.Models.Utilities;
 using CookBook.Infrastructures.Data.Models.Admin;
 using CookBook.Infrastructures.Data.Models.Drinks;
@@ -972,11 +974,290 @@ namespace CookBook.UnitTests
             Assert.That(dModel.TemperatureType == "Test");
             Assert.That(dModel.Temperature == 1);
             }
-        
-        [Test]
-        public void Test_PlaceHolderCopyPaste_DBModel()
-            {
 
+        [Test]
+        public void Test_EditFoodForm_DBModel()
+            {
+            var dModel = new EditFoodForm()
+                {
+                Id = 1,
+                Name = "Test",
+                Description = randomText,
+                Image = img,
+                Origen = origen,
+                Portions = 2,
+                PrepTime = 10,
+                CookTime = 10,
+                Temperature = 1,
+                IsPrivate = false,
+                MeasurmentId = 1,
+                MeasurmentTypes = utList,
+                OvenTypeId = 2,
+                OvenTypes = utList,
+                RecepieTypeId = 3,
+                RecepieTypes = utList,
+                TemperatureTypeId = 1,
+                TemperatureTypes = utList,
+                };
+
+            Assert.IsNotNull(dModel);
+
+            Assert.IsFalse(dModel.IsPrivate);
+
+            Assert.That(dModel.Id == 1);
+            Assert.That(dModel.Name == "Test");
+            Assert.That(dModel.Description == randomText);
+            Assert.That(dModel.Image == img);
+            Assert.That(dModel.Origen == origen);
+            Assert.That(dModel.Portions == 2);
+            Assert.That(dModel.PrepTime == 10);
+            Assert.That(dModel.CookTime == 10);
+            Assert.That(dModel.Temperature == 1);
+            Assert.That(dModel.MeasurmentId == 1);
+            Assert.That(dModel.OvenTypeId == 2);
+            Assert.That(dModel.RecepieTypeId == 3);
+            Assert.That(dModel.TemperatureTypeId == 1);
+            Assert.That(dModel.MeasurmentTypes == utList);
+            Assert.That(dModel.OvenTypes == utList);
+            Assert.That(dModel.TemperatureTypes == utList);
+            }
+
+
+        [Test]
+        public void Test_FoodViewModel_DBModel()
+            {
+            var dModel = new FoodViewModel()
+                {
+                Id = 1,
+                Name = "Test",
+                Description = randomText,
+                Image = img,
+                Origen = origen,
+                Portions = 2,
+                PrepTime = 10,
+                CookTime = 10,
+                Temperature = 1,
+                IsPrivate = false,
+                MeasurmentId = 1,
+                MeasurmentTypes = utList,
+                OvenTypeId = 2,
+                OvenTypes = utList,
+                RecepieTypeId = 3,
+                RecepieTypes = utList,
+                TemperatureTypeId = 1,
+                TemperatureTypes = utList,
+                IngredientAmount = 2,
+                IngredientName = "Test",
+                StepDescription = "Test",
+                StepPosition = 1
+                };
+
+            Assert.IsNotNull(dModel);
+
+            Assert.IsFalse(dModel.IsPrivate);
+
+            Assert.That(dModel.Id == 1);
+            Assert.That(dModel.Name == "Test");
+            Assert.That(dModel.Description == randomText);
+            Assert.That(dModel.Image == img);
+            Assert.That(dModel.Origen == origen);
+            Assert.That(dModel.Portions == 2);
+            Assert.That(dModel.PrepTime == 10);
+            Assert.That(dModel.CookTime == 10);
+            Assert.That(dModel.Temperature == 1);
+            Assert.That(dModel.MeasurmentId == 1);
+            Assert.That(dModel.OvenTypeId == 2);
+            Assert.That(dModel.RecepieTypeId == 3);
+            Assert.That(dModel.TemperatureTypeId == 1);
+            Assert.That(dModel.MeasurmentTypes == utList);
+            Assert.That(dModel.OvenTypes == utList);
+            Assert.That(dModel.TemperatureTypes == utList);
+            Assert.That(dModel.IngredientName == "Test");
+            Assert.That(dModel.StepDescription == "Test");
+            Assert.That(dModel.IngredientAmount == 2);
+            Assert.That(dModel.StepPosition == 1);
+
+            }
+
+        [Test]
+        public void Test_AllRecepieViewModel_DBModel()
+            {
+            var model = new AllRecepieViewModel()
+                {
+                Id = 1,
+                Name = "Test",
+                DatePosted = date,
+                Image = img,
+                Owner = userId,
+                TumbsUp = 1,
+                Description = randomText,
+                Private = true,
+                Like = true,
+                Favourite = true
+                };
+
+            Assert.IsNotNull(model);
+
+            Assert.IsTrue(model.Private);
+            Assert.IsTrue(model.Like);
+            Assert.IsTrue(model.Favourite);
+
+            Assert.That(model.Id == 1);
+            Assert.That(model.Name == "Test");
+            Assert.That(model.DatePosted == date);
+            Assert.That(model.Image == img);
+            Assert.That(model.Owner == userId);
+            Assert.That(model.TumbsUp == 1);
+            Assert.That(model.Description == randomText);
+            }
+
+
+        [Test]
+        public void Test_EditIngredientsForm_DBModel()
+            {
+            var model = new EditIngredientsForm()
+                {
+                Id = 1,
+                Name = "Test",
+                Description = randomText,
+                Amount = 1.2,
+                MeasurmentId = 1,
+                MeasurmentTypes = utList,
+                OwnerId = userId,
+                };
+
+            Assert.IsNotNull(model);
+
+            Assert.That(model.Id == 1);
+            Assert.That(model.Name == "Test");
+            Assert.That(model.OwnerId == userId);
+            Assert.That(model.Description == randomText);
+            Assert.That(model.MeasurmentTypes == utList);
+            Assert.That(model.MeasurmentId == 1);
+            Assert.That(model.Amount == 1.2);
+
+            }
+
+        [Test]
+        public void Test_EditStepForm_DBModel()
+            {
+            var model = new EditStepForm()
+                {
+                Id = 1,
+                Position = 2,
+                Description = randomText,
+                OwnerId = userId
+                };
+
+            Assert.IsNotNull(model);
+
+            Assert.That(model.Id == 1);
+            Assert.That(model.Position == 2);
+            Assert.That(model.Description == randomText);
+            Assert.That(model.OwnerId == userId);
+            }
+
+        [Test]
+        public void Test_RecepieQueryModel_DBModel()
+            {
+            var model = new RecepieQueryModel()
+                {
+                TotalRecepies = 1,
+                Recepies = new List<AllRecepieViewModel>()
+                    {
+                    new AllRecepieViewModel
+                        {
+                        Id = 1,
+                        Name = "Test",
+                        DatePosted = date,
+                        Image = img,
+                        Owner = userId,
+                        TumbsUp = 1,
+                        Description = randomText,
+                        Private = true,
+                        Like = true,
+                        Favourite = true
+                        }
+                    }
+                };
+
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.Recepies);
+
+            Assert.That(model.TotalRecepies == 1);
+            Assert.That(model.TotalRecepies == model.Recepies.Count());
+            }
+
+        [Test]
+        public void Test_TempView_DBModel()
+            {
+            var model = new TempView()
+                {
+                Id = 1,
+                Name = "Test",
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.Id == 1);
+            Assert.That(model.Name == "Test");
+            }
+
+        //Utilities
+        [Test]
+        public void Test_UtilTypeModel_DBModel()
+            {
+            var model = new UtilTypeModel()
+                {
+                Id = 1,
+                Name = "Test"
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.Id == 1);
+            Assert.That(model.Name == "Test");
+            }
+
+        //Admin
+        [Test]
+        public void Test_ChangeUserRoleForm_DBModel()
+            {
+            var model = new ChangeUserRoleForm()
+                {
+                Username = "Test",
+                Roles = Areas.Admin.Enum.RolesEnum.Admin
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.Username == "Test");
+            Assert.That(model.Roles != Areas.Admin.Enum.RolesEnum.Member);
+            }
+
+        [Test]
+        public void Test_BanFormModel_DBModel()
+            {
+            var model = new BanFormModel()
+                {
+                Username = "Test",
+                Lenght = 2,
+                Reason = randomText
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.Username == "Test");
+            Assert.That(model.Lenght != 1);
+            Assert.That(model.Reason == randomText);
+            }
+
+        [Test]
+        public void Test_LiftBanModel_DBModel()
+            {
+            var model = new LiftBanModel()
+                {
+                Username = "Test",
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.Username == "Test");
             }
         }
     }

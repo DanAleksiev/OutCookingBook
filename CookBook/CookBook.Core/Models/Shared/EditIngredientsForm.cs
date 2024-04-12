@@ -16,8 +16,6 @@ namespace CookBook.Core.Models.Shared
 
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
         public string? Description { get; set; }
-        public string? Type { get; set; }
-        public int Calories { get; set; }
 
         public double Amount { get; set; }
         public int MeasurmentId { get; set; }
