@@ -184,24 +184,6 @@ namespace CookBook.Core.Services
         /// </summary>
         /// <returns></returns>
 
-        public async Task<IEnumerable<AllRecepieViewModel>> TopFiveRecepiesAsync()
-            {
-            return await repository
-                .AllReadOnly<FoodRecepie>()
-                .Take(5)
-                .Select(r => new AllRecepieViewModel()
-                    {
-                    Id = r.Id,
-                    Name = r.Name,
-                    Description = r.Descripton,
-                    Image = r.Image,
-                    Owner = r.Owner.UserName,
-                    TumbsUp = r.TumbsUp,
-                    DatePosted = r.DatePosted,
-                    })
-                .OrderByDescending(x => x.TumbsUp)
-                .ToListAsync();
-            }
         public async Task<FoodViewModel> AddGetAsync()
             {
             return new FoodViewModel()

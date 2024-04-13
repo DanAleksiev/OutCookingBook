@@ -8,7 +8,6 @@ namespace CookBook.Core.Contracts.Services
         {
         Task<IEnumerable<UtilTypeModel>> GetMeasurmentTypeAsync();
         IEnumerable<AllRecepieViewModel> GetLIkesAndFavoritesMany(List<AllRecepieViewModel> allRecepies, string userId);
-        Task<IEnumerable<AllRecepieViewModel>> TopFiveRecepiesAsync();
         Task<AllRecepieQuerySerciveModel> AllAsync(AllRecepieQuerySerciveModel query, string userId);
         Task<IEnumerable<AllRecepieViewModel>> PrivateAsync(string userId);
 

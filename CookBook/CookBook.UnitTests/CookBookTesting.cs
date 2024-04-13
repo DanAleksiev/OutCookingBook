@@ -1424,7 +1424,7 @@ namespace CookBook.UnitTests
             Assert.IsFalse(detailedDrink.Like);
             Assert.IsFalse(detailedDrink.Favourite);
 
-            var result = drinkService.GetLIkesAndFavorites(dModel, userId);
+            var result = await drinkService.GetLIkesAndFavorites(dModel, userId);
 
             Assert.IsNotNull(result);
             Assert.IsTrue(detailedDrink.Like);
@@ -1433,17 +1433,14 @@ namespace CookBook.UnitTests
 
 
         [Test]
-        public async Task Test_TopFiveRecepiesAsync_ServiceTest()
+        public async Task Test_AddGetAsync_ServiceTest()
             {
-            var dModel = detailedDrink;
-            Assert.IsFalse(detailedDrink.Like);
-            Assert.IsFalse(detailedDrink.Favourite);
+            var model = await drinkService.AddGetAsync();
 
-            var result = drinkService.GetLIkesAndFavorites(dModel, userId);
-
-            Assert.IsNotNull(result);
-            Assert.IsTrue(detailedDrink.Like);
-            Assert.IsTrue(detailedDrink.Favourite);
+            Assert.IsNotNull(model);
+            Assert.IsNotNull(model.MeasurmentTypes);
             }
+
+
         }
     }
