@@ -27,7 +27,7 @@ namespace CookBook.Infrastructures.Data.Models.Food
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
         [Description("Description")]
-        public string Descripton { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Description("Date")]

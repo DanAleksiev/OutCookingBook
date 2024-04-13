@@ -270,7 +270,7 @@ namespace CookBook.Core.Services
                     {
                     Id = r.Id,
                     Name = r.Name,
-                    Description = r.Descripton,
+                    Description = r.Description,
                     Image = r.Image,
                     Owner = r.Owner.UserName,
                     TumbsUp = r.TumbsUp,
@@ -302,7 +302,7 @@ namespace CookBook.Core.Services
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
                     })
@@ -317,7 +317,7 @@ namespace CookBook.Core.Services
             var newRecepie = new FoodRecepie()
                 {
                 Name = model.Name,
-                Descripton = model.Description,
+                Description = model.Description,
                 DatePosted = DateTime.Now,
                 Image = model.Image,
                 PrepTime = model.PrepTime,
@@ -382,7 +382,7 @@ namespace CookBook.Core.Services
                 {
                 Id = recepie.Id,
                 Name = recepie.Name,
-                Description = recepie.Descripton,
+                Description = recepie.Description,
                 RecepieTypeId = recepie.Id,
                 RecepieTypes = await GetRecepieTypeAsync(),
                 Image = recepie.Image,
@@ -411,7 +411,7 @@ namespace CookBook.Core.Services
             if (recepie != null)
                 {
                 recepie.Name = model.Name;
-                recepie.Descripton = model.Description;
+                recepie.Description = model.Description;
                 recepie.Image = model.Image;
                 recepie.PrepTime = model.PrepTime;
                 recepie.CookTime = model.CookTime;
@@ -438,7 +438,7 @@ namespace CookBook.Core.Services
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     RecepieType = x.RecepieType.Name,
                     DatePosted = x.DatePosted,
                     Image = x.Image,
@@ -495,7 +495,7 @@ namespace CookBook.Core.Services
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     RecepieType = x.RecepieType.Name,
                     DatePosted = x.DatePosted,
                     Image = x.Image,

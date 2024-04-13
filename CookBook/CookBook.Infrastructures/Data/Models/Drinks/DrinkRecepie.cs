@@ -36,7 +36,7 @@ namespace CookBook.Infrastructures.Data.Models.Drinks
 
         [StringLength(LenghtParams.DescriptionMaxLengt)]
         [Description("Description")]
-        public string Descripton { get; set; } = string.Empty;
+        public string Description { get; set; } = string.Empty;
 
         [Required]
         [Description("Alcohol in the drink")]

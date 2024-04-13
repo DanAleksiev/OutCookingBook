@@ -25,6 +25,7 @@ namespace CookBook.Core.Models.Drink
 
         public bool IsPrivate { get; set; } = true;
         public bool IsAlcoholic { get; set; } = true;
+        public bool IsProfesional { get; set; } = false;
 
 
         [StringLength(LenghtParams.OrigenMaxLenght)]

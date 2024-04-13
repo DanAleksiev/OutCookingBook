@@ -100,7 +100,7 @@ namespace CookBook.Core.Services
                     Image = x.DrinkRecepie.Image,
                     Owner = x.DrinkRecepie.Owner.UserName,
                     TumbsUp = x.DrinkRecepie.TumbsUp,
-                    Description = x.DrinkRecepie.Descripton,
+                    Description = x.DrinkRecepie.Description,
                     })
                 .AsNoTracking()
                 .ToListAsync();
@@ -125,7 +125,7 @@ namespace CookBook.Core.Services
                     Image = x.FoodRecepie.Image,
                     Owner = x.FoodRecepie.Owner.UserName,
                     TumbsUp = x.FoodRecepie.TumbsUp,
-                    Description = x.FoodRecepie.Descripton,
+                    Description = x.FoodRecepie.Description,
                     })
                 .AsNoTracking()
                 .ToListAsync();

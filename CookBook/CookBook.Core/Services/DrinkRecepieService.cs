@@ -224,7 +224,7 @@ namespace CookBook.Core.Services
                     {
                     Id = r.Id,
                     Name = r.Name,
-                    Description = r.Descripton,
+                    Description = r.Description,
                     Image = r.Image,
                     Owner = r.Owner.UserName,
                     TumbsUp = r.TumbsUp,
@@ -246,7 +246,7 @@ namespace CookBook.Core.Services
 
         public async Task<IEnumerable<AllRecepieViewModel>> PrivateAsync(string userId)
             {
-            var allRecepies = await repository
+            return await repository
                 .AllReadOnly<DrinkRecepie>()
                 .Where(x => x.OwnerId == userId)
                 .Select(x => new AllRecepieViewModel()
@@ -256,15 +256,13 @@ namespace CookBook.Core.Services
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
 
                     })
                 .AsNoTracking()
                 .ToListAsync();
-
-            return allRecepies;
             }
 
         public async Task AddPostAsync(DrinkViewModel model, string userId, List<Step> addSteps, List<Ingredient> addIngredients)
@@ -272,7 +270,7 @@ namespace CookBook.Core.Services
             var newRecepie = new DrinkRecepie()
                 {
                 Name = model.Name,
-                Descripton = model.Description,
+                Description = model.Description,
                 DatePosted = DateTime.Now,
                 Image = model.Image,
                 Origen = model.Origen,
@@ -330,7 +328,7 @@ namespace CookBook.Core.Services
                 {
                 Id = recepie.Id,
                 Name = recepie.Name,
-                Description = recepie.Descripton,
+                Description = recepie.Description,
                 Image = recepie.Image,
                 MeasurmentTypes = await GetMeasurmentTypeAsync(),
                 IsPrivate = recepie.IsPrivate,
@@ -349,7 +347,7 @@ namespace CookBook.Core.Services
             if (recepie != null)
                 {
                 recepie.Name = model.Name;
-                recepie.Descripton = model.Description;
+                recepie.Description = model.Description;
                 recepie.Image = model.Image;
                 recepie.IsPrivate = model.IsPrivate;
                 recepie.Origen = model.Origen;
@@ -369,7 +367,7 @@ namespace CookBook.Core.Services
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     Origen = x.Origen,
@@ -420,7 +418,7 @@ namespace CookBook.Core.Services
                     {
                     Id = x.Id,
                     Name = x.Name,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     Origen = x.Origen,

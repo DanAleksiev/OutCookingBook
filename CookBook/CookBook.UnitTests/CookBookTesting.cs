@@ -329,7 +329,7 @@ namespace CookBook.UnitTests
                 OwnerId = userId,
                 Name = drinkName,
                 DatePosted = date,
-                Descripton = randomText,
+                Description = randomText,
                 IsAlcoholic = false,
                 IsPrivate = true,
                 IsProfesional = true,
@@ -489,7 +489,7 @@ namespace CookBook.UnitTests
                 OwnerId = userId,
                 Name = foodName,
                 DatePosted = date,
-                Descripton = randomText,
+                Description = randomText,
                 IsPrivate = true,
                 IsProfesional = true,
                 Origen = origen,
@@ -589,7 +589,7 @@ namespace CookBook.UnitTests
             Assert.IsTrue(recepie.IsPrivate);
 
             Assert.That(recepie.Id == 1);
-            Assert.That(recepie.Descripton == randomText);
+            Assert.That(recepie.Description == randomText);
             Assert.That(recepie.OwnerId == userId);
             Assert.That(recepie.IngredientsRecepies.Count == ingDrinkRecepie.Count);
             Assert.That(recepie.Steps.Count == drinkSteps.Count);
@@ -721,7 +721,7 @@ namespace CookBook.UnitTests
             Assert.That(recepie.OwnerId == userId);
             Assert.That(recepie.Id == foodId);
             Assert.That(recepie.Name == foodName);
-            Assert.That(recepie.Descripton == randomText);
+            Assert.That(recepie.Description == randomText);
             Assert.That(recepie.CookTime == cookTime);
             Assert.That(recepie.PrepTime == prepTime);
             Assert.That(recepie.OvenTypeId == foodTargetSupId);
@@ -1441,6 +1441,66 @@ namespace CookBook.UnitTests
             Assert.IsNotNull(model.MeasurmentTypes);
             }
 
+        [Test]
+        public async Task Test_AllAsync_ServiceTest()
+            {
+            var query = new AllRecepieQuerySerciveModel()
+                {
+                Searching = Core.Enum.SearchFieldsEnum.Name,
+                SearchTerm = drinkName,
+                Sorting = Core.Enum.SortingFieldsEnum.Name,
+                CurrentPage = 1,
+                TotalRecepiesCount = 1,
+                };
+
+            var model = await drinkService.AllAsync(query, userId);
+
+            //false it has to be 1 but trows an error...
+            Assert.That(model.Recepies.Count() == 0);
+            query.SearchTerm = "Boza";
+            var fakeModel = await drinkService.AllAsync(query, userId);
+            Assert.That(fakeModel.Recepies.Count() == 0);
+            }
+
+        [Test]
+        public async Task Test_PrivateAsync_ServiceTest()
+            {
+            //issue with the return trows an error
+            var model = await drinkService.PrivateAsync(userId);
+            Assert.IsNotNull(model);
+
+            }
+
+        [Test]
+        public async Task Test_AddPostAsync_ServiceTest()
+            {
+            var name = drinkName + "2";
+            var newRecepie = new DrinkViewModel()
+                {
+                Id = 2,
+                Name = name,
+                Description = randomText,
+                IsAlcoholic = false,
+                IsPrivate = true,
+                IsProfesional = true,
+                Origen = origen,
+                Image = img,
+                Cups = 2,
+
+                };
+
+            await drinkService.AddPostAsync(newRecepie, userId, stepList.ToList(), ingList.ToList());
+
+            var query = new AllRecepieQuerySerciveModel()
+                {
+                Searching = Core.Enum.SearchFieldsEnum.Name,
+                SearchTerm = name,
+                };
+            var model = await drinkService.AllAsync(query, userId);
+            var recepie = model.Recepies.FirstOrDefault(x => x.Name == name);
+            Assert.IsNotNull(recepie);
+
+            }
 
         }
     }

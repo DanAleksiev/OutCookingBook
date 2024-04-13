@@ -84,7 +84,7 @@ namespace CookBook.Infrastructures.Migrations
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descripton")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -118,6 +118,9 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.Property<int>("TumbsUp")
                         .HasColumnType("int");
+
+                    b.Property<bool>("VerifyedLocation")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -230,7 +233,7 @@ namespace CookBook.Infrastructures.Migrations
                     b.Property<DateTime>("DatePosted")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Descripton")
+                    b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
@@ -709,15 +712,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e0109bdc-8d1a-4a08-90ae-08c478c2104b",
+                            ConcurrencyStamp = "620a31ff-237e-430f-a09b-89eea3c954c2",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
                             NormalizedUserName = "NOTCHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF/jJoHclGjUuwRU6lD7Hfw9lTsigvCgvK+6hlb8c6xty5Hu4Sg54yOu9tiKd7r4pg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGWpxEXiionY7wCsEPYqNOJIIeeFG2I4UJOSCe980eRD3e7QLHjfO5JEO3g4zqqgdQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "1aac3afd-a8d6-42fc-9913-0097a2386dcd",
+                            SecurityStamp = "5924d50f-b450-4abd-af23-b1807e090ed3",
                             TwoFactorEnabled = false,
                             UserName = "NotChef"
                         },
@@ -725,15 +728,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9836de88-6b94-404d-8b78-7cf3fc717e47",
+                            ConcurrencyStamp = "f713f2aa-c399-4c6f-88b0-90437e689f22",
                             Email = "test2@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST2@TEST.COM",
                             NormalizedUserName = "CHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAECCvRWvA/jSOAHgTVItxSpQv0FwMJmMJPNrpc835p+x5kg1hzd1qHzleZP8TBQctuw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAECqQYAHcy+QTVvpIN78onHrQC7W1/JI0rwZ3n35fgg3eo88tXejd6/5ikqdHJNVlaw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "e68cbaf2-320e-491c-8838-db851d75c45b",
+                            SecurityStamp = "5d1e0378-9e21-492e-8863-dcb1d7c67a87",
                             TwoFactorEnabled = false,
                             UserName = "Chef"
                         },
@@ -741,15 +744,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "b616077f-8046-4248-a186-1eccd3e1b679",
+                            ConcurrencyStamp = "e9f4c030-2f27-4f69-9b8a-f6040e6c2344",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAECcGs6rcpVTs6B6jWWE3wjhOBKiaEycneg3TN/t4fXk8g9Pp3GoSWBTQRuuwvaC0Ew==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJH+EM65aFGccaiMhQeULEGG7a1HjkZCuzsgXCPbyTlFivoZUGvB/GD/vHIWilSgKg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "cbd732c9-3c8b-412b-b610-4d69ac384610",
+                            SecurityStamp = "b6a9bb95-7df8-44a4-83cc-4fbacf48de2c",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });

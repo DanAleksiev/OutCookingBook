@@ -120,7 +120,7 @@ namespace CookBook.Core.Services
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
                     })
@@ -142,7 +142,7 @@ namespace CookBook.Core.Services
                     DatePosted = x.DatePosted,
                     Image = x.Image,
                     TumbsUp = x.TumbsUp,
-                    Description = x.Descripton,
+                    Description = x.Description,
                     Owner = x.Owner.UserName,
                     Private = x.IsPrivate
                     })

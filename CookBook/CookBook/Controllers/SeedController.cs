@@ -108,7 +108,7 @@ namespace CookBook.Controllers
             var template = new FoodRecepie()
                 {
                 Name = names[random.Next(0, names.Length)],
-                Descripton = description,
+                Description = description,
                 DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length)]),
                 Image = foodImages[random.Next(0, foodImages.Length)],
                 PrepTime = random.Next(1, 20),
@@ -300,7 +300,7 @@ namespace CookBook.Controllers
             var template = new DrinkRecepie()
                 {
                 Name = names[random.Next(0, names.Length)],
-                Descripton = description,
+                Description = description,
                 DatePosted = DateTime.Parse(dates[random.Next(0, dates.Length)]),
                 Image = drinkImages[random.Next(0, drinkImages.Length)],
                 Origen = countries[random.Next(0, countries.Length)],
