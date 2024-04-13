@@ -72,9 +72,12 @@ namespace CookBook.UnitTests
         private Measurement meas3 = new Measurement();
         private ICollection<Measurement> measList;
         private ICollection<UtilTypeModel> utList;
+        private AllRecepieViewModel allRecepie = new AllRecepieViewModel();
+        private ICollection<AllRecepieViewModel> allRecepieList;
 
         //Drink
         private DrinkRecepie drinkRecepie = new DrinkRecepie();
+        private DetailedDrinkViewModel detailedDrink = new DetailedDrinkViewModel();
         private ICollection<FavouriteDrinkRecepiesUsers> favDrinkUsers;
         private ICollection<IngredientDrinkRecepie> ingDrinkRecepie;
         private ICollection<DrinkRecepiesUsers> drinkUsers;
@@ -83,6 +86,7 @@ namespace CookBook.UnitTests
 
         //Food
         private FoodRecepie foodRecepie = new FoodRecepie();
+        private DetailedFoodViewModel detailedFood = new DetailedFoodViewModel();
         private ICollection<FavouriteFoodRecepiesUsers> favouriteFoodUserList;
         private ICollection<IngredientFoodRecepie> ingFoodRecepies;
         private ICollection<FoodRecepiesUsers> foodUsers;
@@ -207,6 +211,25 @@ namespace CookBook.UnitTests
                     },
                 };
 
+            allRecepie = new AllRecepieViewModel
+                {
+                Id = 1,
+                Name = "Test",
+                DatePosted = date,
+                Image = img,
+                Owner = userId,
+                TumbsUp = 1,
+                Description = randomText,
+                Private = true,
+                Like = false,
+                Favourite = false
+                };
+
+            allRecepieList = new List<AllRecepieViewModel>()
+                {
+                allRecepie
+                };
+
             //Drink
             drinkLikes = new List<DrinkLikeUser>()
                 {
@@ -215,6 +238,25 @@ namespace CookBook.UnitTests
                     UserId = userId,
                     DrinkRecepieId = drinkId
                     }
+                };
+
+            detailedDrink = new DetailedDrinkViewModel()
+                {
+                Id = 1,
+                Name = "Test",
+                Description = randomText,
+                DatePosted = date,
+                Image = img,
+                Origen = origen,
+                IsAlcoholic = false,
+                Cups = 2,
+                TumbsUp = 3,
+                OwnerId = userId,
+                Like = false,
+                Favourite = false,
+                Private = false,
+                Ingredients = ingList,
+                Steps = stepList
                 };
 
             ingDrinkRecepie = new List<IngredientDrinkRecepie>()
@@ -316,6 +358,29 @@ namespace CookBook.UnitTests
                     Id = 2,
                     Name = "F"
                     }
+                };
+
+            detailedFood = new DetailedFoodViewModel()
+                {
+                Id = 1,
+                Name = "Test",
+                Description = randomText,
+                DatePosted = date,
+                Image = img,
+                Origen = origen,
+                Portions = 2,
+                TumbsUp = 3,
+                OwnerId = userId,
+                Like = false,
+                Favourite = false,
+                Private = false,
+                Ingredients = ingList,
+                Steps = stepList,
+                PrepTime = 10,
+                CookTime = 10,
+                RecepieType = "Test",
+                TemperatureType = "Test",
+                Temperature = 1
                 };
 
             recepieTypes = new List<RecepieType>()
@@ -842,31 +907,14 @@ namespace CookBook.UnitTests
         [Test]
         public void Test_DetailedDrinkViewModel_Model()
             {
-            var dModel = new DetailedDrinkViewModel()
-                {
-                Id = 1,
-                Name = "Test",
-                Description = randomText,
-                DatePosted = date,
-                Image = img,
-                Origen = origen,
-                IsAlcoholic = false,
-                Cups = 2,
-                TumbsUp = 3,
-                OwnerId = userId,
-                Like = true,
-                Favourite = true,
-                Private = true,
-                Ingredients = ingList,
-                Steps = stepList
-                };
+            var dModel = detailedDrink;
 
             Assert.IsNotNull(dModel);
             Assert.IsNull(dModel.Owner);
 
-            Assert.IsTrue(dModel.Like);
-            Assert.IsTrue(dModel.Favourite);
-            Assert.IsTrue(dModel.Private);
+            Assert.IsFalse(dModel.Like);
+            Assert.IsFalse(dModel.Favourite);
+            Assert.IsFalse(dModel.Private);
             Assert.IsFalse(dModel.IsAlcoholic);
 
             Assert.That(dModel.Id == 1);
@@ -959,35 +1007,14 @@ namespace CookBook.UnitTests
         [Test]
         public void Test_DetailedFoodViewModel_Model()
             {
-            var dModel = new DetailedFoodViewModel()
-                {
-                Id = 1,
-                Name = "Test",
-                Description = randomText,
-                DatePosted = date,
-                Image = img,
-                Origen = origen,
-                Portions = 2,
-                TumbsUp = 3,
-                OwnerId = userId,
-                Like = true,
-                Favourite = true,
-                Private = true,
-                Ingredients = ingList,
-                Steps = stepList,
-                PrepTime = 10,
-                CookTime = 10,
-                RecepieType = "Test",
-                TemperatureType = "Test",
-                Temperature = 1
-                };
+            var dModel = detailedFood;
 
             Assert.IsNotNull(dModel);
             Assert.IsEmpty(dModel.Owner);
 
-            Assert.IsTrue(dModel.Like);
-            Assert.IsTrue(dModel.Favourite);
-            Assert.IsTrue(dModel.Private);
+            Assert.IsFalse(dModel.Like);
+            Assert.IsFalse(dModel.Favourite);
+            Assert.IsFalse(dModel.Private);
 
             Assert.That(dModel.Id == 1);
             Assert.That(dModel.Name == "Test");
@@ -1115,25 +1142,13 @@ namespace CookBook.UnitTests
         [Test]
         public void Test_AllRecepieViewModel_Model()
             {
-            var model = new AllRecepieViewModel()
-                {
-                Id = 1,
-                Name = "Test",
-                DatePosted = date,
-                Image = img,
-                Owner = userId,
-                TumbsUp = 1,
-                Description = randomText,
-                Private = true,
-                Like = true,
-                Favourite = true
-                };
+            var model = allRecepie;
 
             Assert.IsNotNull(model);
 
             Assert.IsTrue(model.Private);
-            Assert.IsTrue(model.Like);
-            Assert.IsTrue(model.Favourite);
+            Assert.IsFalse(model.Like);
+            Assert.IsFalse(model.Favourite);
 
             Assert.That(model.Id == 1);
             Assert.That(model.Name == "Test");
@@ -1196,22 +1211,7 @@ namespace CookBook.UnitTests
             var model = new RecepieQueryModel()
                 {
                 TotalRecepies = 1,
-                Recepies = new List<AllRecepieViewModel>()
-                    {
-                    new AllRecepieViewModel
-                        {
-                        Id = 1,
-                        Name = "Test",
-                        DatePosted = date,
-                        Image = img,
-                        Owner = userId,
-                        TumbsUp = 1,
-                        Description = randomText,
-                        Private = true,
-                        Like = true,
-                        Favourite = true
-                        }
-                    }
+                Recepies = allRecepieList
                 };
 
             Assert.IsNotNull(model);
@@ -1259,22 +1259,7 @@ namespace CookBook.UnitTests
                 Searching = Core.Enum.SearchFieldsEnum.Ingredient,
                 Sorting = Core.Enum.SortingFieldsEnum.Name,
                 TotalRecepiesCount = 1,
-                Recepies = new List<AllRecepieViewModel>()
-                    {
-                    new AllRecepieViewModel
-                        {
-                        Id = 1,
-                        Name = "Test",
-                        DatePosted = date,
-                        Image = img,
-                        Owner = userId,
-                        TumbsUp = 1,
-                        Description = randomText,
-                        Private = true,
-                        Like = true,
-                        Favourite = true
-                        }
-                    }
+                Recepies = allRecepieList
                 };
 
             Assert.IsNotNull(model);
@@ -1398,6 +1383,67 @@ namespace CookBook.UnitTests
             Assert.IsFalse(notright);
 
             Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_GetMeasurmentTypeAsync_ServiceTest()
+            {
+            var result = await drinkService.GetMeasurmentTypeAsync();
+            var first = result.First();
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(first);
+
+            Assert.That(result.Count() == 3);
+            Assert.That(first.Id == meas1.Id);
+            Assert.That(first.Name == meas1.Name);
+            }
+
+        [Test]
+        public async Task Test_GetLIkesAndFavoritesMany_ServiceTest()
+            {
+            Assert.IsFalse(allRecepie.Like);
+            Assert.IsFalse(allRecepie.Favourite);
+
+            var result = drinkService.GetLIkesAndFavoritesMany(allRecepieList.ToList(), userId);
+            var first = result.First();
+
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(first);
+
+            Assert.IsTrue(first.Like);
+            Assert.IsTrue(first.Favourite);
+
+            Assert.That(first.Id == allRecepie.Id);
+            }
+
+        [Test]
+        public async Task Test_GetLIkesAndFavorites_ServiceTest()
+            {
+            var dModel = detailedDrink;
+            Assert.IsFalse(detailedDrink.Like);
+            Assert.IsFalse(detailedDrink.Favourite);
+
+            var result = drinkService.GetLIkesAndFavorites(dModel, userId);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(detailedDrink.Like);
+            Assert.IsTrue(detailedDrink.Favourite);
+            }
+
+
+        [Test]
+        public async Task Test_TopFiveRecepiesAsync_ServiceTest()
+            {
+            var dModel = detailedDrink;
+            Assert.IsFalse(detailedDrink.Like);
+            Assert.IsFalse(detailedDrink.Favourite);
+
+            var result = drinkService.GetLIkesAndFavorites(dModel, userId);
+
+            Assert.IsNotNull(result);
+            Assert.IsTrue(detailedDrink.Like);
+            Assert.IsTrue(detailedDrink.Favourite);
             }
         }
     }
