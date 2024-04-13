@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "/Qo1bcBmAGs1bVuthfqaSqsseA2W9ORMMn0njzxUS7+NARt4n1DzgaAnW64gQC2bcj75N62jmstsA2jY7CaZ5Q==",
+  "dgSpecHash": "9QFOjbk9TOAEk9ZmmRKDyfzjbmaZmukE8XBndBs/7b/SS6zHmc70xWS+Fw0uPS8CIvGxgUXQtKNhizzWrtKg1g==",
   "success": true,
   "projectFilePath": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\CookBook.csproj",
   "expectedPackageFiles": [
@@ -87,6 +87,7 @@
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\6.0.28\\microsoft.entityframeworkcore.abstractions.6.0.28.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.analyzers\\6.0.28\\microsoft.entityframeworkcore.analyzers.6.0.28.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.design\\6.0.28\\microsoft.entityframeworkcore.design.6.0.28.nupkg.sha512",
+    "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.inmemory\\6.0.25\\microsoft.entityframeworkcore.inmemory.6.0.25.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\6.0.28\\microsoft.entityframeworkcore.relational.6.0.28.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite\\6.0.28\\microsoft.entityframeworkcore.sqlite.6.0.28.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.entityframeworkcore.sqlite.core\\6.0.28\\microsoft.entityframeworkcore.sqlite.core.6.0.28.nupkg.sha512",

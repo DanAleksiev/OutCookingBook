@@ -361,3 +361,4 @@ C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProje
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook.UnitTests\obj\Debug\net6.0\CookBook.UnitTests.pdb
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook.UnitTests\obj\Debug\net6.0\CookBook.UnitTests.genruntimeconfig.cache
 C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook.UnitTests\obj\Debug\net6.0\ref\CookBook.UnitTests.dll
+C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook.UnitTests\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll

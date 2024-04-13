@@ -1,18 +1,23 @@
 using CookBook.Areas.Admin.Models;
+using CookBook.Core.Contracts.Services;
 using CookBook.Core.Models.Admin;
 using CookBook.Core.Models.Drink;
 using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Models.Utilities;
+using CookBook.Infrastructures.Data.Common;
+using CookBook.Infrastructures.Data;
 using CookBook.Infrastructures.Data.Models.Admin;
 using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
+using CookBook.Core.Services;
+using Microsoft.EntityFrameworkCore;
 
 namespace CookBook.UnitTests
     {
     [TestFixture]
-    public class Models
+    public class CookBookTesting
         {
         /// <summary>
         /// Var
@@ -45,6 +50,13 @@ namespace CookBook.UnitTests
         /// <summary>
         /// prop
         /// </summary>
+
+        private IRepository _repository;
+        private CookBookDbContext _context;
+        private IFoodRecepieService foodService;
+        private IDrinkRecepieService drinkService;
+        private IFavouriteService favService;
+        private IRatingService ratingService;
 
         //Shared
         private Step step1 = new Step();
@@ -84,32 +96,32 @@ namespace CookBook.UnitTests
         public void TestInit()
             {
             //shared
-            this.meas1 = new Measurement()
+            meas1 = new Measurement()
                 {
                 Id = 1,
                 Name = "Kg",
                 };
 
-            this.meas2 = new Measurement()
+            meas2 = new Measurement()
                 {
                 Id = 2,
                 Name = "Gr",
                 };
 
-            this.meas1 = new Measurement()
+            meas1 = new Measurement()
                 {
-                Id = 1,
+                Id = 3,
                 Name = "Ml",
                 };
 
-            this.measList = new List<Measurement>
+            measList = new List<Measurement>
                 {
                 meas1,
                 meas2,
                 meas3
                 };
 
-            this.ing1 = new Ingredient()
+            ing1 = new Ingredient()
                 {
                 Id = 1,
                 Name = ingName + "1",
@@ -119,7 +131,7 @@ namespace CookBook.UnitTests
                 Description = randomText
                 };
 
-            this.ing2 = new Ingredient()
+            ing2 = new Ingredient()
                 {
                 Id = 2,
                 Name = ingName + "2",
@@ -129,7 +141,7 @@ namespace CookBook.UnitTests
                 Description = randomText
                 };
 
-            this.ing3 = new Ingredient()
+            ing3 = new Ingredient()
                 {
                 Id = 3,
                 Name = ingName + "3",
@@ -139,7 +151,7 @@ namespace CookBook.UnitTests
                 Description = randomText
                 };
 
-            this.ingList = new List<Ingredient>()
+            ingList = new List<Ingredient>()
                 {
                 ing1,
                 ing2,
@@ -148,35 +160,35 @@ namespace CookBook.UnitTests
 
 
 
-            this.step1 = new Step()
+            step1 = new Step()
                 {
                 Id = 1,
                 Position = 1,
                 Description = randomText
                 };
 
-            this.step2 = new Step()
+            step2 = new Step()
                 {
                 Id = 2,
                 Position = 2,
                 Description = randomText
                 };
 
-            this.step3 = new Step()
+            step3 = new Step()
                 {
                 Id = 3,
                 Position = 3,
                 Description = randomText
                 };
 
-            this.stepList = new List<Step>()
+            stepList = new List<Step>()
                 {
                 step1,
                 step2,
                 step3,
                 };
 
-            this.utList = new List<UtilTypeModel>()
+            utList = new List<UtilTypeModel>()
                 {
                 new UtilTypeModel()
                     {
@@ -196,7 +208,7 @@ namespace CookBook.UnitTests
                 };
 
             //Drink
-            this.drinkLikes = new List<DrinkLikeUser>()
+            drinkLikes = new List<DrinkLikeUser>()
                 {
                 new DrinkLikeUser()
                     {
@@ -205,7 +217,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.ingDrinkRecepie = new List<IngredientDrinkRecepie>()
+            ingDrinkRecepie = new List<IngredientDrinkRecepie>()
                 {
                 new IngredientDrinkRecepie ()
                     {
@@ -229,7 +241,7 @@ namespace CookBook.UnitTests
 
 
 
-            this.drinkSteps = new List<DrinkStepsDrinkRecepies>()
+            drinkSteps = new List<DrinkStepsDrinkRecepies>()
                 {
                 new DrinkStepsDrinkRecepies ()
                     {
@@ -251,7 +263,7 @@ namespace CookBook.UnitTests
                     },
                 };
 
-            this.favDrinkUsers = new List<FavouriteDrinkRecepiesUsers>()
+            favDrinkUsers = new List<FavouriteDrinkRecepiesUsers>()
                 {
                 new FavouriteDrinkRecepiesUsers()
                     {
@@ -260,7 +272,7 @@ namespace CookBook.UnitTests
                     },
                 };
 
-            this.drinkUsers = new List<DrinkRecepiesUsers>()
+            drinkUsers = new List<DrinkRecepiesUsers>()
                 {
                 new DrinkRecepiesUsers()
                 {
@@ -269,7 +281,7 @@ namespace CookBook.UnitTests
                 }
                 };
 
-            this.drinkRecepie = new DrinkRecepie()
+            drinkRecepie = new DrinkRecepie()
                 {
                 Id = drinkId,
                 OwnerId = userId,
@@ -292,7 +304,7 @@ namespace CookBook.UnitTests
                 };
 
             //Food
-            this.temperatureMeasurments = new List<TemperatureMeasurment>()
+            temperatureMeasurments = new List<TemperatureMeasurment>()
                 {
                 new TemperatureMeasurment()
                     {
@@ -306,7 +318,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.recepieTypes = new List<RecepieType>()
+            recepieTypes = new List<RecepieType>()
                 {
                 new RecepieType()
                     {
@@ -322,7 +334,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.foodUsers = new List<FoodRecepiesUsers>()
+            foodUsers = new List<FoodRecepiesUsers>()
                 {
                 new FoodRecepiesUsers()
                     {
@@ -330,7 +342,7 @@ namespace CookBook.UnitTests
                     UserId = userId
                     }
                 };
-            this.favouriteFoodUserList = new List<FavouriteFoodRecepiesUsers>()
+            favouriteFoodUserList = new List<FavouriteFoodRecepiesUsers>()
                 {
                 new FavouriteFoodRecepiesUsers()
                     {
@@ -339,7 +351,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.ovenTypes = new List<OvenType>()
+            ovenTypes = new List<OvenType>()
                 {
                 new OvenType()
                     {
@@ -353,7 +365,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.foodLikes = new List<FoodLikeUser>()
+            foodLikes = new List<FoodLikeUser>()
                 {
                 new FoodLikeUser()
                     {
@@ -362,7 +374,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.ingFoodRecepies = new List<IngredientFoodRecepie>()
+            ingFoodRecepies = new List<IngredientFoodRecepie>()
                 {
                 new IngredientFoodRecepie()
                     {
@@ -384,7 +396,7 @@ namespace CookBook.UnitTests
                     }
                 };
 
-            this.foodSteps = new List<FoodStepsFoodRecepies>()
+            foodSteps = new List<FoodStepsFoodRecepies>()
                 {
                 new FoodStepsFoodRecepies()
                     {
@@ -406,7 +418,7 @@ namespace CookBook.UnitTests
                     },
                 };
 
-            this.foodRecepie = new FoodRecepie()
+            foodRecepie = new FoodRecepie()
                 {
                 Id = foodId,
                 OwnerId = userId,
@@ -433,10 +445,31 @@ namespace CookBook.UnitTests
                 Likes = foodLikes,
                 IngredientsRecepies = ingFoodRecepies,
                 Steps = foodSteps,
-                VerifyedLocation = false
+                VerifyedLocation = false,
                 };
+            var options = new DbContextOptionsBuilder<CookBookDbContext>()
+                .UseInMemoryDatabase(databaseName: "CookBookInMemory" + Guid.NewGuid().ToString())
+                .Options;
+
+            _context = new CookBookDbContext(options);
+
+            _context.AddRange(measList);
+            _context.AddRange(ingFoodRecepies);
+            _context.AddRange(ingDrinkRecepie);
+            _context.AddRange(foodSteps);
+            _context.AddRange(drinkSteps);
+            _context.Add(foodRecepie);
+            _context.Add(drinkRecepie);
+            _context.SaveChanges();
+
+            _repository = new Repository(_context);
+            foodService = new FoodRecepieService(_repository);
+            drinkService = new DrinkRecepieService(_repository);
+            favService = new FavouriteService(_repository);
+            ratingService = new RatingService(_repository);
             }
 
+        //Models
         //Infrastructure
         //Admin
         [Test]
@@ -468,7 +501,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(drinkLikeUser);
             Assert.IsNull(drinkLikeUser.User);
-            Assert.IsNull(drinkLikeUser.DrinkRecepie);
+            Assert.IsNotNull(drinkLikeUser.DrinkRecepie);
 
             Assert.That(drinkLikeUser.UserId == userId);
             Assert.That(drinkLikeUser.DrinkRecepieId != foodId);
@@ -518,7 +551,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(drinkRecepieUser);
             Assert.IsNotNull(firstDrinkUser);
-            Assert.IsNull(firstDrinkUser.DrinkRecepie);
+            Assert.IsNotNull(firstDrinkUser.DrinkRecepie);
             Assert.IsNull(firstDrinkUser.User);
 
             Assert.That(drinkRecepieUser.Count == 1);
@@ -535,7 +568,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(firstStepDrink);
             Assert.IsNotNull(stepDrinkRecepie);
-            Assert.IsNull(firstStepDrink.DrinkRecepie);
+            Assert.IsNotNull(firstStepDrink.DrinkRecepie);
 
             Assert.That(stepDrinkRecepie.Count == 3);
             Assert.That(firstStepDrink.StepId == step1.Id);
@@ -551,7 +584,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(favList);
             Assert.IsNotNull(firstFav);
-            Assert.IsNull(firstFav.DrinkRecepie);
+            Assert.IsNotNull(firstFav.DrinkRecepie);
             Assert.IsNull(firstFav.User);
 
             Assert.That(favList.Count == 1);
@@ -567,7 +600,7 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(ingListDrink);
             Assert.IsNotNull(firstIngDrink);
-            Assert.IsNull(firstIngDrink.Recepie);
+            Assert.IsNotNull(firstIngDrink.Recepie);
 
             Assert.That(firstIngDrink.RecepieId == drinkId);
             Assert.That(firstIngDrink.IngredientId == ing1.Id);
@@ -584,7 +617,7 @@ namespace CookBook.UnitTests
             Assert.IsNotNull(firstFav);
             Assert.IsNotNull(favList);
             Assert.IsNull(firstFav.User);
-            Assert.IsNull(firstFav.FoodRecepie);
+            Assert.IsNotNull(firstFav.FoodRecepie);
 
             Assert.That(favList.Count == 1);
             Assert.That(firstFav.UserId == userId);
@@ -601,7 +634,7 @@ namespace CookBook.UnitTests
             Assert.NotNull(firstLike);
             Assert.NotNull(likes);
             Assert.IsNull(firstLike.User);
-            Assert.IsNull(firstLike.FoodRecepie);
+            Assert.IsNotNull(firstLike.FoodRecepie);
 
             Assert.That(likes.Count == 1);
             Assert.That(firstLike.UserId == userId);
@@ -653,7 +686,7 @@ namespace CookBook.UnitTests
             Assert.IsNotNull(foodUs);
             Assert.IsNotNull(fu);
 
-            Assert.IsNull(fu.FoodRecepie);
+            Assert.IsNotNull(fu.FoodRecepie);
             Assert.IsNull(fu.User);
 
             Assert.That(fu.FoodRecepieId == foodId);
@@ -669,7 +702,7 @@ namespace CookBook.UnitTests
             Assert.IsNotNull(foodStep);
             Assert.IsNotNull(fs);
             Assert.IsNotNull(fs.FoodStep);
-            Assert.IsNull(fs.FoodRecepie);
+            Assert.IsNotNull(fs.FoodRecepie);
 
             Assert.That(fs.FoodStepId == step1.Id);
             Assert.That(fs.FoodRecepieId == foodId);
@@ -684,7 +717,7 @@ namespace CookBook.UnitTests
             Assert.IsNotNull(foodIng);
             Assert.IsNotNull(fi);
             Assert.IsNotNull(fi.Ingredient);
-            Assert.IsNull(fi.Recepie);
+            Assert.IsNotNull(fi.Recepie);
 
             Assert.That(fi.IngredientId == step1.Id);
             Assert.That(fi.RecepieId == foodId);
@@ -790,7 +823,7 @@ namespace CookBook.UnitTests
 
 
         [Test]
-        public void Test_UserServiceModel_DBModel()
+        public void Test_UserServiceModel_Model()
             {
             UserServiceModel userService = new UserServiceModel()
                 {
@@ -807,7 +840,7 @@ namespace CookBook.UnitTests
 
         //Drink
         [Test]
-        public void Test_DetailedDrinkViewModel_DBModel()
+        public void Test_DetailedDrinkViewModel_Model()
             {
             var dModel = new DetailedDrinkViewModel()
                 {
@@ -852,7 +885,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_DrinkViewModel_DBModel()
+        public void Test_DrinkViewModel_Model()
             {
 
             var dVModel = new DrinkViewModel()
@@ -892,7 +925,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_EditDrinkForm_DBModel()
+        public void Test_EditDrinkForm_Model()
             {
             var editModel = new EditDrinkForm()
                 {
@@ -924,7 +957,7 @@ namespace CookBook.UnitTests
 
         //Food
         [Test]
-        public void Test_DetailedFoodViewModel_DBModel()
+        public void Test_DetailedFoodViewModel_Model()
             {
             var dModel = new DetailedFoodViewModel()
                 {
@@ -976,7 +1009,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_EditFoodForm_DBModel()
+        public void Test_EditFoodForm_Model()
             {
             var dModel = new EditFoodForm()
                 {
@@ -1024,7 +1057,7 @@ namespace CookBook.UnitTests
 
 
         [Test]
-        public void Test_FoodViewModel_DBModel()
+        public void Test_FoodViewModel_Model()
             {
             var dModel = new FoodViewModel()
                 {
@@ -1080,7 +1113,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_AllRecepieViewModel_DBModel()
+        public void Test_AllRecepieViewModel_Model()
             {
             var model = new AllRecepieViewModel()
                 {
@@ -1113,7 +1146,7 @@ namespace CookBook.UnitTests
 
 
         [Test]
-        public void Test_EditIngredientsForm_DBModel()
+        public void Test_EditIngredientsForm_Model()
             {
             var model = new EditIngredientsForm()
                 {
@@ -1139,7 +1172,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_EditStepForm_DBModel()
+        public void Test_EditStepForm_Model()
             {
             var model = new EditStepForm()
                 {
@@ -1158,7 +1191,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_RecepieQueryModel_DBModel()
+        public void Test_RecepieQueryModel_Model()
             {
             var model = new RecepieQueryModel()
                 {
@@ -1189,7 +1222,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_TempView_DBModel()
+        public void Test_TempView_Model()
             {
             var model = new TempView()
                 {
@@ -1204,7 +1237,7 @@ namespace CookBook.UnitTests
 
         //Utilities
         [Test]
-        public void Test_UtilTypeModel_DBModel()
+        public void Test_UtilTypeModel_Model()
             {
             var model = new UtilTypeModel()
                 {
@@ -1217,9 +1250,43 @@ namespace CookBook.UnitTests
             Assert.That(model.Name == "Test");
             }
 
+        [Test]
+        public void Test_AllRecepieQuerySerciveModel_Model()
+            {
+            var model = new AllRecepieQuerySerciveModel()
+                {
+                SearchTerm = "Banana",
+                Searching = Core.Enum.SearchFieldsEnum.Ingredient,
+                Sorting = Core.Enum.SortingFieldsEnum.Name,
+                TotalRecepiesCount = 1,
+                Recepies = new List<AllRecepieViewModel>()
+                    {
+                    new AllRecepieViewModel
+                        {
+                        Id = 1,
+                        Name = "Test",
+                        DatePosted = date,
+                        Image = img,
+                        Owner = userId,
+                        TumbsUp = 1,
+                        Description = randomText,
+                        Private = true,
+                        Like = true,
+                        Favourite = true
+                        }
+                    }
+                };
+
+            Assert.IsNotNull(model);
+            Assert.That(model.TotalRecepiesCount == model.Recepies.Count());
+            Assert.That(model.SearchTerm != "Test");
+            Assert.That(model.RecepiesPerPage == 5);
+            Assert.That(model.CurrentPage == 1);
+            }
+
         //Admin
         [Test]
-        public void Test_ChangeUserRoleForm_DBModel()
+        public void Test_ChangeUserRoleForm_Model()
             {
             var model = new ChangeUserRoleForm()
                 {
@@ -1233,7 +1300,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_BanFormModel_DBModel()
+        public void Test_BanFormModel_Model()
             {
             var model = new BanFormModel()
                 {
@@ -1249,7 +1316,7 @@ namespace CookBook.UnitTests
             }
 
         [Test]
-        public void Test_LiftBanModel_DBModel()
+        public void Test_LiftBanModel_Model()
             {
             var model = new LiftBanModel()
                 {
@@ -1258,6 +1325,79 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(model);
             Assert.That(model.Username == "Test");
+            }
+
+        //DrinkServices
+        [Test]
+        public async Task Test_Authoriseda_ServiceTest()
+            {
+            var right = await drinkService.Authorised(drinkId, userId);
+            var notright = await drinkService.Authorised(drinkId, "falseuserId");
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_Exist_ServiceTest()
+            {
+            var right = await drinkService.Exist(drinkId);
+            var notright = await drinkService.Exist(drinkId + 1);
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_AuthorisedStep_ServiceTest()
+            {
+            var right = await drinkService.AuthorisedStep(step1.Id, userId);
+            var notright = await drinkService.AuthorisedStep(step1.Id, "falseuserId");
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_ExistStep_ServiceTest()
+            {
+            var right = await drinkService.ExistStep(step1.Id);
+            var notright = await drinkService.ExistStep(6);
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_AuthorisedIng_ServiceTest()
+            {
+            var right = await drinkService.AuthorisedIng(ing1.Id, userId);
+            var notright = await drinkService.AuthorisedIng(ing1.Id, "falseuserId");
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
+            }
+
+        [Test]
+        public async Task Test_ExistIng_ServiceTest()
+            {
+            var right = await drinkService.ExistIng(ing1.Id);
+            var notright = await drinkService.ExistIng(6);
+
+            Assert.IsTrue(right);
+            Assert.IsFalse(notright);
+
+            Assert.That(right != notright);
             }
         }
     }
