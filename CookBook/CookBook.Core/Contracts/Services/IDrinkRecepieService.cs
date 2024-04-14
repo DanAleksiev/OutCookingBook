@@ -8,10 +8,9 @@ namespace CookBook.Core.Contracts.Services
 
         Task<DetailedDrinkViewModel> GetLIkesAndFavorites(DetailedDrinkViewModel recepie, string userId);
 
-        //from here
         Task<DrinkViewModel> AddGetAsync();
         Task AddPostAsync(DrinkViewModel model, string userId, List<Step> addSteps, List<Ingredient> addIngredients);
-        Task<EditDrinkForm> EditGetAsync(int id, string userId);
+        Task<EditDrinkForm> EditGetAsync(int id);
         Task<int> EditPostAsync(EditDrinkForm model);
 
         Task<DetailedDrinkViewModel> DetailGetAsync(int id, string userId);

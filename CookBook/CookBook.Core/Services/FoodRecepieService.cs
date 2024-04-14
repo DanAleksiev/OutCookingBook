@@ -5,6 +5,7 @@ using CookBook.Core.Models.Shared;
 using CookBook.Core.Models.Utilities;
 using CookBook.Core.Utilities;
 using CookBook.Infrastructures.Data.Common;
+using CookBook.Infrastructures.Data.Models.Drinks;
 using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
 using Microsoft.EntityFrameworkCore;
@@ -543,6 +544,17 @@ namespace CookBook.Core.Services
 
         public async Task ConfirmDeleteAsync(int id)
             {
+            var allLikes = repository
+                .AllReadOnly<FoodLikeUser>()
+                .Where(x => x.FoodRecepieId == id);
+            foreach (var like in allLikes)
+                {
+                await repository.DeleteElementAsync(like);
+                }
+            var allFavourites = repository
+                .AllReadOnly<FavouriteFoodRecepiesUsers>()
+                .Where(x => x.FoodRecepieId == id);
+
             await repository.DeleteAsync<FoodRecepie>(id);
             await repository.SaveChangesAsync();
             }

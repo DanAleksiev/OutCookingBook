@@ -318,7 +318,7 @@ namespace CookBook.Core.Services
                     }
                 }
             }
-        public async Task<EditDrinkForm> EditGetAsync(int id, string userId)
+        public async Task<EditDrinkForm> EditGetAsync(int id)
             {
             var recepie = await repository
                 .AllReadOnly<DrinkRecepie>()
@@ -460,6 +460,20 @@ namespace CookBook.Core.Services
 
         public async Task ConfirmDeleteAsync(int id)
             {
+            var allLikes = repository
+                .AllReadOnly<DrinkLikeUser>()
+                .Where(x => x.DrinkRecepieId == id);
+            foreach (var like in allLikes)
+                {
+                await repository.DeleteElementAsync(like);
+                }
+            var allFavourites = repository
+                .AllReadOnly<FavouriteDrinkRecepiesUsers>()
+                .Where(x => x.DrinkRecepieId == id);
+            foreach (var favourite in allFavourites)
+                {
+                await repository.DeleteElementAsync(favourite);
+                }
             await repository.DeleteAsync<DrinkRecepie>(id);
             await repository.SaveChangesAsync();
             }

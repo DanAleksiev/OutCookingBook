@@ -98,7 +98,7 @@ namespace CookBook.Controllers
                 return Unauthorized();
                 }
 
-            var model = await drinkRecepieService.EditGetAsync(id, GetUserId());
+            var model = await drinkRecepieService.EditGetAsync(id);
 
             return View(model);
             }

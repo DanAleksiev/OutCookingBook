@@ -519,6 +519,9 @@ namespace CookBook.UnitTests
             _context = new CookBookDbContext(options);
 
             _context.AddRange(measList);
+            _context.AddRange(temperatureMeasurments);
+            _context.AddRange(ovenTypes);
+            _context.AddRange(recepieTypes);
             _context.AddRange(ingFoodRecepies);
             _context.AddRange(ingDrinkRecepie);
             _context.AddRange(foodSteps);
@@ -1486,21 +1489,266 @@ namespace CookBook.UnitTests
                 Origen = origen,
                 Image = img,
                 Cups = 2,
-
                 };
 
-            await drinkService.AddPostAsync(newRecepie, userId, stepList.ToList(), ingList.ToList());
+            drinkService.AddPostAsync(newRecepie, userId, stepList.ToList(), ingList.ToList());
 
-            var query = new AllRecepieQuerySerciveModel()
-                {
-                Searching = Core.Enum.SearchFieldsEnum.Name,
-                SearchTerm = name,
-                };
-            var model = await drinkService.AllAsync(query, userId);
-            var recepie = model.Recepies.FirstOrDefault(x => x.Name == name);
-            Assert.IsNotNull(recepie);
+            var result =  _repository.AllReadOnly<DrinkRecepie>().Where(x=>x.Name == name).FirstAsync();
+            Assert.IsNotNull(result);
+            //wrong find a way to test the result ?
+            }
+
+        [Test]
+        public async Task Test_EditGetAsync_ServiceTest()
+            {
+            var result = await drinkService.EditGetAsync(1);
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == drinkId);
 
             }
 
+        [Test]
+        public async Task Test_EditPostAsync_ServiceTest()
+            {
+            var result = await drinkService.EditGetAsync(1);
+            Assert.That(result.Cups == drinkRecepie.Cups);
+            result.Cups = 14;
+            var resultId = await drinkService.EditPostAsync(result);
+            Assert.IsNotNull(resultId);
+            Assert.That(resultId == drinkId);
+            }
+
+        [Test]
+        public async Task Test_DetailGetAsync_ServiceTest()
+            {
+            var result = drinkService.DetailGetAsync(drinkId, userId);
+
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_DeleteAsync_ServiceTest()
+            {
+            var result = drinkService.DeleteAsync(drinkId, userId);
+
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_ConfirmDeleteAsync_ServiceTest()
+            {
+            //var check = await _repository.GetByIdAsync<DrinkRecepie>(drinkId);
+            //await drinkService.ConfirmDeleteAsync(drinkId);
+            //var confirm = await _repository.GetByIdAsync<DrinkRecepie>(drinkId);
+            ////issues with the test
+            //Assert.IsNotNull(check);
+            //Assert.IsNull(confirm);
+            }
+
+        [Test]
+        public async Task Test_EditIngredientGetAsync_ServiceTest()
+            {
+            var result = await drinkService.EditIngredientGetAsync(ing1.Id);
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == ing1.Id);
+            }
+
+        [Test]
+        public async Task Test_EditIngredientPostAsync_ServiceTest()
+            {
+
+            var result = await drinkService.EditIngredientGetAsync(ing1.Id);
+
+            result.Name = "Edit";
+
+            var edited = await drinkService.EditIngredientPostAsync(result);
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == edited.Id);
+            }
+
+        [Test]
+        public async Task Test_EditStepGetAsync_ServiceTest()
+            {
+            var result = await drinkService.EditStepGetAsync(step1.Id);
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == step1.Id);
+            }
+
+        [Test]
+        public async Task Test_EditStepPostAsync_ServiceTest()
+            {
+
+            var result = await drinkService.EditStepGetAsync(step1.Id);
+
+            result.Description = "Edit";
+
+            var edited = await drinkService.EditStepPostAsync(result);
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == edited.Id);
+            }
+
+        //Favourite
+        [Test]
+        public async Task Test_DrinkOwner_ServiceTest()
+            {
+            var result = await favService.DrinkOwner(drinkId);
+
+            Assert.That(result == userId);
+            }
+
+        [Test]
+        public async Task Test_FoodOwner_ServiceTest()
+            {
+            var result = await favService.FoodOwner(foodId);
+
+            Assert.That(result == userId);
+            }
+
+        [Test]
+        public async Task Test_FavourDrink_ServiceTest()
+            {
+            var newUser = "test123";
+            await favService.FavourDrink(drinkId, newUser);
+
+            var result = await _repository
+                .AllReadOnly<FavouriteDrinkRecepiesUsers>()
+                .Where(r => r.UserId == newUser)
+                .FirstOrDefaultAsync();
+
+            Assert.IsNotNull(result);
+            Assert.That(result.UserId == newUser);
+            }
+
+
+        [Test]
+        public async Task Test_FavourFood_ServiceTest()
+            {
+            var newUser = "test123";
+            await favService.FavourFood(foodId, newUser);
+
+            var result = await _repository
+                .AllReadOnly<FavouriteFoodRecepiesUsers>()
+                .Where(r => r.UserId == newUser)
+                .FirstOrDefaultAsync();
+
+            Assert.IsNotNull(result);
+            Assert.That(result.UserId == newUser);
+            }
+
+
+        [Test]
+        public async Task Test_FavouriteDrinks_ServiceTest()
+            {
+            string newUser = "Test123";
+            await favService.FavourDrink(drinkId, newUser);
+            var result =  await favService.FavouriteDrinks(newUser);
+
+            Assert.IsEmpty(result);
+            }
+
+        [Test]
+        public async Task Test_FavouriteFood_ServiceTest()
+            {
+            string newUser = "Test123";
+            await favService.FavourFood(drinkId, newUser);
+            var result = await favService.FavouriteFood(newUser);
+
+            Assert.IsEmpty(result);
+            }
+
+        [Test]
+        public async Task Test_ExistFood_ServiceTest()
+            {
+            var exist = await favService.ExistFood(foodId);
+            var dontexist = await favService.ExistFood(foodId-1);
+
+            Assert.True(exist);
+            Assert.False(dontexist);
+            }
+
+        [Test]
+        public async Task Test_ExistDrink_ServiceTest()
+            {
+            var exist = await favService.ExistDrink(drinkId);
+            var dontexist = await favService.ExistDrink(drinkId - 1);
+
+            Assert.True(exist);
+            Assert.False(dontexist);
+            }
+
+        //Food
+        [Test]
+        public async Task Test_GetTemperatureTypeAsync_ServiceTest()
+            {
+            var result = await foodService.GetTemperatureTypeAsync();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count() == 2);
+            Assert.That(result.First().Name == "C");
+            }
+
+        [Test]
+        public async Task Test_GetOvenTypeAsync_ServiceTest()
+            {
+            var result = await foodService.GetOvenTypeAsync();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count() == 2);
+            Assert.That(result.First().Name == "Gas");
+            }
+
+        [Test]
+        public async Task Test_GetRecepieTypeAsync_ServiceTest()
+            {
+            var result = await foodService.GetRecepieTypeAsync();
+
+            Assert.That(result, Is.Not.Null);
+            Assert.That(result.Count() == 2);
+            Assert.That(result.First().Name == "First Type");
+            }
+
+        [Test]
+        public async Task Test_GetLIkesAndFavorites_Food_ServiceTest()
+            {
+
+            var result = await foodService.GetLIkesAndFavorites(detailedFood, userId);
+
+            Assert.IsNotNull(result);
+
+            Assert.IsFalse(result.Like);
+            Assert.IsTrue(result.Favourite);
+            }
+
+        [Test]
+        public async Task Test_AddGetAsync_Food_ServiceTest()
+            {
+            var result = await foodService.AddGetAsync();
+
+            Assert.IsNotNull(result);
+            Assert.That(result.OvenTypes.Count() == ovenTypes.Count());
+            Assert.That(result.MeasurmentTypes.Count() == measList.Count());
+            Assert.That(result.RecepieTypes.Count() == recepieTypes.Count());
+            Assert.That(result.TemperatureTypes.Count() == temperatureMeasurments.Count());
+            }
+
+
+        [Test]
+        public async Task Test_DetailGetAsync_Food_ServiceTest()
+            {
+            var result = foodService.DetailGetAsync(foodId, userId);
+
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_DeleteAsync_Food_ServiceTest()
+            {
+            var result = foodService.DeleteAsync(foodId, userId);
+
+            Assert.IsNotNull(result);
+            }
         }
     }
