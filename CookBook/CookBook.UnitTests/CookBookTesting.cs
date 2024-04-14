@@ -1750,5 +1750,141 @@ namespace CookBook.UnitTests
 
             Assert.IsNotNull(result);
             }
+
+        //Rating
+
+        [Test]
+        public async Task Test_AuthorisedDrink_ServiceTest()
+            {
+            var result = await ratingService.AuthorisedDrink(drinkId, userId);
+            var falseResult = await ratingService.AuthorisedDrink(drinkId, "FakeUser");
+
+            Assert.False(result);
+            Assert.True(falseResult);
+            }
+
+        [Test]
+        public async Task Test_AuthorisedFood_ServiceTest()
+            {
+            var result = await ratingService.AuthorisedFood(foodId, userId);
+            var falseResult = await ratingService.AuthorisedFood(foodId, "FakeUser");
+
+            Assert.False(result);
+            Assert.True(falseResult);
+            }
+
+        [Test]
+        public async Task Test_ExistDrink_Rating_ServiceTest()
+            {
+            var result = await ratingService.ExistDrink(drinkId);
+            var falseResult = await ratingService.ExistDrink(foodId-2);
+
+            Assert.True(result);
+            Assert.False(falseResult);
+            }
+
+        [Test]
+        public async Task Test_ExistFood_Rating_ServiceTest()
+            {
+            var result = await ratingService.ExistFood(foodId);
+            var falseResult = await ratingService.ExistFood(foodId-1);
+
+            Assert.True(result);
+            Assert.False(falseResult);
+            }
+
+
+        [Test]
+        public async Task Test_TopTenDrink_ServiceTest()
+            {
+            var result = await ratingService.TopTenDrink();
+
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_TopTenFood_ServiceTest()
+            {
+            var result = await ratingService.TopTenFood();
+
+            Assert.IsNotNull(result);
+            }
+
+        //Repository
+        [Test]
+        public async Task Test_All_Repository()
+            {
+            var result = await _repository
+                .All<DrinkRecepie>()
+                .Where(x => x.Id == drinkId)
+                .FirstOrDefaultAsync();
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == drinkId);
+            }
+
+        [Test]
+        public async Task Test_AllReadOnly_Repository()
+            {
+            var result = await _repository
+                .AllReadOnly<DrinkRecepie>()
+                .Where(x => x.Id == drinkId)
+                .FirstOrDefaultAsync();
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == drinkId);
+            }
+
+        [Test]
+        public async Task Test_SaveChanges_Repository()
+            {
+            var result = await _repository
+                .SaveChangesAsync();
+
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_GetByIdAsync_Repository()
+            {
+            var result = await _repository
+                .GetByIdAsync<DrinkRecepie>(drinkId);
+
+            Assert.IsNotNull(result);
+            Assert.That(result.Id == drinkId);
+            }
+
+        [Test]
+        public async Task Test_DeleteAsync_Repository()
+            {
+            _repository.DeleteAsync<DrinkRecepie>(1);
+
+            var result = await _repository
+               .GetByIdAsync<DrinkRecepie>(drinkId);
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_DeleteElementAsync_Repository()
+            {
+            _repository.DeleteElementAsync(drinkRecepie);
+
+            var result = await _repository
+               .GetByIdAsync<DrinkRecepie>(drinkId);
+            Assert.IsNotNull(result);
+            }
+
+        [Test]
+        public async Task Test_AddAsync_Repository()
+            {
+            var add = drinkRecepie;
+            add.Id++;
+            add.Name = "Test123";
+            await _repository.AddAsync(drinkRecepie);
+
+            var result = await _repository
+               .GetByIdAsync<DrinkRecepie>(add.Id);
+            Assert.IsNull(result);
+            }
         }
     }
