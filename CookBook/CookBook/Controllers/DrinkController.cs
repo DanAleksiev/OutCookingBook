@@ -271,7 +271,7 @@ namespace CookBook.Controllers
         //but if you try to submit only them it does?
         // work around create a separate button to submit the ing and steps
         [HttpPost]
-        public JsonResult PostIngredients(string allIngredient, string allSteps)
+        public JsonResult PostIngredientsDrink(string allIngredient, string allSteps)
             {
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();

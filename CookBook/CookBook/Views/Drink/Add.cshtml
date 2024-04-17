@@ -232,18 +232,19 @@
 
                 $.ajax({
                     type: "Post",
-                    url: "@Url.Action("PostIngredients")",
+                    url: "@Url.Action("PostIngredientsDrink")",
+                    dataType: "json",
                     headers:
                     {
                         "RequestVerificationToken": t
                     },
-                    dataType: "json",
                     data: $.param({
                         allIngredient: JSON.stringify(allIngredient),
-                        steps: JSON.stringify(steps),
+                        allSteps: JSON.stringify(allSteps),
                     }),
                     success: function (result) {
-                        console.log(result);
+                        console.log("Success");
+                        alert("Successfully submitted ingredients!")
                     },
                     error: function (req, status, error) {
                         console.log(status);
