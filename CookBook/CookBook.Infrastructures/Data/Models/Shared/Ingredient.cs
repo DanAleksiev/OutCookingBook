@@ -17,7 +17,7 @@ namespace CookBook.Infrastructures.Data.Models.Shared
         public string Name { get; set; } = string.Empty;
 
         [StringLength(LenghtParams.IngredientDescriptionMaxLengt)]
-        public string Description { get; set; } = string.Empty;
+        public string? Description { get; set; } = string.Empty;
 
         public double Amount { get; set; }
         [Required]
