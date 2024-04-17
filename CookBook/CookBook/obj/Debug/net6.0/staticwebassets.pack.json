@@ -65,6 +65,10 @@
       "PackagePath": "staticwebassets\\img\\icons\\bars-staggered-solid.svg"
     },
     {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\book-open-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\book-open-solid.svg"
+    },
+    {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\burger-solid.svg",
       "PackagePath": "staticwebassets\\img\\icons\\burger-solid.svg"
     },
@@ -85,6 +89,10 @@
       "PackagePath": "staticwebassets\\img\\icons\\martini-glass-citrus-solid.svg"
     },
     {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\pen-to-square-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\pen-to-square-solid.svg"
+    },
+    {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\star-regular.svg",
       "PackagePath": "staticwebassets\\img\\icons\\star-regular.svg"
     },
@@ -99,6 +107,10 @@
     {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\thumbs-up-regular.svg",
       "PackagePath": "staticwebassets\\img\\icons\\thumbs-up-regular.svg"
+    },
+    {
+      "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\thumbs-up-solid.svg",
+      "PackagePath": "staticwebassets\\img\\icons\\thumbs-up-solid.svg"
     },
     {
       "Id": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\user-solid.svg",

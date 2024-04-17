@@ -14,32 +14,51 @@
         <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>
     </div>
 
+    <a asp-controller="Food" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">
+        <img src="~/img/icons/book-open-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+        Details
+    </a>
+    @if (User.Identity.IsAuthenticated)
+    {
     @if (User.Identity.Name == Model.Owner)
         {
-        <a asp-controller="Food" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
-        <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
+        <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+            <img src="~/img/icons/pen-to-square-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+            Edit
+        </a>
         }
     else
         {
-        <a asp-controller="Food" asp-action="Detail" asp-route-id="@Model.Id" class="btn btn-success mb-2 w-100 p-3 fw-bold">Details</a>
         @if (Model.Favourite)
             {
-            ViewBag.Favourite = "Unfavourite";
+            <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                <img src="~/img/icons/star-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                Unfavourite
+            </a>
             }
         else
             {
-            ViewBag.Favourite = "Favourite";
+            <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                <img src="~/img/icons/star-regular.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                Favourite
+            </a>
             }
-        <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Favourite</a>
+
         if (Model.Like)
             {
-            ViewBag.Like = "Unlike";
+            <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                <img src="~/img/icons/thumbs-up-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                Unlike
+            </a>
             }
         else
             {
             ViewBag.Like = "Like";
+            <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                <img src="~/img/icons/thumbs-up-regular.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                Like
+            </a>
             }
-        <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
-
         }
+    }
 </div>
