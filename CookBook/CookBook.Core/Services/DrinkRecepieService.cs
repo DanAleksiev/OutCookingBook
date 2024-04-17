@@ -135,7 +135,7 @@ namespace CookBook.Core.Services
                 recepie.Like = true;
                 }
 
-            var favourite = repository
+            var favourite = await repository
                 .AllReadOnly<FavouriteDrinkRecepiesUsers>()
                 .Where(x => x.UserId == userId && x.DrinkRecepieId == recepie.Id)
                 .FirstOrDefaultAsync();

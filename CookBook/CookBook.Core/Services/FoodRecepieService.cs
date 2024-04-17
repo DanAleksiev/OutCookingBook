@@ -165,6 +165,7 @@ namespace CookBook.Core.Services
             var likes = await repository
                 .AllReadOnly<FoodLikeUser>()
                 .Where(x => x.UserId == userId && x.FoodRecepieId == recepie.Id)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             if (likes != null)
@@ -172,9 +173,10 @@ namespace CookBook.Core.Services
                 recepie.Like = true;
                 }
 
-            var favourite = repository
+            var favourite = await repository
                 .AllReadOnly<FavouriteFoodRecepiesUsers>()
                 .Where(x => x.UserId == userId && x.FoodRecepieId == recepie.Id)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             if (favourite != null)
