@@ -55,7 +55,14 @@ namespace CookBook.Infrastructures.Data
                .HasOne(x => x.Owner)
                .WithMany()
                .HasForeignKey(x => x.OwnerId)
-               .OnDelete(DeleteBehavior.Restrict);
+               .OnDelete(DeleteBehavior.Cascade);
+            
+            modelBuilder
+               .Entity<DrinkRecepie>()
+               .HasOne(x => x.Owner)
+               .WithMany()
+               .HasForeignKey(x => x.OwnerId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder
                 .Entity<FoodRecepiesUsers>()

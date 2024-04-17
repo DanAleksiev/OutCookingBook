@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CookBook.Infrastructures")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+88004a9d26aceb3c04c976e466bb2aa46a2017fd")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ae68db7d48be851a6b937a00896567c28092f97")]
 [assembly: System.Reflection.AssemblyProductAttribute("CookBook.Infrastructures")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CookBook.Infrastructures")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

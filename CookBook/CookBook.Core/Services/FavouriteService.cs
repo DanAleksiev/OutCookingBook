@@ -51,7 +51,7 @@ namespace CookBook.Core.Services
 
             if (existing != null)
                 {
-                await repository.DeleteAsync<FavouriteFoodRecepiesUsers>(favourite);
+                await repository.DeleteElementAsync(favourite);
                 }
             else
                 {
@@ -77,7 +77,7 @@ namespace CookBook.Core.Services
 
             if (existing != null)
                 {
-                await repository.DeleteAsync<FavouriteFoodRecepiesUsers>(favourite);
+                await repository.DeleteElementAsync(favourite);
                 }
             else
                 {

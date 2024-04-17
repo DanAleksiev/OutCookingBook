@@ -13,6 +13,10 @@ using CookBook.Infrastructures.Data.Models.Food;
 using CookBook.Infrastructures.Data.Models.Shared;
 using CookBook.Core.Services;
 using Microsoft.EntityFrameworkCore;
+using CookBook.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using Moq;
+
 
 namespace CookBook.UnitTests
     {
@@ -1493,7 +1497,7 @@ namespace CookBook.UnitTests
 
             drinkService.AddPostAsync(newRecepie, userId, stepList.ToList(), ingList.ToList());
 
-            var result =  _repository.AllReadOnly<DrinkRecepie>().Where(x=>x.Name == name).FirstAsync();
+            var result = _repository.AllReadOnly<DrinkRecepie>().Where(x => x.Name == name).FirstAsync();
             Assert.IsNotNull(result);
             //wrong find a way to test the result ?
             }
@@ -1644,7 +1648,7 @@ namespace CookBook.UnitTests
             {
             string newUser = "Test123";
             await favService.FavourDrink(drinkId, newUser);
-            var result =  await favService.FavouriteDrinks(newUser);
+            var result = await favService.FavouriteDrinks(newUser);
 
             Assert.IsEmpty(result);
             }
@@ -1663,7 +1667,7 @@ namespace CookBook.UnitTests
         public async Task Test_ExistFood_ServiceTest()
             {
             var exist = await favService.ExistFood(foodId);
-            var dontexist = await favService.ExistFood(foodId-1);
+            var dontexist = await favService.ExistFood(foodId - 1);
 
             Assert.True(exist);
             Assert.False(dontexist);
@@ -1777,7 +1781,7 @@ namespace CookBook.UnitTests
         public async Task Test_ExistDrink_Rating_ServiceTest()
             {
             var result = await ratingService.ExistDrink(drinkId);
-            var falseResult = await ratingService.ExistDrink(foodId-2);
+            var falseResult = await ratingService.ExistDrink(foodId - 2);
 
             Assert.True(result);
             Assert.False(falseResult);
@@ -1787,7 +1791,7 @@ namespace CookBook.UnitTests
         public async Task Test_ExistFood_Rating_ServiceTest()
             {
             var result = await ratingService.ExistFood(foodId);
-            var falseResult = await ratingService.ExistFood(foodId-1);
+            var falseResult = await ratingService.ExistFood(foodId - 1);
 
             Assert.True(result);
             Assert.False(falseResult);
@@ -1885,6 +1889,43 @@ namespace CookBook.UnitTests
             var result = await _repository
                .GetByIdAsync<DrinkRecepie>(add.Id);
             Assert.IsNull(result);
+            }
+
+        //Controllers
+        [Test]
+        public async Task Test_DrinkController_All()
+            {
+            var mockService = new Mock<IDrinkRecepieService>();
+            var query = new AllRecepieQuerySerciveModel();
+            var expectedResult = new AllRecepieQuerySerciveModel()
+                {
+                Recepies = allRecepieList
+                };
+
+            mockService
+                .Setup(s => s.AllAsync(query, userId))
+                .ReturnsAsync(query);
+
+            var controller = new DrinkController(mockService.Object);
+            var result = await controller.All(query) as ViewResult;
+
+            Assert.IsNotNull(result);
+            Assert.That(expectedResult == result.Model);
+            }
+
+        [Test]
+        public async Task Test_DrinkController_Private()
+            {
+            var mockService = new Mock<IDrinkRecepieService>();
+
+            mockService
+                .Setup(s => s.PrivateAsync(userId))
+                .ReturnsAsync(allRecepieList);
+
+            var controller = new DrinkController(mockService.Object);
+            var result =  await controller.Private() as ViewResult;
+
+            Assert.IsNotNull(result);
             }
         }
     }

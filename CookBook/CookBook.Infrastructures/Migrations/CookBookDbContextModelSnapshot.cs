@@ -712,15 +712,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "bbd13a3c-8547-4d6d-b7d0-a89322b762fd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "620a31ff-237e-430f-a09b-89eea3c954c2",
+                            ConcurrencyStamp = "2ff9633a-f6cf-4757-9ad0-bc32dad865f7",
                             Email = "test@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST@TEST.COM",
                             NormalizedUserName = "NOTCHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAEGWpxEXiionY7wCsEPYqNOJIIeeFG2I4UJOSCe980eRD3e7QLHjfO5JEO3g4zqqgdQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEDVTbWuJCTe0doOrT+bTYKQD/sRzkRwTs/vtFYIlbAf2NknSJEHJMWRwj0tVz+6elA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5924d50f-b450-4abd-af23-b1807e090ed3",
+                            SecurityStamp = "e9e14d44-2439-4f1e-a80b-99ad08780ef8",
                             TwoFactorEnabled = false,
                             UserName = "NotChef"
                         },
@@ -728,15 +728,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "598014d6-5a1a-4b10-8246-543b8ecbc445",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "f713f2aa-c399-4c6f-88b0-90437e689f22",
+                            ConcurrencyStamp = "ad5e1919-3ac2-4bba-bcb0-c344b107b29e",
                             Email = "test2@test.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "TEST2@TEST.COM",
                             NormalizedUserName = "CHEF",
-                            PasswordHash = "AQAAAAEAACcQAAAAECqQYAHcy+QTVvpIN78onHrQC7W1/JI0rwZ3n35fgg3eo88tXejd6/5ikqdHJNVlaw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEH/PpBuIrd2Cl0aJDPZZAx4IlYX9t6wEGq0y4xZtJAqMUshqJeQOzgaVevN9xrPwIg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d1e0378-9e21-492e-8863-dcb1d7c67a87",
+                            SecurityStamp = "b0298b1b-3905-427f-b198-e70480b37109",
                             TwoFactorEnabled = false,
                             UserName = "Chef"
                         },
@@ -744,15 +744,15 @@ namespace CookBook.Infrastructures.Migrations
                         {
                             Id = "b2d13a3c-8547-4d6d-b7d0-a89322b762ra",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e9f4c030-2f27-4f69-9b8a-f6040e6c2344",
+                            ConcurrencyStamp = "adc53fb9-c990-449b-883c-bd8928d5efdc",
                             Email = "admin@admin.com",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAEAACcQAAAAEJH+EM65aFGccaiMhQeULEGG7a1HjkZCuzsgXCPbyTlFivoZUGvB/GD/vHIWilSgKg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEJZy1iGS5jXklBzvVzTRy/AqUIw7KuVUidVT+tpv9jwTt6kNqXOALgX6xeVVu41LUA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b6a9bb95-7df8-44a4-83cc-4fbacf48de2c",
+                            SecurityStamp = "c3eb58d8-9c05-4496-8114-8c92c203c6ec",
                             TwoFactorEnabled = false,
                             UserName = "Admin"
                         });
@@ -1009,7 +1009,7 @@ namespace CookBook.Infrastructures.Migrations
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "Owner")
                         .WithMany()
                         .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("CookBook.Infrastructures.Data.Models.Food.RecepieType", "RecepieType")
