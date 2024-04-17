@@ -10,7 +10,7 @@
     <div>
         <h3>@ViewBag.Title</h3>
     </div>
-    <form asp-action="Add" method="post">
+    <form asp-action="Add" id="__AjaxAntiForgeryForm" method="post">
         <label asp-for="Name"></label>
         <input asp-for="Name" class="form-control" placeholder="Name of the dish:" />
         <span asp-validation-for="@Model.Name" class=" small text-danger"></span>
@@ -228,18 +228,22 @@
                 console.log(allSteps);
                 console.log(allIngredient);
 
+                var t = $("input[name='__RequestVerificationToken']").val();
+
                 $.ajax({
                     type: "Post",
                     url: "@Url.Action("PostIngredients")",
+                    headers:
+                    {
+                        "RequestVerificationToken": t
+                    },
                     dataType: "json",
-                    async: false,
                     data: $.param({
                         allIngredient: JSON.stringify(allIngredient),
-                        allSteps: JSON.stringify(allSteps),
+                        steps: JSON.stringify(steps),
                     }),
                     success: function (result) {
-                        console.log("Success");
-                        alert("Successfully submitted ingredients!")
+                        console.log(result);
                     },
                     error: function (req, status, error) {
                         console.log(status);

@@ -5,6 +5,7 @@ using CookBook.Core.Models.Food;
 using CookBook.Core.Models.Shared;
 using CookBook.Core.Services;
 using CookBook.Infrastructures.Data.Models.Shared;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -40,6 +41,7 @@ namespace CookBook.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> All([FromQuery] AllRecepieQuerySerciveModel query)
             {
             ViewBag.Title = "All food recepies";
@@ -83,8 +85,6 @@ namespace CookBook.Controllers
                 }
 
             await foodRecepieService.AddPostAsync(model, GetUserId(), addSteps, addIngredients);
-            addIngredients.Clear();
-            addSteps.Clear();
             return RedirectToAction("All");
             }
 
@@ -277,7 +277,7 @@ namespace CookBook.Controllers
         //but if you try to submit only them it does?
         // work around create a separate button to submit the ing and steps
         [HttpPost]
-        public JsonResult PostIngredients(string allIngredient, string allSteps)
+        public JsonResult PostIngredientsFood(string allIngredient, string allSteps)
             {
             TempIngrediantModel[] ingredientsListDTO = allIngredient.DeserializeFromJson<TempIngrediantModel[]>();
             TempStepModel[] stepListDTO = allSteps.DeserializeFromJson<TempStepModel[]>();
