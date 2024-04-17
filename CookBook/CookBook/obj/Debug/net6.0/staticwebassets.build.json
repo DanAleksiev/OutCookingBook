@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "PqfvgfPuj2+jWjg/+eXDvRn2379HnJl595kY+i7epVA=",
+  "Hash": "q7PoU5qApEE5cUhDUQuVGT5EBz7zSJKl4DIEC3vVo8c=",
   "Source": "CookBook",
   "BasePath": "_content/CookBook",
   "Mode": "Default",
@@ -1480,6 +1480,25 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\bars-staggered-solid.svg"
     },
     {
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\book-open-solid.svg",
+      "SourceId": "CookBook",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
+      "BasePath": "_content/CookBook",
+      "RelativePath": "img/icons/book-open-solid.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icons\\book-open-solid.svg"
+    },
+    {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\burger-solid.svg",
       "SourceId": "CookBook",
       "SourceType": "Discovered",
@@ -1575,6 +1594,25 @@
       "OriginalItemSpec": "wwwroot\\img\\icons\\martini-glass-citrus-solid.svg"
     },
     {
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\pen-to-square-solid.svg",
+      "SourceId": "CookBook",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
+      "BasePath": "_content/CookBook",
+      "RelativePath": "img/icons/pen-to-square-solid.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icons\\pen-to-square-solid.svg"
+    },
+    {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\star-regular.svg",
       "SourceId": "CookBook",
       "SourceType": "Discovered",
@@ -1649,6 +1687,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\img\\icons\\thumbs-up-regular.svg"
+    },
+    {
+      "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\thumbs-up-solid.svg",
+      "SourceId": "CookBook",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\",
+      "BasePath": "_content/CookBook",
+      "RelativePath": "img/icons/thumbs-up-solid.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\img\\icons\\thumbs-up-solid.svg"
     },
     {
       "Identity": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\wwwroot\\img\\icons\\user-solid.svg",

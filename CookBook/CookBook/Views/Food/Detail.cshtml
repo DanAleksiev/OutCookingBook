@@ -17,7 +17,7 @@
         <p class="mb-0"><span class="fw-bold">Description: </span>@Model.Description</p>
         <p class="mb-0"><span class="fw-bold">Teperature: </span>@Model.Temperature @Model.TemperatureType, <span class="fw-bold">Oven:</span>@Model.OvenType</p>
         <p class="mb-0"><span class="fw-bold">Prep time: </span>@Model.PrepTime, <span class="fw-bold">Cook time:</span>@Model.CookTime</p>
-        
+
         <hr />
         <p class="mb-0"><span class="fw-bold">Likes: </span>@Model.TumbsUp</p>
         <p class="mb-0"><span class="fw-bold">Publisher: </span>@Model.Owner</p>
@@ -33,14 +33,14 @@
               for more information.
               -->
             <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXk_xp-TBT-lcjChq71urn_Ff1c6uZtTY&callback=initMap&v=weekly" defer></script>
-                    <script src="~/js/map.js"></script>
+            <script src="~/js/map.js"></script>
 
         </div>
         <p class="mb-0"><span class="fw-bold">Origen: </span>@Model.Origen</p>
     </div>
     <div>
 
-        <ul class ="text-center row">
+        <ul class="text-center row">
             <h5>Ingredients:</h5>
             @foreach (var ing in Model.Ingredients)
                 {
@@ -72,33 +72,49 @@
                 </li>
                 }
         </ul>
+        @if (User.Identity.IsAuthenticated)
+            {
+            @if (User.Identity.Name == Model.Owner)
+                {
+                <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                    <img src="~/img/icons/pen-to-square-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                    Edit
+                </a>
+                <a asp-controller="Food" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
+                }
+            else
+                {
+                @if (Model.Favourite)
+                    {
+                    <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/star-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Unfavourite
+                    </a>
+                    }
+                else
+                    {
+                    <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/star-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Favourite
+                    </a>
+                    }
 
-        @if (User.Identity.Name == Model.Owner)
-            {
-            <a asp-controller="Food" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
-            <a asp-controller="Food" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger mb-2 w-100 p-3 fw-bold">Delete</a>
-            }
-        else
-            {
-            @if (Model.Favourite)
-            {
-            ViewBag.Favourite = "Unfavourite";
-            }
-        else
-            {
-            ViewBag.Favourite = "Favourite";
-            }
-        <a asp-controller="Favourite" asp-action="FavouriteFood" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Favourite</a>
-        if (Model.Like)
-            {
-            ViewBag.Like = "Unlike";
-            }
-        else
-            {
-            ViewBag.Like = "Like";
-            }
-        <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
-
+                if (Model.Like)
+                    {
+                    <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/thumbs-up-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Unlike
+                    </a>
+                    }
+                else
+                    {
+                    ViewBag.Like = "Like";
+                    <a asp-controller="Rating" asp-action="FoodLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/thumbs-up-regular.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Like
+                    </a>
+                    }
+                }
             }
     </div>
 </div>

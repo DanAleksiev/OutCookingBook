@@ -26,7 +26,7 @@
     </div>
     <div>
 
-        <ul class ="text-center row">
+        <ul class="text-center row">
             <h5>Ingredients:</h5>
             @foreach (var ing in Model.Ingredients)
                 {
@@ -58,24 +58,49 @@
                 </li>
                 }
         </ul>
-
-        @if (User.Identity.Name == Model.Owner)
+        @if (User.Identity.IsAuthenticated)
             {
-            <a asp-controller="Drink" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">Edit</a>
-            <a asp-controller="Drink" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Delete</a>
-            }
-        else
-            {
-            if (Model.Like)
+            @if (User.Identity.Name == Model.Owner)
                 {
-                ViewBag.Like = "Unlike";
+                <a asp-controller="Drink" asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                    <img src="~/img/icons/pen-to-square-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                    Edit
+                </a>
+                <a asp-controller="Drink" asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Delete</a>
                 }
             else
                 {
-                ViewBag.Like = "Like";
+                @if (Model.Favourite)
+                    {
+                    <a asp-controller="Favourite" asp-action="FavouriteDrink" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/star-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Unfavourite
+                    </a>
+                    }
+                else
+                    {
+                    <a asp-controller="Favourite" asp-action="FavouriteDrink" asp-route-id="@Model.Id" class="btn btn-warning mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/star-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Favourite
+                    </a>
+                    }
+
+                if (Model.Like)
+                    {
+                    <a asp-controller="Rating" asp-action="DrinkLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/thumbs-up-solid.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Unlike
+                    </a>
+                    }
+                else
+                    {
+                    ViewBag.Like = "Like";
+                    <a asp-controller="Rating" asp-action="DrinkLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">
+                        <img src="~/img/icons/thumbs-up-regular.svg" style="max-block-size:1rem; margin-right:1rem;" />
+                        Like
+                    </a>
+                    }
                 }
-            
-            <a asp-controller="Rating" asp-action="DrinkLike" asp-route-id="@Model.Id" class="btn btn-primary mb-2 w-100 p-3 fw-bold">@ViewBag.Like</a>
             }
     </div>
 </div>
