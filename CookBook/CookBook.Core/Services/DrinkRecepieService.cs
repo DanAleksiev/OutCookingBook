@@ -98,8 +98,11 @@ namespace CookBook.Core.Services
 
             foreach (var i in likes)
                 {
-                allRecepies.First(x => x.Id == i.DrinkRecepieId)
+                if (allRecepies.Any(x => x.Id == i.DrinkRecepieId))
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == i.DrinkRecepieId)
                     .Like = true;
+                    }
                 }
 
             var favourite = repository
@@ -109,8 +112,11 @@ namespace CookBook.Core.Services
 
             foreach (var i in favourite)
                 {
-                allRecepies.First(x => x.Id == i.DrinkRecepieId)
+                if (allRecepies.Any(x => x.Id == i.DrinkRecepieId))
+                    {
+                    allRecepies.FirstOrDefault(x => x.Id == i.DrinkRecepieId)
                     .Favourite = true;
+                    }
                 }
 
             return allRecepies;

@@ -52,7 +52,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("BanedUsers");
+                    b.ToTable("BanedUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkLikeUser", b =>
@@ -67,7 +67,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DrinkLikeUsers");
+                    b.ToTable("DrinkLikeUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepie", b =>
@@ -126,7 +126,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("OwnerId");
 
-                    b.ToTable("DrinkRecepies");
+                    b.ToTable("DrinkRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkRecepiesUsers", b =>
@@ -141,7 +141,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("DrinksRecepiesUsers");
+                    b.ToTable("DrinksRecepiesUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.DrinkStepsDrinkRecepies", b =>
@@ -156,7 +156,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("StepId");
 
-                    b.ToTable("DrinkStepsDrinkRecepies");
+                    b.ToTable("DrinkStepsDrinkRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.FavouriteDrinkRecepiesUsers", b =>
@@ -171,7 +171,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavouriteDrinkRecepiesUsers");
+                    b.ToTable("FavouriteDrinkRecepiesUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Drinks.IngredientDrinkRecepie", b =>
@@ -186,7 +186,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("RecepieId");
 
-                    b.ToTable("IngredientDrinkRecepies");
+                    b.ToTable("IngredientDrinkRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FavouriteFoodRecepiesUsers", b =>
@@ -201,7 +201,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FavouriteFoodRecepiesUsers");
+                    b.ToTable("FavouriteFoodRecepiesUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodLikeUser", b =>
@@ -216,7 +216,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FoodLikeUsers");
+                    b.ToTable("FoodLikeUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodRecepie", b =>
@@ -296,7 +296,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("TemperatureMeasurmentId");
 
-                    b.ToTable("FoodRecepies");
+                    b.ToTable("FoodRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodRecepiesUsers", b =>
@@ -311,7 +311,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("FoodRecepiesUsers");
+                    b.ToTable("FoodRecepiesUsers", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.FoodStepsFoodRecepies", b =>
@@ -326,7 +326,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("FoodStepId");
 
-                    b.ToTable("FoodStepsFoodRecepies");
+                    b.ToTable("FoodStepsFoodRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.IngredientFoodRecepie", b =>
@@ -341,7 +341,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("RecepieId");
 
-                    b.ToTable("IngredientFoodRecepies");
+                    b.ToTable("IngredientFoodRecepies", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Food.OvenType", b =>
@@ -359,7 +359,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OvenTypes");
+                    b.ToTable("OvenTypes", (string)null);
 
                     b.HasData(
                         new
@@ -404,7 +404,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("RecepieTypes");
+                    b.ToTable("RecepieTypes", (string)null);
 
                     b.HasData(
                         new
@@ -454,7 +454,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("TemperaturesMeasurments");
+                    b.ToTable("TemperaturesMeasurments", (string)null);
 
                     b.HasData(
                         new
@@ -497,7 +497,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasIndex("MeasurementId");
 
-                    b.ToTable("Ingredients");
+                    b.ToTable("Ingredients", (string)null);
                 });
 
             modelBuilder.Entity("CookBook.Infrastructures.Data.Models.Shared.Measurement", b =>
@@ -515,7 +515,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Measurements");
+                    b.ToTable("Measurements", (string)null);
 
                     b.HasData(
                         new
@@ -588,7 +588,7 @@ namespace CookBook.Infrastructures.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Step");
+                    b.ToTable("Step", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
