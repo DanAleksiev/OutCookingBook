@@ -392,7 +392,7 @@ namespace CookBook.Core.Services
                 Id = recepie.Id,
                 Name = recepie.Name,
                 Description = recepie.Description,
-                RecepieTypeId = recepie.Id,
+                RecepieTypeId = recepie.RecepieTypeId,
                 RecepieTypes = await GetRecepieTypeAsync(),
                 Image = recepie.Image,
                 PrepTime = recepie.PrepTime,
