@@ -16,7 +16,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CookBook")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7ae68db7d48be851a6b937a00896567c28092f97")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+54e4f0506ccbf72cd49313968fe0ace1510281b7")]
 [assembly: System.Reflection.AssemblyProductAttribute("CookBook")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CookBook")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
