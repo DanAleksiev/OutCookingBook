@@ -4,15 +4,17 @@
 <hr />
 
 <div class="text-center row">
-
-    <form method="get">
-        <partial name="_FoodSearchBarPartial" model="Model" />
-    </form>
+    @if (ViewBag.Title != "Your food recepies")
+        {
+        <form method="get">
+            <partial name="_FoodSearchBarPartial" model="Model" />
+        </form>
+        }
 
     <div class="row align-content-center gap-4">
         @foreach (var a in Model.Recepies)
             {
-            <partial name="_FoodCardPartial" model="a"/>
+            <partial name="_FoodCardPartial" model="a" />
             }
     </div>
 
@@ -25,37 +27,40 @@
 
         var maxPage = Math.Ceiling((double)Model.TotalRecepiesCount / Model.RecepiesPerPage);
     }
-    <div class="btn-group justify-content-center m-4">
 
-        <div class="col gap-2 ">
-            <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
-               asp-controller="Food"
-               asp-action="All"
-               asp-route-currentPage="@prevPage"
-               asp-route-searching="@Model.Searching"
-               asp-route-searchTerm="@Model.SearchTerm"
-               asp-route-sorting="@((int)Model.Sorting)"><<</a>
-        </div>
-        @{
-            var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
-            !Model.Recepies.Any();
-        }
-        <div>
-            <a class="btn btn-primary">@Model.CurrentPage</a>
-        </div>
+    @if (ViewBag.Title != "Your food recepies")
+        {
+        <div class="btn-group justify-content-center m-4">
 
-        <div class="col gap-2">
-            <a class="btn btn-primary
+            <div class="col gap-2 ">
+                <a class="btn btn-primary @(Model.CurrentPage == 1 ? "disabled" : string.Empty)"
+                   asp-controller="Food"
+                   asp-action="All"
+                   asp-route-currentPage="@prevPage"
+                   asp-route-searching="@Model.Searching"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-sorting="@((int)Model.Sorting)">@("<<")</a>
+            </div>
+            @{
+                var shouldButtonBeDisabled = Model.CurrentPage == maxPage ||
+                !Model.Recepies.Any();
+            }
+            <div>
+                <a class="btn btn-primary">@Model.CurrentPage</a>
+            </div>
+
+            <div class="col gap-2">
+                <a class="btn btn-primary
            @(shouldButtonBeDisabled ? "disabled": string.Empty   )"
-               asp-controller="Food"
-               asp-action="All"
-               asp-route-currentPage="@(Model.CurrentPage + 1)"
-               asp-route-searching="@((int)Model.Searching)"
-               asp-route-searchTerm="@Model.SearchTerm"
-               asp-route-sorting="@((int)Model.Sorting)">>></a>
+                   asp-controller="Food"
+                   asp-action="All"
+                   asp-route-currentPage="@(Model.CurrentPage + 1)"
+                   asp-route-searching="@((int)Model.Searching)"
+                   asp-route-searchTerm="@Model.SearchTerm"
+                   asp-route-sorting="@((int)Model.Sorting)">>></a>
+            </div>
         </div>
-    </div>
-
+        }
 </div>
 
 @section Scripts {

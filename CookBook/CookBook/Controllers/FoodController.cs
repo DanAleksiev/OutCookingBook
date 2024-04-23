@@ -85,6 +85,8 @@ namespace CookBook.Controllers
                 }
 
             await foodRecepieService.AddPostAsync(model, GetUserId(), addSteps, addIngredients);
+            addIngredients.Clear();
+            addSteps.Clear();
             return RedirectToAction("All");
             }
 
