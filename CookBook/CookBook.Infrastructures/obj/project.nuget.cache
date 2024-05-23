@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hNxzbi+NQR/HpmuIBC8lfSyZXPVTJ0SLN2cfapcCLDjCKyNucAL/5gEAlW+Svpk08D46XrlKcrULZIyjEoFX6A==",
+  "dgSpecHash": "EFxPnDseogM=",
   "success": true,
-  "projectFilePath": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Infrastructures\\CookBook.Infrastructures.csproj",
+  "projectFilePath": "C:\\Users\\toksi\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Infrastructures\\CookBook.Infrastructures.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\toksi\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.28\\microsoft.aspnetcore.cryptography.internal.6.0.28.nupkg.sha512",

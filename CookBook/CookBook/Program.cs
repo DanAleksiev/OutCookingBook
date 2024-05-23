@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Logging;
 
 namespace CookBook
     {
@@ -27,6 +28,7 @@ namespace CookBook
                 {
                 app.UseDeveloperExceptionPage();
                 app.UseMigrationsEndPoint();
+                IdentityModelEventSource.ShowPII = true;
                 }
             else
                 {

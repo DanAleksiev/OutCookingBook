@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "9QFOjbk9TOAEk9ZmmRKDyfzjbmaZmukE8XBndBs/7b/SS6zHmc70xWS+Fw0uPS8CIvGxgUXQtKNhizzWrtKg1g==",
+  "dgSpecHash": "vI0ZIFNRUr4=",
   "success": true,
-  "projectFilePath": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\CookBook.csproj",
+  "projectFilePath": "C:\\Users\\toksi\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook\\CookBook.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\toksi\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",

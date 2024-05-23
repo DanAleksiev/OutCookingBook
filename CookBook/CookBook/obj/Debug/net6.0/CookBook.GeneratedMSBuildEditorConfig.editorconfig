@@ -9,215 +9,215 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = CookBook
 build_property.RootNamespace = CookBook
-build_property.ProjectDir = C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\
+build_property.ProjectDir = C:\Users\toksi\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\toksi\OneDrive\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook
+build_property.MSBuildProjectDirectory = C:\Users\toksi\Desktop\SoftUni c#\Web\Projects\CookBookProject\WebProjectCookingSite\CookBook\CookBook
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Ban.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Ban.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cQmFuLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Index.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/LiftBan.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/LiftBan.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cTGlmdEJhbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/RoleControll.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Admin/RoleControll.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcQWRtaW5cUm9sZUNvbnRyb2xsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/Shared/_AdminLayout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcU2hhcmVkXF9BZG1pbkxheW91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/_ViewImports.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/_ViewStart.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Admin/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcQWRtaW5cVmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/ForgotPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxGb3Jnb3RQYXNzd29yZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Login.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Logout.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Logout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxMb2dvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/Email.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/Email.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcRW1haWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/SetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcU2V0UGFzc3dvcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/_ManageNav.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX01hbmFnZU5hdi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Manage/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxNYW5hZ2VcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Register.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZWdpc3Rlci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/ResetPassword.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/ResetPassword.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxSZXNldFBhc3N3b3JkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/_ViewImports.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/Account/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcQWNjb3VudFxfVmlld0ltcG9ydHMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZhbGlkYXRpb25TY3JpcHRzUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ViewImports.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ViewStart.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Areas/Identity/Pages/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = QXJlYXNcSWRlbnRpdHlcUGFnZXNcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Add.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcQWRkLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/All.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/All.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcQWxsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Delete.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGVsZXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Detail.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRGV0YWlsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Edit.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Drink/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRHJpbmtcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteDrink.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteDrink.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEFsbEZhdm91cml0ZURyaW5rLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteFood.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Favourite/AllFavouriteFood.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRmF2b3VyaXRlXEFsbEZhdm91cml0ZUZvb2QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Add.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Add.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFxBZGQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/All.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/All.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFxBbGwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Delete.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Delete.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFxEZWxldGUuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Detail.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Detail.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFxEZXRhaWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Edit.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Food/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRm9vZFxFZGl0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Health/AdvicePosters.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Health/AdvicePosters.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSGVhbHRoXEFkdmljZVBvc3RlcnMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/CustomError.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/CustomError.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxDdXN0b21FcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/Error.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/Index.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Rating/TopTenRatedDrink.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Rating/TopTenRatedDrink.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXFRvcFRlblJhdGVkRHJpbmsuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Rating/TopTenRatedFood.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Rating/TopTenRatedFood.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUmF0aW5nXFRvcFRlblJhdGVkRm9vZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/EditIngredient.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/EditIngredient.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRJbmdyZWRpZW50LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/EditStep.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/EditStep.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVkaXRTdGVwLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/Error.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_DrinkCardPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_DrinkCardPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ecmlua0NhcmRQYXJ0aWFsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_DrinkSearchBarPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_DrinkSearchBarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Ecmlua1NlYXJjaEJhclBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_FoodCardPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_FoodCardPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb29kQ2FyZFBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_FoodSearchBarPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_FoodSearchBarPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb29kU2VhcmNoQmFyUGFydGlhbC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_LoginPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_LoginPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Mb2dpblBhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/_ViewImports.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/_ViewStart.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_Health.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_Health.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFsdGguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-r07ieudc1p
 
-[C:/Users/toksi/OneDrive/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_Layout.cshtml]
+[C:/Users/toksi/Desktop/SoftUni c\#/Web/Projects/CookBookProject/WebProjectCookingSite/CookBook/CookBook/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-k8zd4op19i

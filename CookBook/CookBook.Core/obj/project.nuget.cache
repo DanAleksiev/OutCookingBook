@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SaFEKmhpUYQ8Fmfsv3NC8DhGDJA1o/wfidbAG3OxG3BSdRXGt+2b7v6FkWahkfp5sWJWZ0hhU1xnjW8GbaVP9A==",
+  "dgSpecHash": "BErKxxInBow=",
   "success": true,
-  "projectFilePath": "C:\\Users\\toksi\\OneDrive\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Core\\CookBook.Core.csproj",
+  "projectFilePath": "C:\\Users\\toksi\\Desktop\\SoftUni c#\\Web\\Projects\\CookBookProject\\WebProjectCookingSite\\CookBook\\CookBook.Core\\CookBook.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\6.0.28\\microsoft.aspnetcore.cryptography.internal.6.0.28.nupkg.sha512",
     "C:\\Users\\toksi\\.nuget\\packages\\microsoft.aspnetcore.cryptography.keyderivation\\6.0.28\\microsoft.aspnetcore.cryptography.keyderivation.6.0.28.nupkg.sha512",
